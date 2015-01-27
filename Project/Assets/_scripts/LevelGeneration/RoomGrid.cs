@@ -3,8 +3,6 @@ using System.Collections;
 
 public class RoomGrid  {
     public float goDownProbability = 0.3f;
-
-    
     
     public enum TravelDirection { L, R, NotDecided };
 
@@ -62,7 +60,9 @@ public class RoomGrid  {
         {
             for (int j = 0; i < roomGrid.GetLength(1); i++)
             {
-                //roomGrid[i, j] = new Room(Room.ExitType.None);
+                //get neighbours
+
+                // use top bottom power of two sum method similar to 3d game tilling
             }
         }
     }
