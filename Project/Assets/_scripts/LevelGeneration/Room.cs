@@ -3,9 +3,9 @@ using System.Collections;
 
 public class Room {
     // L = Left, R = Right, T = Top, B = Bottom
-    // SolutionPath = temp room id for generation
-    public static enum ExitType { LR, LRT, LRB, LRTB, None, SolutionPath };
-   
+    public enum ExitType { LR, LRT, LRB, LRTB, None};
+
+    public bool isSolutionPath = false;
     public bool isExit = false;
     public bool isStart = false; 
     public ExitType exits;

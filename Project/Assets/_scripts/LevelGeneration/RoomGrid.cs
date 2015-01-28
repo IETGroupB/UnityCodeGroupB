@@ -2,12 +2,9 @@
 using System.Collections;
 
 public class RoomGrid  {
-    public float goDownProbability = 0.3f;
-    
-    public enum TravelDirection { L, R, NotDecided };
+    public float goDownProbability = 0.4f;
 
-    // if we want to make rooms off the solution path we should extend this to a [4,4,2] array,
-    // with the second operator saying whether or not it is on the solution path to include specific off path rooms
+    private enum TravelDirection { L, R, D, NotDecided };
     private static int width = 4;
     private static int height = 4;
     private Room[,] roomGrid = new Room[width, height];
@@ -16,59 +13,165 @@ public class RoomGrid  {
     {
         for (int i = 0; i < roomGrid.GetLength(0); i++)
         {
-            for (int j = 0; i < roomGrid.GetLength(1); i++)
+            for (int j = 0; j < roomGrid.GetLength(1); j++)
             {
                 roomGrid[i, j] = new Room(Room.ExitType.None);
             }
         }
+        GeneratePath();
     }
 
     private void GeneratePath()
     {
-        var currentRoom = new Point((int)(Random.value * 4), 0);
+        var currentLocation = new Point((int)(Random.value * 4), 0);
         var solutionPathComplete = false;
         var travelDirection = TravelDirection.NotDecided;
-        
-        /*
-         * First Step: Generate Solution Path
-         */
+
+        Debug.Log(currentLocation.ToString());
+        roomGrid[currentLocation.x, currentLocation.y].isStart = true;
+        roomGrid[currentLocation.x, currentLocation.y].isSolutionPath = true;
+        roomGrid[currentLocation.x, currentLocation.y].exits = Room.ExitType.LR;
+
+
         while (!solutionPathComplete)
         {
-            if (Random.value > goDownProbability)
+            roomGrid[currentLocation.x, currentLocation.y].isSolutionPath = true;
+            if (travelDirection == TravelDirection.NotDecided)
             {
-                // 50/50 chance of going left or right
-                if (travelDirection == TravelDirection.NotDecided) 
+                // move away from wall or randomly choose left or right
+                if (currentLocation.x == 0)
+                    travelDirection = TravelDirection.R;
+                else if (currentLocation.x == width - 1)
+                    travelDirection = TravelDirection.L;
+                else
                     travelDirection = Random.value > 0.5 ? TravelDirection.L : TravelDirection.R;
+            }
 
-                // move left or right
+            // travel left or right
+            if (Random.value > goDownProbability && travelDirection != TravelDirection.D)
+            {
+                // bumped into a wall
+                if (
+                    (currentLocation.x == 0 && travelDirection == TravelDirection.L) ||
+                    (currentLocation.x == width - 1 && travelDirection == TravelDirection.R)
+                    )
+                {
+                    travelDirection = TravelDirection.D;
 
+                    // go down
+                    roomGrid[currentLocation.x, currentLocation.y].exits = Room.ExitType.LRB;
+
+                    // check if exit above
+                    if (currentLocation.y != 0)
+                    {
+                        if ( roomGrid[currentLocation.x, currentLocation.y - 1].exits == Room.ExitType.LRB || roomGrid[currentLocation.x, currentLocation.y - 1].exits == Room.ExitType.LRTB)
+                        {
+                            roomGrid[currentLocation.x, currentLocation.y].exits = Room.ExitType.LRTB;
+                        }
+                    }
+                }
+                else
+                {
+                    if (travelDirection == TravelDirection.L)
+                        currentLocation.x--;
+                    else
+                        currentLocation.x++;
+
+                    roomGrid[currentLocation.x, currentLocation.y].exits = Room.ExitType.LR;
+
+                    if (currentLocation.y != 0)
+                    {
+                        if ( roomGrid[currentLocation.x, currentLocation.y - 1].exits == Room.ExitType.LRB || roomGrid[currentLocation.x, currentLocation.y - 1].exits == Room.ExitType.LRTB)
+                        {
+                            roomGrid[currentLocation.x, currentLocation.y].exits = Room.ExitType.LRT;
+                        }
+                    }
+                }
             }
             else
             {
-                // reset travel direction
                 travelDirection = TravelDirection.NotDecided;
 
-                // go down or finish level
+                // make exit
+                if(currentLocation.y == height - 1)
+                {
+                    roomGrid[currentLocation.x, currentLocation.y].isSolutionPath = true;
+                    roomGrid[currentLocation.x, currentLocation.y].isExit = true;
+                    solutionPathComplete = true;
 
+                    if (roomGrid[currentLocation.x, currentLocation.y - 1].exits == Room.ExitType.LRB || roomGrid[currentLocation.x, currentLocation.y - 1].exits == Room.ExitType.LRTB)
+                    {
+                        roomGrid[currentLocation.x, currentLocation.y].exits = Room.ExitType.LRT;
+                    }
+                    else
+                    {
+                        roomGrid[currentLocation.x, currentLocation.y].exits = Room.ExitType.LR;
+                    }
+                }
+                // travel down
+                else
+                {
+                    currentLocation.y++;
+                    roomGrid[currentLocation.x, currentLocation.y].exits = Room.ExitType.LRT;
+
+                    if (currentLocation.y != 0)
+                    {
+                        if (
+                            roomGrid[currentLocation.x, currentLocation.y - 1].exits != Room.ExitType.LRB ||
+                            roomGrid[currentLocation.x, currentLocation.y - 1].exits != Room.ExitType.LRTB)
+                        {
+                            if (roomGrid[currentLocation.x, currentLocation.y - 1].exits == Room.ExitType.LRT)
+                            {
+                                roomGrid[currentLocation.x, currentLocation.y - 1].exits = Room.ExitType.LRTB;
+                            }
+                            else
+                            {
+                                roomGrid[currentLocation.x, currentLocation.y - 1].exits = Room.ExitType.LRB;
+                            }
+                        }
+                    }
+                }
             }
-        }
-
-        /*
-         * Second Step: Fill in exit type
-         */
-        for (int i = 0; i < roomGrid.GetLength(0); i++)
-        {
-            for (int j = 0; i < roomGrid.GetLength(1); i++)
-            {
-                //get neighbours
-
-                // use top bottom power of two sum method similar to 3d game tilling
-            }
+            roomGrid[currentLocation.x, currentLocation.y].isSolutionPath = true;
         }
     }
 
     public Room GetRoom(Point point)
     {
         return roomGrid[point.x, point.y];
+    }
+
+    public override string ToString()
+    {
+        var ret = "";
+
+        // reverse order, row first
+        for (int j = 0; j < roomGrid.GetLength(0); j++)
+        {
+            for (int i = 0; i < roomGrid.GetLength(1); i++)
+            {
+                switch (roomGrid[i, j].exits)
+                {
+                    case Room.ExitType.LR:
+                        ret += "−";
+                        break;
+                    case Room.ExitType.LRT:
+                        ret += "⊥";
+                        break;
+                    case Room.ExitType.LRB:
+                        ret += "T";
+                        break;
+                    case Room.ExitType.LRTB:
+                        ret += "+";
+                        break;
+                    case Room.ExitType.None:
+                        ret += "O";
+                        break;
+                }   
+            }
+            ret += "\n";
+        }
+
+        return ret;
     }
 }
