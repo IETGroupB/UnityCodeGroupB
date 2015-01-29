@@ -14,8 +14,25 @@ public class Point {
         this.y = y;
     }
 
+    public Point(Point p)
+    {
+        this.x = p.x;
+        this.y = p.y;
+    }
+
     public override string ToString()
     {
         return "(" + x + ", " + y + ")";
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj.GetType().Equals(this.GetType()))
+        {
+            Point p = (Point)obj;
+            return (p.x == this.x && p.y == this.y);
+        }
+        else
+            return false;
     }
 }
