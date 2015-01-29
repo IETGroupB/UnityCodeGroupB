@@ -5,9 +5,11 @@ public class RoomGrid  {
     public float goDownProbability = 0.4f;
 
     private enum TravelDirection { L, R, D, NotDecided };
+    // must be at least 2x2 to work
     private static int width = 4;
     private static int height = 4;
     private Room[,] roomGrid = new Room[width, height];
+    private Point[] solutionPath;
 
     public RoomGrid()
     {
@@ -23,15 +25,17 @@ public class RoomGrid  {
 
     private void GeneratePath()
     {
-        var currentLocation = new Point((int)(Random.value * 4), 0);
+        var tempSolutionPath = new ArrayList();
+
+        var currentLocation = new Point((int)(Random.value * width), 0);
         var solutionPathComplete = false;
         var travelDirection = TravelDirection.NotDecided;
 
-        Debug.Log(currentLocation.ToString());
         roomGrid[currentLocation.x, currentLocation.y].isStart = true;
         roomGrid[currentLocation.x, currentLocation.y].isSolutionPath = true;
         roomGrid[currentLocation.x, currentLocation.y].exits = Room.ExitType.LR;
 
+        tempSolutionPath.Add(new Point(currentLocation));
 
         while (!solutionPathComplete)
         {
@@ -61,7 +65,7 @@ public class RoomGrid  {
                     // go down
                     roomGrid[currentLocation.x, currentLocation.y].exits = Room.ExitType.LRB;
 
-                    // check if exit above
+                    // check if we need to change the room to a top and bottom exit room
                     if (currentLocation.y != 0)
                     {
                         if ( roomGrid[currentLocation.x, currentLocation.y - 1].exits == Room.ExitType.LRB || roomGrid[currentLocation.x, currentLocation.y - 1].exits == Room.ExitType.LRTB)
@@ -72,6 +76,7 @@ public class RoomGrid  {
                 }
                 else
                 {
+                    // it's ok to move left or right
                     if (travelDirection == TravelDirection.L)
                         currentLocation.x--;
                     else
@@ -79,6 +84,7 @@ public class RoomGrid  {
 
                     roomGrid[currentLocation.x, currentLocation.y].exits = Room.ExitType.LR;
 
+                    // check if we need a top enteranct
                     if (currentLocation.y != 0)
                     {
                         if ( roomGrid[currentLocation.x, currentLocation.y - 1].exits == Room.ExitType.LRB || roomGrid[currentLocation.x, currentLocation.y - 1].exits == Room.ExitType.LRTB)
@@ -86,6 +92,9 @@ public class RoomGrid  {
                             roomGrid[currentLocation.x, currentLocation.y].exits = Room.ExitType.LRT;
                         }
                     }
+
+                    // add position to solution path
+                    tempSolutionPath.Add(new Point(currentLocation));
                 }
             }
             else
@@ -107,6 +116,10 @@ public class RoomGrid  {
                     {
                         roomGrid[currentLocation.x, currentLocation.y].exits = Room.ExitType.LR;
                     }
+
+                    
+                    if (!(tempSolutionPath[tempSolutionPath.Count - 1] as Point).Equals(currentLocation))
+                        tempSolutionPath.Add(new Point(currentLocation));
                 }
                 // travel down
                 else
@@ -130,10 +143,24 @@ public class RoomGrid  {
                             }
                         }
                     }
+
+                    tempSolutionPath.Add(new Point(currentLocation));
                 }
+                roomGrid[currentLocation.x, currentLocation.y].isSolutionPath = true;
             }
-            roomGrid[currentLocation.x, currentLocation.y].isSolutionPath = true;
         }
+
+        solutionPath = new Point[tempSolutionPath.Count];
+        for (int i = 0; i < tempSolutionPath.Count; i++)
+        {
+            solutionPath[i] = (Point) tempSolutionPath[i];
+        }
+        
+    }
+
+    public Point[] getSolutionPath()
+    {
+        return solutionPath;
     }
 
     public Room GetRoom(Point point)
@@ -146,9 +173,9 @@ public class RoomGrid  {
         var ret = "";
 
         // reverse order, row first
-        for (int j = 0; j < roomGrid.GetLength(0); j++)
+        for (int j = 0; j < roomGrid.GetLength(1); j++)
         {
-            for (int i = 0; i < roomGrid.GetLength(1); i++)
+            for (int i = 0; i < roomGrid.GetLength(0); i++)
             {
                 switch (roomGrid[i, j].exits)
                 {
