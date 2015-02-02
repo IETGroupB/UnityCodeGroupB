@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
 
 	void Update () 
 	{
-		if(grounded && Input.GetKeyDown(KeyCode.Space))
+		if(grounded && Input.GetButtonDown("Fire1"))
 		{
 			rigidbody2D.AddForce(new Vector2(0,jumpForce));
 		}
