@@ -10,6 +10,8 @@ public class Room {
     public bool isStart = false; 
     public ExitType exits;
 
+    public Tile.TileType[,] tiles = new Tile.TileType[16, 16];
+
     public Room(ExitType exits)
     {
         this.exits = exits;

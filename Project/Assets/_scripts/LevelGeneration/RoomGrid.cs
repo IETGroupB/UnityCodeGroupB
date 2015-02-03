@@ -6,13 +6,17 @@ public class RoomGrid  {
 
     private enum TravelDirection { L, R, D, NotDecided };
     // must be at least 2x2 to work
-    private static int width = 4;
-    private static int height = 4;
-    private Room[,] roomGrid = new Room[width, height];
+    private int width;
+    private int height;
+    private Room[,] roomGrid;
     private Point[] solutionPath;
 
-    public RoomGrid()
+    public RoomGrid(int width, int height)
     {
+        this.width = width;
+        this.height = height;
+        roomGrid  = new Room[width, height];
+
         for (int i = 0; i < roomGrid.GetLength(0); i++)
         {
             for (int j = 0; j < roomGrid.GetLength(1); j++)
@@ -163,9 +167,14 @@ public class RoomGrid  {
         return solutionPath;
     }
 
+    public Room GetRoom(int x, int y)
+    {
+        return roomGrid[x, y];
+    }
+
     public Room GetRoom(Point point)
     {
-        return roomGrid[point.x, point.y];
+        return GetRoom(point.x, point.y);
     }
 
     public override string ToString()
