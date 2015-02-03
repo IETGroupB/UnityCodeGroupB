@@ -141,8 +141,8 @@ public class LevelGenerator : MonoBehaviour {
         currentRoomGrid = new RoomGrid(width, height);
 
         levelContainer = new GameObject("LevelContainer");
-        levelContainer.transform.SetParent(transform);
-
+        levelContainer.transform.parent = transform;
+        
         for (int h = 0; h < height; h++)
         {
             for (int w = 0; w < width; w++)
@@ -182,7 +182,7 @@ public class LevelGenerator : MonoBehaviour {
             {
                 var currentRoom = currentRoomGrid.GetRoom(w, h);
                 GameObject room = new GameObject("room_" + w + "_" + h);
-                room.transform.SetParent(levelContainer.transform);
+                room.transform.parent = levelContainer.transform;
 
                 for (int x = 0; x < currentRoom.tiles.GetLength(0); x++)
                 {
@@ -196,7 +196,7 @@ public class LevelGenerator : MonoBehaviour {
                         {
                             GameObject thisTile = (GameObject)Instantiate(tileGameObjects[currentRoom.tiles[x, y]] as GameObject);
                             thisTile.transform.position = new Vector3(position.x, position.y, 0.0f);
-                            thisTile.transform.SetParent(room.transform);
+                            thisTile.transform.parent = room.transform;
                         }
                     }
                 }
