@@ -2,25 +2,22 @@
 using System.Collections;
 
 public class LevelGenerator : MonoBehaviour {
-    GameObject levelContainer;
-    public RoomGrid currentRoomGrid { get; private set; }
-    Point currentRoomGridSize;
-
-    ArrayList lrRooms = new ArrayList();
-    ArrayList lrtRooms = new ArrayList();
-    ArrayList lrbRooms = new ArrayList();
-    ArrayList lrtbRooms = new ArrayList();
-    ArrayList emptyRoom = new ArrayList();
-
+    private ArrayList lrRooms = new ArrayList();
+    private ArrayList lrtRooms = new ArrayList();
+    private ArrayList lrbRooms = new ArrayList();
+    private ArrayList lrtbRooms = new ArrayList();
+    private ArrayList emptyRoom = new ArrayList();
     private string tilePrefabsFolder = "Tiles/";
-    public Hashtable tileGameObjects = new Hashtable();
 
-
+    public Hashtable tileGameObjects { get; private set; }
+    public RoomGrid currentRoomGrid { get; private set; }
+    public Point currentRoomGridSize { get; private set; }
+    public GameObject levelContainer { get; set; }
 
     // should this be Start() or Awake()?
     public LevelGenerator()
     {
-        
+        tileGameObjects = new Hashtable();
         // load tile prefabs
         foreach (TileType tileType in Tile.prefabs.Keys)
         {
