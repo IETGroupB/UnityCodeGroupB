@@ -35,4 +35,15 @@ public class Point {
         else
             return false;
     }
+
+    public override int GetHashCode()
+    {
+        unchecked
+        {
+            var result = 0;
+            result = (result * 397) ^ x;
+            result = (result * 397) ^ y;
+            return result;
+        }
+    }
 }
