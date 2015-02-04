@@ -2,30 +2,29 @@
 using System.Collections;
 
 public class LevelGenerator : MonoBehaviour {
-    GameObject levelContainer;
-    public RoomGrid currentRoomGrid { get; private set; }
-    Point currentRoomGridSize;
-
-    ArrayList lrRooms = new ArrayList();
-    ArrayList lrtRooms = new ArrayList();
-    ArrayList lrbRooms = new ArrayList();
-    ArrayList lrtbRooms = new ArrayList();
-    ArrayList emptyRoom = new ArrayList();
-
+    private ArrayList lrRooms = new ArrayList();
+    private ArrayList lrtRooms = new ArrayList();
+    private ArrayList lrbRooms = new ArrayList();
+    private ArrayList lrtbRooms = new ArrayList();
+    private ArrayList emptyRoom = new ArrayList();
     private string tilePrefabsFolder = "Tiles/";
-    public Hashtable tileGameObjects = new Hashtable();
 
-
+    public Hashtable tileGameObjects { get; private set; }
+    public RoomGrid currentRoomGrid { get; private set; }
+    public Point currentRoomGridSize { get; private set; }
+    public GameObject levelContainer { get; set; }
 
     // should this be Start() or Awake()?
     public LevelGenerator()
     {
-        
+        tileGameObjects = new Hashtable();
         // load tile prefabs
         foreach (TileType tileType in Tile.prefabs.Keys)
         {
             Debug.Log(tilePrefabsFolder + Tile.prefabs[tileType]);
-            tileGameObjects.Add(tileType, Resources.Load(tilePrefabsFolder + Tile.prefabs[tileType]));
+            GameObject currentTile =  Resources.Load(tilePrefabsFolder + Tile.prefabs[tileType]) as GameObject;
+            currentTile.GetComponent<Tile>().type = tileType;
+            tileGameObjects.Add(tileType, currentTile);
         }
 
         // file reading goes here
@@ -93,20 +92,22 @@ public class LevelGenerator : MonoBehaviour {
                 var currentRoom = currentRoomGrid.GetRoom(w, h);
                 GameObject room = new GameObject("room_" + w + "_" + h);
                 room.transform.parent = levelContainer.transform;
+                room.transform.localPosition = new Vector3(w * currentRoom.tiles.GetLength(0), -(h * currentRoom.tiles.GetLength(1)), 0.0f);
 
                 for (int x = 0; x < currentRoom.tiles.GetLength(0); x++)
                 {
                     for (int y = 0; y < currentRoom.tiles.GetLength(1); y++)
                     {
                         // positions in array are translated to positions in worldspace as array[x,y] = world[x,-y]
-                        var position = new Point(w * currentRoom.tiles.GetLength(0) + x, -(h * currentRoom.tiles.GetLength(1) + y));
+                        var tilePosition = new Point(w * currentRoom.tiles.GetLength(0) + x, -(h * currentRoom.tiles.GetLength(1) + y));
 
                         // check that it is not empty space
                         if (currentRoom.tiles[x, y] != TileType.Empty)
                         {
                             GameObject currentTile = (GameObject)Instantiate(tileGameObjects[currentRoom.tiles[x, y]] as GameObject);
-                            currentTile.transform.position = new Vector3(position.x, position.y, 0.0f);
                             currentTile.transform.parent = room.transform;
+                            currentTile.transform.localPosition = new Vector3(x, -y, 0.0f);
+                            
                         }
                     }
                 }
@@ -121,6 +122,6 @@ public class LevelGenerator : MonoBehaviour {
 
     public void DeleteLevel()
     {
-        //Delete all tiles/lights/etc here
+        Destroy(levelContainer);
     }
 }
