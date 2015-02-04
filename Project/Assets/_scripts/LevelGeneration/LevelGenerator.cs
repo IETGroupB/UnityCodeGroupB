@@ -185,21 +185,22 @@ public class LevelGenerator : MonoBehaviour {
                 var currentRoom = currentRoomGrid.GetRoom(w, h);
                 GameObject room = new GameObject("room_" + w + "_" + h);
                 room.transform.parent = levelContainer.transform;
+                room.transform.localPosition = new Vector3(w * currentRoom.tiles.GetLength(0), -(h * currentRoom.tiles.GetLength(1)), 0.0f);
 
                 for (int x = 0; x < currentRoom.tiles.GetLength(0); x++)
                 {
                     for (int y = 0; y < currentRoom.tiles.GetLength(1); y++)
                     {
                         // positions in array are translated to positions in worldspace as array[x,y] = world[x,-y]
-                        var position = new Point(w * currentRoom.tiles.GetLength(0) + x, -(h * currentRoom.tiles.GetLength(1) + y));
+                        var tilePosition = new Point(w * currentRoom.tiles.GetLength(0) + x, -(h * currentRoom.tiles.GetLength(1) + y));
 
                         // check that it is not empty space
                         if (currentRoom.tiles[x, y] != TileType.Empty)
                         {
                             GameObject currentTile = (GameObject)Instantiate(tileGameObjects[currentRoom.tiles[x, y]] as GameObject);
-                            //currentTile.name = currentTile
-                            currentTile.transform.position = new Vector3(position.x, position.y, 0.0f);
                             currentTile.transform.parent = room.transform;
+                            currentTile.transform.localPosition = new Vector3(x, -y, 0.0f);
+                            
                         }
                     }
                 }
@@ -214,6 +215,6 @@ public class LevelGenerator : MonoBehaviour {
 
     public void DeleteLevel()
     {
-        //Delete all tiles/lights/etc here
+        Destroy(levelContainer);
     }
 }
