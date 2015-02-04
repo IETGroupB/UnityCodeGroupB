@@ -25,7 +25,9 @@ public class LevelGenerator : MonoBehaviour {
         foreach (TileType tileType in Tile.prefabs.Keys)
         {
             Debug.Log(tilePrefabsFolder + Tile.prefabs[tileType]);
-            tileGameObjects.Add(tileType, Resources.Load(tilePrefabsFolder + Tile.prefabs[tileType]));
+            GameObject currentTile =  Resources.Load(tilePrefabsFolder + Tile.prefabs[tileType]) as GameObject;
+            currentTile.GetComponent<Tile>().type = tileType;
+            tileGameObjects.Add(tileType, currentTile);
         }
 
         // file reading goes here
@@ -195,6 +197,7 @@ public class LevelGenerator : MonoBehaviour {
                         if (currentRoom.tiles[x, y] != TileType.Empty)
                         {
                             GameObject currentTile = (GameObject)Instantiate(tileGameObjects[currentRoom.tiles[x, y]] as GameObject);
+                            //currentTile.name = currentTile
                             currentTile.transform.position = new Vector3(position.x, position.y, 0.0f);
                             currentTile.transform.parent = room.transform;
                         }
