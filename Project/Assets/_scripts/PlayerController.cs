@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour 
 {
+    public bool Fire2Down = false;
+
 	public float maxSpeed = 1f;
 	bool facingRight = true;
 	public float jumpForce = 700f;
@@ -43,6 +45,15 @@ public class PlayerController : MonoBehaviour
 		{
 			rigidbody2D.AddForce(new Vector2(0,jumpForce));
 		}
+
+        if(Input.GetButtonDown("Fire2"))
+        {
+            Fire2Down = true;
+        }
+        else
+        {
+            Fire2Down = false;
+        }
 	}
 
 	void Flip()
