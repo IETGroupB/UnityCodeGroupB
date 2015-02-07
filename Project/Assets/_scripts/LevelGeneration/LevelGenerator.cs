@@ -2,143 +2,52 @@
 using System.Collections;
 
 public class LevelGenerator : MonoBehaviour {
-    GameObject levelContainer;
-    RoomGrid currentRoomGrid;
-    Point currentRoomGridSize;
-
-    ArrayList lrRooms = new ArrayList();
-    ArrayList lrtRooms = new ArrayList();
-    ArrayList lrbRooms = new ArrayList();
-    ArrayList lrtbRooms = new ArrayList();
-    ArrayList emptyRoom = new ArrayList();
-
+    private ArrayList lrRooms = new ArrayList();
+    private ArrayList lrtRooms = new ArrayList();
+    private ArrayList lrbRooms = new ArrayList();
+    private ArrayList lrtbRooms = new ArrayList();
+    private ArrayList emptyRoom = new ArrayList();
     private string tilePrefabsFolder = "Tiles/";
-    public Hashtable tileGameObjects = new Hashtable();
 
-
+    public Hashtable tileGameObjects { get; private set; }
+    public RoomGrid currentRoomGrid { get; private set; }
+    public Point currentRoomGridSize { get; private set; }
+    public GameObject levelContainer { get; set; }
 
     // should this be Start() or Awake()?
     public LevelGenerator()
     {
-        
+        tileGameObjects = new Hashtable();
         // load tile prefabs
-        foreach (Tile.TileType tileType in Tile.tilePrefabs.Keys)
+        foreach (TileType tileType in Tile.prefabs.Keys)
         {
-            Debug.Log(tilePrefabsFolder + Tile.tilePrefabs[tileType]);
-            tileGameObjects.Add(tileType, Resources.Load(tilePrefabsFolder + Tile.tilePrefabs[tileType]));
+            Debug.Log(tilePrefabsFolder + Tile.prefabs[tileType]);
+            GameObject currentTile =  Resources.Load(tilePrefabsFolder + Tile.prefabs[tileType]) as GameObject;
+            currentTile.GetComponent<Tile>().type = tileType;
+            tileGameObjects.Add(tileType, currentTile);
         }
 
         // file reading goes here
-        // store each room as 16x16 TyleTypes
+		TileType[,] lrRoomstiles = FileHandler.Load(Application.dataPath + "\\Resources\\RoomFiles\\LR.txt");
+		TileType[,] lrbRoomstiles = FileHandler.Load(Application.dataPath + "\\Resources\\RoomFiles\\LRB.txt");
+		TileType[,] lrtRoomstiles = FileHandler.Load(Application.dataPath + "\\Resources\\RoomFiles\\LRT.txt");
+		TileType[,] lrtbRoomstiles = FileHandler.Load(Application.dataPath + "\\Resources\\RoomFiles\\LRTB.txt");
+		TileType[,] emptyRoomstiles = FileHandler.Load(Application.dataPath + "\\Resources\\RoomFiles\\empty.txt");
+        // store each room as 16x16 TileTypes
         {
             // temp add films
-            lrRooms.Add(
-                new Tile.TileType[,] {
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid}
-            }
-                );
-            lrtRooms.Add(
-                new Tile.TileType[,] {
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-            }
-                );
-            lrbRooms.Add(
-               new Tile.TileType[,] {
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid}
-            }
-                );
-            lrtbRooms.Add(
-                 new Tile.TileType[,] {
-               {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Solid, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Solid},
-            }
-                );
-            emptyRoom.Add(
-                new Tile.TileType[,] {
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty},
-                {Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty, Tile.TileType.Empty}
-            }
-                );
+			lrRooms.Add(lrRoomstiles);
+			lrtRooms.Add(lrtRoomstiles);
+			lrbRooms.Add(lrbRoomstiles);
+			lrtbRooms.Add(lrtbRoomstiles);
+			emptyRoom.Add(emptyRoomstiles);
         } // end temporary hardcoded room types
     }
 
-    public void GenerateLevel(int width, int height)
+    public void GenerateLevel(int width, int height, float goDownProbability)
     {
         currentRoomGridSize = new Point(width, height);
-        currentRoomGrid = new RoomGrid(width, height);
+        currentRoomGrid = new RoomGrid(width, height, goDownProbability);
 
         levelContainer = new GameObject("LevelContainer");
         levelContainer.transform.parent = transform;
@@ -152,20 +61,20 @@ public class LevelGenerator : MonoBehaviour {
                 // assign tiles
                 switch (currentRoom.exits)
                 {
-                    case Room.ExitType.LR:
-                        currentRoom.tiles = lrRooms[Mathf.FloorToInt(lrRooms.Count * Random.value)] as Tile.TileType[,];
+                    case ExitType.LR:
+                        currentRoom.tiles = lrRooms[Mathf.FloorToInt(lrRooms.Count * Random.value)] as TileType[,];
                         break;
-                    case Room.ExitType.LRT:
-                        currentRoom.tiles = lrtRooms[Mathf.FloorToInt(lrtRooms.Count * Random.value)] as Tile.TileType[,];
+                    case ExitType.LRT:
+                        currentRoom.tiles = lrtRooms[Mathf.FloorToInt(lrtRooms.Count * Random.value)] as TileType[,];
                         break;
-                    case Room.ExitType.LRB:
-                        currentRoom.tiles = lrbRooms[Mathf.FloorToInt(lrbRooms.Count * Random.value)] as Tile.TileType[,];
+                    case ExitType.LRB:
+                        currentRoom.tiles = lrbRooms[Mathf.FloorToInt(lrbRooms.Count * Random.value)] as TileType[,];
                         break;
-                    case Room.ExitType.LRTB:
-                        currentRoom.tiles = lrtbRooms[Mathf.FloorToInt(lrtbRooms.Count * Random.value)] as Tile.TileType[,];
+                    case ExitType.LRTB:
+                        currentRoom.tiles = lrtbRooms[Mathf.FloorToInt(lrtbRooms.Count * Random.value)] as TileType[,];
                         break;
-                    case Room.ExitType.None:
-                        currentRoom.tiles = emptyRoom[Mathf.FloorToInt(lrtbRooms.Count * Random.value)] as Tile.TileType[,];
+                    case ExitType.None:
+                        currentRoom.tiles = emptyRoom[Mathf.FloorToInt(lrtbRooms.Count * Random.value)] as TileType[,];
                         break;
                 }
             }
@@ -183,20 +92,22 @@ public class LevelGenerator : MonoBehaviour {
                 var currentRoom = currentRoomGrid.GetRoom(w, h);
                 GameObject room = new GameObject("room_" + w + "_" + h);
                 room.transform.parent = levelContainer.transform;
+                room.transform.localPosition = new Vector3(w * currentRoom.tiles.GetLength(0), -(h * currentRoom.tiles.GetLength(1)), 0.0f);
 
                 for (int x = 0; x < currentRoom.tiles.GetLength(0); x++)
                 {
                     for (int y = 0; y < currentRoom.tiles.GetLength(1); y++)
                     {
                         // positions in array are translated to positions in worldspace as array[x,y] = world[x,-y]
-                        var position = new Point(w * currentRoom.tiles.GetLength(0) + x, -(h * currentRoom.tiles.GetLength(1) + y));
+                        var tilePosition = new Point(w * currentRoom.tiles.GetLength(0) + x, -(h * currentRoom.tiles.GetLength(1) + y));
 
                         // check that it is not empty space
-                        if (currentRoom.tiles[x, y] != Tile.TileType.Empty)
+                        if (currentRoom.tiles[x, y] != TileType.Empty)
                         {
-                            GameObject thisTile = (GameObject)Instantiate(tileGameObjects[currentRoom.tiles[x, y]] as GameObject);
-                            thisTile.transform.position = new Vector3(position.x, position.y, 0.0f);
-                            thisTile.transform.parent = room.transform;
+                            GameObject currentTile = (GameObject)Instantiate(tileGameObjects[currentRoom.tiles[x, y]] as GameObject);
+                            currentTile.transform.parent = room.transform;
+                            currentTile.transform.localPosition = new Vector3(x, -y, 0.0f);
+                            
                         }
                     }
                 }
@@ -211,6 +122,6 @@ public class LevelGenerator : MonoBehaviour {
 
     public void DeleteLevel()
     {
-        //Delete all tiles/lights/etc here
+        Destroy(levelContainer);
     }
 }
