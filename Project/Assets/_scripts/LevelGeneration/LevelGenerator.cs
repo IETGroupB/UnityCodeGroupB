@@ -62,6 +62,7 @@ public class LevelGenerator : MonoBehaviour {
                 switch (currentRoom.exits)
                 {
                     case ExitType.LR:
+					Debug.Log(lrRooms.Count);
                         currentRoom.tiles = lrRooms[Mathf.FloorToInt(lrRooms.Count * Random.value)] as TileType[,];
                         break;
                     case ExitType.LRT:
