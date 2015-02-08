@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class RoomGrid  {
     private float goDownProbability = 0.4f;
@@ -29,7 +30,7 @@ public class RoomGrid  {
 
     private void GeneratePath()
     {
-        var tempSolutionPath = new ArrayList();
+        var tempSolutionPath = new List<Point>();
 
         var currentLocation = new Point((int)(Random.value * width), 0);
         var solutionPathComplete = false;
@@ -154,12 +155,7 @@ public class RoomGrid  {
             }
         }
 
-        solutionPath = new Point[tempSolutionPath.Count];
-        for (int i = 0; i < tempSolutionPath.Count; i++)
-        {
-            solutionPath[i] = (Point) tempSolutionPath[i];
-        }
-        
+        solutionPath = tempSolutionPath.ToArray();
     }
 
     public Room GetRoom(int x, int y)

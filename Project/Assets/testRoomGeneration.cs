@@ -9,6 +9,9 @@ public class testRoomGeneration : MonoBehaviour {
         lg.GenerateLevel(4, 4, 0.4f);
         Debug.Log(lg.RoomGridToString());
         lg.DrawLevel();
+
+        foreach (Point p in lg.currentRoomGrid.solutionPath)
+            Debug.Log(p);
 	}
 
     // Update is called once per frame

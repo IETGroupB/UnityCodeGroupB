@@ -13,7 +13,8 @@ public class Room {
 
     //switch specific parameters
     private Point switchLocation;
-    private bool roomHasSwitch { get; set; }
+    private bool hasSwitch;
+    public Switch switchParams;
 
     public Room(ExitType exits)
     {
@@ -21,7 +22,8 @@ public class Room {
     }
 
     public void DrawSwitch() {
-        roomHasSwitch = true;
+        hasSwitch = true;
 
+        //TODO implement code for drawing switch in room
     }
 }
