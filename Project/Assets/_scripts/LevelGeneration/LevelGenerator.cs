@@ -22,7 +22,6 @@ public class LevelGenerator : MonoBehaviour {
         // load tile prefabs
         foreach (TileType tileType in Tile.prefabs.Keys)
         {
-            Debug.Log(tilePrefabsFolder + Tile.prefabs[tileType]);
             GameObject currentTile =  Resources.Load(tilePrefabsFolder + Tile.prefabs[tileType]) as GameObject;
             currentTile.GetComponent<Tile>().type = tileType;
             tileGameObjects.Add(tileType, currentTile);
