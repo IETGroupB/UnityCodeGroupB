@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
 
 public class LevelGenerator : MonoBehaviour {
     private ArrayList lrRooms = new ArrayList();
@@ -28,19 +29,45 @@ public class LevelGenerator : MonoBehaviour {
         }
 
         // file reading goes here
-		TileType[,] lrRoomstiles = FileHandler.Load(Application.dataPath + "\\Resources\\RoomFiles\\LR.txt");
-		TileType[,] lrbRoomstiles = FileHandler.Load(Application.dataPath + "\\Resources\\RoomFiles\\LRB.txt");
-		TileType[,] lrtRoomstiles = FileHandler.Load(Application.dataPath + "\\Resources\\RoomFiles\\LRT.txt");
-		TileType[,] lrtbRoomstiles = FileHandler.Load(Application.dataPath + "\\Resources\\RoomFiles\\LRTB.txt");
-		TileType[,] emptyRoomstiles = FileHandler.Load(Application.dataPath + "\\Resources\\RoomFiles\\empty.txt");
+		ArrayList fileReadLR = new ArrayList ();
+		ArrayList fileReadLRB = new ArrayList ();
+		ArrayList fileReadLRT = new ArrayList ();
+		ArrayList fileReadLRTB = new ArrayList ();
+		ArrayList fileReadEmpty = new ArrayList ();
+
+		foreach (string fileName_1 in Directory.GetFiles (Application.dataPath + "\\Resources\\RoomFiles\\LR\\")) {
+			TileType[,] lrRoomsFiletiles = FileHandler.Load(fileName_1);
+			fileReadLR.Add(lrRoomsFiletiles);
+		}
+
+		foreach (string fileName_2 in Directory.GetFiles (Application.dataPath + "\\Resources\\RoomFiles\\LRB\\")) {
+			TileType[,] lrbRoomsFiletiles = FileHandler.Load(fileName_2);
+			fileReadLRB.Add(lrbRoomsFiletiles);
+		}
+
+		foreach (string fileName_3 in Directory.GetFiles (Application.dataPath + "\\Resources\\RoomFiles\\LRT\\")) {
+			TileType[,] lrtRoomsFiletiles = FileHandler.Load(fileName_3);
+			fileReadLRT.Add(lrtRoomsFiletiles);
+		}
+
+		foreach (string fileName_4 in Directory.GetFiles (Application.dataPath + "\\Resources\\RoomFiles\\LRTB\\")) {
+			TileType[,] lrtbRoomsFiletiles = FileHandler.Load(fileName_4);
+			fileReadLRTB.Add(lrtbRoomsFiletiles);
+		}
+
+		foreach (string fileName_5 in Directory.GetFiles (Application.dataPath + "\\Resources\\RoomFiles\\empty\\")) {
+			TileType[,] emptyRoomsFiletiles = FileHandler.Load(fileName_5);
+			fileReadEmpty.Add(emptyRoomsFiletiles);
+		}
+
         // store each room as 16x16 TileTypes
         {
             // temp add films
-			lrRooms.Add(lrRoomstiles);
-			lrtRooms.Add(lrtRoomstiles);
-			lrbRooms.Add(lrbRoomstiles);
-			lrtbRooms.Add(lrtbRoomstiles);
-			emptyRoom.Add(emptyRoomstiles);
+			lrRooms.Add(fileReadLR[0]);
+			lrtRooms.Add(fileReadLRT[0]);
+			lrbRooms.Add(fileReadLRB[0]);
+			lrtbRooms.Add(fileReadLRTB[0]);
+			emptyRoom.Add(fileReadEmpty[0]);
         } // end temporary hardcoded room types
     }
 
