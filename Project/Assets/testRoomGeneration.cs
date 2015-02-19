@@ -9,11 +9,13 @@ public class testRoomGeneration : MonoBehaviour {
         LevelGenerator lg = gameObject.AddComponent<LevelGenerator>();
         lg.GenerateLevel(4, 4, 0.4f);
 
-        switchSys = gameObject.GetComponent<SwitchSystem>();
-        switchSys.SetUp(lg.roomGrid);
 
         Debug.Log(lg.RoomGridToString());
         lg.DrawLevel();
+
+
+        switchSys = gameObject.GetComponent<SwitchSystem>();
+        switchSys.SetUp(lg.roomGrid);
 	}
 
     // Update is called once per frame

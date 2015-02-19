@@ -11,6 +11,7 @@ public class Room {
     public TileType[,] tiles = new TileType[16, 16];
 
     private TilePrefabManager prefabs;
+    private GameObject roomObj;
 
     //switch specific parameters
     private Point switchLocation;
@@ -25,6 +26,7 @@ public class Room {
 
     public void DrawRoom(GameObject room)
     {
+        roomObj = room;
         for (int x = 0; x < tiles.GetLength(0); x++)
         {
             for (int y = 0; y < tiles.GetLength(1); y++)
@@ -33,12 +35,17 @@ public class Room {
                 //var tilePosition = new Point(tiles.GetLength(0) + x, - (tiles.GetLength(1) + y));
 
                 // just place solid tiles for the moment
-                if (tiles[x, y] == TileType.Solid)
+                //if (tiles[x, y] == TileType.Solid)
+                switch(tiles[x, y])
                 {
-                    GameObject currentTile = (GameObject) MonoBehaviour.Instantiate(prefabs.tileGameObjects[tiles[x, y]] as GameObject);
-                    currentTile.transform.parent = room.transform;
-                    currentTile.transform.localPosition = new Vector3(x, -y, 0.0f);
-
+                    case TileType.Solid:
+                        GameObject currentTile = (GameObject) MonoBehaviour.Instantiate(prefabs.tileGameObjects[tiles[x, y]] as GameObject);
+                        currentTile.transform.parent = room.transform;
+                        currentTile.transform.localPosition = new Vector3(x, -y, 0.0f);
+                        break;
+                    case TileType.Switch:
+                        switchLocation = new Point(x, y);
+                        break;
                 }
             }
         }
@@ -48,6 +55,12 @@ public class Room {
     {
         hasSwitch = true;
 
-        //TODO implement code for drawing switch in room
+        GameObject switchObj = (GameObject) MonoBehaviour.Instantiate(prefabs.tileGameObjects[TileType.Switch] as GameObject);
+
+        //TODO update for switch position
+        switchObj.transform.parent = roomObj.transform;
+        switchObj.transform.localPosition = new Vector3(1.0f, -13.0f, 0.1f);
+
+        switchParams = switchObj.GetComponent<Switch>();
     }
 }

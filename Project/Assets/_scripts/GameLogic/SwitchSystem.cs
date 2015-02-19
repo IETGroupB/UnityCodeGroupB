@@ -14,7 +14,7 @@ public class SwitchSystem : MonoBehaviour {
     
     private RoomGrid roomGrid;
     private int furthestSwitch;
-
+    private bool switchSystemActive;
 
     /*
      * Called on creation of level to set up the switch system
@@ -41,7 +41,7 @@ public class SwitchSystem : MonoBehaviour {
             switchRooms = hasSwitchList.ToArray();
             furthestSwitch = 0;
         }
-
+        switchSystemActive = true;
         UpdateLights();
     }
 
@@ -57,7 +57,7 @@ public class SwitchSystem : MonoBehaviour {
     public void FixedUpdate()
     {
         // exit if not set up
-        if (roomGrid == null) return;
+        if (switchSystemActive) return;
         
         // poll the switches to check for changes
         for (int i = furthestSwitch; i < switchRooms.Length; i++)
