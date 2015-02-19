@@ -17,46 +17,21 @@ public class LevelGenerator : MonoBehaviour {
     // should this be Start() or Awake()?
     public LevelGenerator()
     {
-        // file reading goes here
-		ArrayList fileReadLR = new ArrayList ();
-		ArrayList fileReadLRB = new ArrayList ();
-		ArrayList fileReadLRT = new ArrayList ();
-		ArrayList fileReadLRTB = new ArrayList ();
-		ArrayList fileReadEmpty = new ArrayList ();
-
-		foreach (string fileName_1 in Directory.GetFiles (Application.dataPath + "\\Resources\\RoomFiles\\LR\\")) {
-			TileType[,] lrRoomsFiletiles = FileHandler.Load(fileName_1);
-			fileReadLR.Add(lrRoomsFiletiles);
-		}
-
-		foreach (string fileName_2 in Directory.GetFiles (Application.dataPath + "\\Resources\\RoomFiles\\LRB\\")) {
-			TileType[,] lrbRoomsFiletiles = FileHandler.Load(fileName_2);
-			fileReadLRB.Add(lrbRoomsFiletiles);
-		}
-
-		foreach (string fileName_3 in Directory.GetFiles (Application.dataPath + "\\Resources\\RoomFiles\\LRT\\")) {
-			TileType[,] lrtRoomsFiletiles = FileHandler.Load(fileName_3);
-			fileReadLRT.Add(lrtRoomsFiletiles);
-		}
-
-		foreach (string fileName_4 in Directory.GetFiles (Application.dataPath + "\\Resources\\RoomFiles\\LRTB\\")) {
-			TileType[,] lrtbRoomsFiletiles = FileHandler.Load(fileName_4);
-			fileReadLRTB.Add(lrtbRoomsFiletiles);
-		}
-
-		foreach (string fileName_5 in Directory.GetFiles (Application.dataPath + "\\Resources\\RoomFiles\\empty\\")) {
-			TileType[,] emptyRoomsFiletiles = FileHandler.Load(fileName_5);
-			fileReadEmpty.Add(emptyRoomsFiletiles);
-		}
+        
+		TileType[,] empty = FileReader.LoadFile ("RoomFiles/Empty/empty");
+		TileType[,] lr = FileReader.LoadFile ("RoomFiles/LR/LR");
+		TileType[,] lrt = FileReader.LoadFile ("RoomFiles/LRT/LRT");
+		TileType[,] lrb = FileReader.LoadFile ("RoomFiles/LRB/LRB");
+		TileType[,] lrtb = FileReader.LoadFile ("RoomFiles/LRTB/LRTB");
 
         // store each room as 16x16 TileTypes
         {
             // temp add films
-			lrRooms.Add(fileReadLR[0]);
-			lrtRooms.Add(fileReadLRT[0]);
-			lrbRooms.Add(fileReadLRB[0]);
-			lrtbRooms.Add(fileReadLRTB[0]);
-			emptyRoom.Add(fileReadEmpty[0]);
+			lrRooms.Add(lr);
+			lrtRooms.Add(lrt);
+			lrbRooms.Add(lrb);
+			lrtbRooms.Add(lrtb);
+			emptyRoom.Add(empty);
         } // end temporary hardcoded room types
     }
 
