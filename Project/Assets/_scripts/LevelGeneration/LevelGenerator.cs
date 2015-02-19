@@ -110,8 +110,7 @@ public class LevelGenerator : MonoBehaviour {
                 room.transform.parent = levelContainer.transform;
                 room.transform.localPosition = new Vector3(w * currentRoom.tiles.GetLength(0), -(h * currentRoom.tiles.GetLength(1)), 0.0f);
 
-                currentRoom.DrawRoom(room);
-                
+                currentRoom.DrawRoom(room);   
             }
         }
 
