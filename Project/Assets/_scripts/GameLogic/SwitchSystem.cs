@@ -10,10 +10,11 @@ public class SwitchSystem : MonoBehaviour {
     public float alarmProbability;
     public float switchDensity;
     public Point[] switchRooms;
+    public int[] switchRoomsGlobalIndex;
     public bool alarmActive;
     
     private RoomGrid roomGrid;
-    private int furthestSwitch;
+    public int furthestSwitch;
     private bool switchSystemActive;
 
     /*
@@ -28,16 +29,19 @@ public class SwitchSystem : MonoBehaviour {
         // assign switches to rooms
         {
             var hasSwitchList = new List<Point>();
+            var hasSwitchGlobalList = new List<int>();
 
-            foreach (Point p in roomGrid.solutionPath)
+            for (int i = 0; i < roomGrid.solutionPath.Length; i++)
             {
-                if (Random.value < switchDensity || roomGrid.GetRoom(p).isExit)
+                if (Random.value < switchDensity || roomGrid.GetRoom(roomGrid.solutionPath[i]).isExit)
                 {
-                    roomGrid.GetRoom(p).AddSwitch();
-                    hasSwitchList.Add(p);
+                    roomGrid.GetRoom(roomGrid.solutionPath[i]).AddSwitch();
+                    hasSwitchList.Add(roomGrid.solutionPath[i]);
+                    hasSwitchGlobalList.Add(i);
                 }
             }
 
+            switchRoomsGlobalIndex = hasSwitchGlobalList.ToArray();
             switchRooms = hasSwitchList.ToArray();
             furthestSwitch = 0;
         }
@@ -57,13 +61,13 @@ public class SwitchSystem : MonoBehaviour {
     public void FixedUpdate()
     {
         // exit if not set up
-        if (switchSystemActive) return;
+        if (!switchSystemActive) return;
         
         // poll the switches to check for changes
-        for (int i = furthestSwitch; i < switchRooms.Length; i++)
+        for (int i = furthestSwitch + 1; i < switchRooms.Length; i++)
         {
-            Room r = roomGrid.GetRoom(switchRooms[i]);
-            r.switchParams.GetState();
+            var room = roomGrid.GetRoom(switchRooms[i]);
+            room.switchParams.GetState();
             if (roomGrid.GetRoom(switchRooms[i]).switchParams.GetState())
             {
                 // new furthest switch reached
@@ -76,14 +80,13 @@ public class SwitchSystem : MonoBehaviour {
                     !roomGrid.GetRoom(switchRooms[i]).isExit)
                 {
                     alarmActive = true;
-                    AlarmLights();
                 }
                 else
                 {
                     alarmActive = false;
-                    UpdateLights();
                 }
-                    
+
+                UpdateLights();
                 break;
             }
         }
@@ -94,13 +97,35 @@ public class SwitchSystem : MonoBehaviour {
      */
     private void UpdateLights()
     {
-
+        for (int i = 0; i < roomGrid.solutionPath.Length; i++)
+        {
+            var room = roomGrid.GetRoom(roomGrid.solutionPath[i]);
+            if (i <= switchRoomsGlobalIndex[furthestSwitch])
+            {
+                room.lightState = LightingType.Bright;
+            }
+            else if (furthestSwitch + 1 < switchRooms.Length) // check that it is not the last room
+            {
+                if (i <= switchRoomsGlobalIndex[furthestSwitch + 1])
+                {
+                    room.lightState = LightingType.Dim;
+                }
+                else
+                {
+                    room.lightState = LightingType.Dark;
+                }
+            }
+        }
     }
-    /*
-     * alarm lights up to furthestSwitch + 1 room
-     */
-    public void AlarmLights()
-    {    
-        // maybe dim lights until furthestSwitch + 1 as well as alarm lights? discus at standup
+
+    public string lightStatesToString()
+    {
+        var s = "";
+        foreach (var point in roomGrid.solutionPath)
+        {
+            s += roomGrid.GetRoom(point).lightState + ", ";
+        }
+
+        return s;
     }
 }

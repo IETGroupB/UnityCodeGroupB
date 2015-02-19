@@ -2,6 +2,7 @@
 using System.Collections;
 
 public enum ExitType { LR, LRT, LRB, LRTB, None };
+public enum LightingType {Dark, Dim, Bright};
 
 public class Room {
     public bool isSolutionPath = false;
@@ -9,6 +10,7 @@ public class Room {
     public bool isStart = false; 
     public ExitType exits;
     public TileType[,] tiles = new TileType[16, 16];
+    public LightingType lightState;
 
     private TilePrefabManager prefabs;
     private GameObject roomObj;
@@ -39,7 +41,7 @@ public class Room {
                 switch(tiles[x, y])
                 {
                     case TileType.Solid:
-                        GameObject currentTile = (GameObject) MonoBehaviour.Instantiate(prefabs.tileGameObjects[tiles[x, y]] as GameObject);
+                        var currentTile = (GameObject) MonoBehaviour.Instantiate(prefabs.tileGameObjects[tiles[x, y]] as GameObject);
                         currentTile.transform.parent = room.transform;
                         currentTile.transform.localPosition = new Vector3(x, -y, 0.0f);
                         break;
@@ -55,7 +57,7 @@ public class Room {
     {
         hasSwitch = true;
 
-        GameObject switchObj = (GameObject) MonoBehaviour.Instantiate(prefabs.tileGameObjects[TileType.Switch] as GameObject);
+        var switchObj = (GameObject) MonoBehaviour.Instantiate(prefabs.tileGameObjects[TileType.Switch] as GameObject);
 
         //TODO update for switch position
         switchObj.transform.parent = roomObj.transform;
