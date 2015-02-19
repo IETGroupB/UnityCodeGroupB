@@ -9,12 +9,12 @@ public static class FileHandler{
 
 	public static TileType[,] Load(string filePath){
 		try{
-			Debug.Log("Loading File...");
+			//Debug.Log("Loading File...");
 			using(StreamReader sr = new StreamReader(filePath)){
 				string input = sr.ReadToEnd();
 				string[] lines = input.Split(new[]{'\r','\n'}, System.StringSplitOptions.RemoveEmptyEntries);
 				TileType[,] tiles = new TileType[lines.Length, mapWidth];
-				Debug.Log("Parsing...");
+				//Debug.Log("Parsing...");
 				for(int i = 0; i<lines.Length; i++)
 				{
 					string st = lines[i];
@@ -35,7 +35,7 @@ public static class FileHandler{
 						}
 					}
 				}
-				Debug.Log("Parsing Completed!");
+				//Debug.Log("Parsing Completed!");
 				return tiles;
 			}
 		}

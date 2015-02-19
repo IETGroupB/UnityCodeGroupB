@@ -18,11 +18,13 @@ public class RoomGrid  {
         this.goDownProbability = goDownProbability;
         roomGrid  = new Room[width, height];
 
+        TilePrefabManager tfb = GameObject.Find("LevelGenerator").GetComponent<TilePrefabManager>();
+
         for (int i = 0; i < roomGrid.GetLength(0); i++)
         {
             for (int j = 0; j < roomGrid.GetLength(1); j++)
             {
-                roomGrid[i, j] = new Room(ExitType.None);
+                roomGrid[i, j] = new Room(ExitType.None, tfb);
             }
         }
         GeneratePath();
