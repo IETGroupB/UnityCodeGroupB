@@ -1,3 +1,6 @@
+#Visual studio plugin
+Project/Assets/UnityVS*
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
