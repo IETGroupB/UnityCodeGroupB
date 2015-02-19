@@ -31,12 +31,9 @@ public class SwitchSystem : MonoBehaviour {
 
             foreach (Point p in roomGrid.solutionPath)
             {
-                if (
-                    (Random.value < switchDensity) ||
-                    roomGrid.GetRoom(p).isExit
-                    )
+                if (Random.value < switchDensity || roomGrid.GetRoom(p).isExit)
                 {
-                    roomGrid.GetRoom(p).DrawSwitch();
+                    roomGrid.GetRoom(p).AddSwitch();
                     hasSwitchList.Add(p);
                 }
             }
@@ -65,6 +62,8 @@ public class SwitchSystem : MonoBehaviour {
         // poll the switches to check for changes
         for (int i = furthestSwitch; i < switchRooms.Length; i++)
         {
+            Room r = roomGrid.GetRoom(switchRooms[i]);
+            r.switchParams.GetState();
             if (roomGrid.GetRoom(switchRooms[i]).switchParams.GetState())
             {
                 // new furthest switch reached
