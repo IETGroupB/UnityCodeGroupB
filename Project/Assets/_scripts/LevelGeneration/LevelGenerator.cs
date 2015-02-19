@@ -100,7 +100,7 @@ public class LevelGenerator : MonoBehaviour {
 
     public void DrawLevel()
     {
-        // looks like O(n^4) but really O(n^2) where O(n^2) = O(<total tiles width> * <total tiles height>) 
+        // Draw Rooms
         for (int h = 0; h < roomGridSize.y; h++)
         {
             for (int w = 0; w < roomGridSize.x; w++)
@@ -114,6 +114,8 @@ public class LevelGenerator : MonoBehaviour {
                 
             }
         }
+
+
     }
 
     public string RoomGridToString()
