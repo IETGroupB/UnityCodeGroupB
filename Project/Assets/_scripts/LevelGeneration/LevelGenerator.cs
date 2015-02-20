@@ -113,26 +113,6 @@ public class LevelGenerator : MonoBehaviour {
                 }
             }
         }
-
-		for (int h = 0; h < currentRoomGridSize.y; h++)
-		{
-			for (int w = 0; w < currentRoomGridSize.x; w++)
-			{
-				var currentRoom = currentRoomGrid.GetRoom(w, h);
-				if(currentRoom.exits == ExitType.None)
-				{
-					GameObject currentWall = GameObject.FindGameObjectWithTag("Wall");
-					GameObject.Instantiate (currentWall, new Vector3 (w * 16 + 8 , -h * 16 -8 , 0), new Quaternion (0, 0, 0, 0));
-				}
-			}
-		}
-
-
-		//GameObject currentWall = GameObject.FindGameObjectWithTag("Wall");
-		//GameObject.Instantiate (currentWall, new Vector3 (7, -5, 0), new Quaternion (0, 0, 0, 0));
-		//GameObject.Instantiate (currentWall, new Vector3 (8, -5, 0), new Quaternion (0, 0, 0, 0));
-
-
     }
 
     public string RoomGridToString()
