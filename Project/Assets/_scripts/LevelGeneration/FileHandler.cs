@@ -6,13 +6,11 @@ using System.IO;
 public static class FileReader{
 	public static int gridWidth = 16;
 	public static int gridHeight = 16;
-	
-	public static TileType[,] LoadFile(string filePath){
+
+	public static TileType[,] LoadFile(TextAsset t1){
 		
 		//t1.text will give the single string for all the entires in the file
 		Debug.Log ("Start File handling!!!");
-		TextAsset t1 = (TextAsset)Resources.Load (filePath, typeof(TextAsset));
-		Debug.Log (t1.text);
 		string input = t1.text;
 		string[] vertLines = input.Split(new[] {'\r','\n'}, System.StringSplitOptions.RemoveEmptyEntries);// split the string on the basis of occurance of "\n" in the text files
 		// above function actually returns the string without empty spaces

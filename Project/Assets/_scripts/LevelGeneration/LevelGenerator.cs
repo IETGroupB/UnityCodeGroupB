@@ -17,22 +17,38 @@ public class LevelGenerator : MonoBehaviour {
     // should this be Start() or Awake()?
     public LevelGenerator()
     {
-        
-		TileType[,] empty = FileReader.LoadFile ("RoomFiles/Empty/empty");
-		TileType[,] lr = FileReader.LoadFile ("RoomFiles/LR/LR");
-		TileType[,] lrt = FileReader.LoadFile ("RoomFiles/LRT/LRT");
-		TileType[,] lrb = FileReader.LoadFile ("RoomFiles/LRB/LRB");
-		TileType[,] lrtb = FileReader.LoadFile ("RoomFiles/LRTB/LRTB");
+		//load all text files for different roomType
+		TextAsset[] files_1 = Resources.LoadAll <TextAsset>("RoomFiles/LR/");
+		Debug.Log (files_1.Length);
+		for (int i = 0; i<files_1.Length; i++) {
+			TileType[,] tiles = FileReader.LoadFile (files_1[i]);
+			lrRooms.Add (tiles);
+		}
+		TextAsset[] files_2 = Resources.LoadAll <TextAsset>("RoomFiles/LRB/");
+		Debug.Log (files_2.Length);
+		for (int i = 0; i<files_2.Length; i++) {
+			TileType[,] tiles = FileReader.LoadFile (files_2[i]);
+			lrbRooms.Add (tiles);
+		}
+		TextAsset[] files_3 = Resources.LoadAll <TextAsset>("RoomFiles/LRT/");
+		Debug.Log (files_3.Length);
+		for (int i = 0; i<files_3.Length; i++) {
+			TileType[,] tiles = FileReader.LoadFile (files_3[i]);
+			lrtRooms.Add (tiles);
+		}
+		TextAsset[] files_4 = Resources.LoadAll <TextAsset>("RoomFiles/LRTB/");
+		Debug.Log (files_4.Length);
+		for (int i = 0; i<files_4.Length; i++) {
+			TileType[,] tiles = FileReader.LoadFile (files_4[i]);
+			lrtbRooms.Add (tiles);
+		}
+		TextAsset[] files_5 = Resources.LoadAll <TextAsset>("RoomFiles/Empty/");
+		Debug.Log (files_5.Length);
+		for (int i = 0; i<files_1.Length; i++) {
+			TileType[,] tiles = FileReader.LoadFile (files_5[i]);
+			emptyRoom.Add (tiles);
+		}
 
-        // store each room as 16x16 TileTypes
-        {
-            // temp add films
-			lrRooms.Add(lr);
-			lrtRooms.Add(lrt);
-			lrbRooms.Add(lrb);
-			lrtbRooms.Add(lrtb);
-			emptyRoom.Add(empty);
-        } // end temporary hardcoded room types
     }
 
     public void GenerateLevel(int width, int height, float goDownProbability)
