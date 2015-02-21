@@ -18,31 +18,26 @@ public class LevelGenerator : MonoBehaviour
     public LevelGenerator()
     {
 		//load all text files for different roomType
-		var files_1 = Resources.LoadAll <TextAsset>("RoomFiles/LR/");
-		for (int i = 0; i<files_1.Length; i++) {
-			TileType[,] tiles = FileReader.LoadFile (files_1[i]);
-			lrRooms.Add (tiles);
-		}
-		var files_2 = Resources.LoadAll <TextAsset>("RoomFiles/LRB/");
-		for (int i = 0; i<files_2.Length; i++) {
-			TileType[,] tiles = FileReader.LoadFile (files_2[i]);
-			lrbRooms.Add (tiles);
-		}
-		var files_3 = Resources.LoadAll <TextAsset>("RoomFiles/LRT/");
-		for (int i = 0; i<files_3.Length; i++) {
-			TileType[,] tiles = FileReader.LoadFile (files_3[i]);
-			lrtRooms.Add (tiles);
-		}
-		var files_4 = Resources.LoadAll <TextAsset>("RoomFiles/LRTB/");
-		for (int i = 0; i<files_4.Length; i++) {
-			TileType[,] tiles = FileReader.LoadFile (files_4[i]);
-			lrtbRooms.Add (tiles);
-		}
-		var files_5 = Resources.LoadAll <TextAsset>("RoomFiles/Empty/");
-		for (int i = 0; i<files_1.Length; i++) {
-			TileType[,] tiles = FileReader.LoadFile (files_5[i]);
-			emptyRoom.Add (tiles);
-		}
+		var files = Resources.LoadAll <TextAsset>("RoomFiles/LR/");
+        for (int i = 0; i < files.Length; i++)
+			lrRooms.Add (FileReader.LoadFile(files[i]));
+		
+        files = Resources.LoadAll<TextAsset>("RoomFiles/LRB/");
+        for (int i = 0; i < files.Length; i++)
+			lrbRooms.Add (FileReader.LoadFile(files[i]));
+		
+        files = Resources.LoadAll<TextAsset>("RoomFiles/LRT/");
+        for (int i = 0; i < files.Length; i++)
+			lrtRooms.Add (FileReader.LoadFile(files[i]));
+		
+        files = Resources.LoadAll<TextAsset>("RoomFiles/LRTB/");
+        for (int i = 0; i < files.Length; i++)
+			lrtbRooms.Add (FileReader.LoadFile(files[i]));
+		
+        files = Resources.LoadAll<TextAsset>("RoomFiles/Empty/");
+        for (int i = 0; i < files.Length; i++)
+			emptyRoom.Add (FileReader.LoadFile(files[i]));
+		
 
     }
 
@@ -76,7 +71,7 @@ public class LevelGenerator : MonoBehaviour
                         currentRoom.tiles = lrtbRooms[Mathf.FloorToInt(lrtbRooms.Count * Random.value)] as TileType[,];
                         break;
                     case ExitType.None:
-                        currentRoom.tiles = emptyRoom[Mathf.FloorToInt(lrtbRooms.Count * Random.value)] as TileType[,];
+                        currentRoom.tiles = emptyRoom[Mathf.FloorToInt(emptyRoom.Count * Random.value)] as TileType[,];
                         break;
                 }
             }

@@ -1,0 +1,16 @@
+G,E,E,E,E,E,E,E,E,E,E,E,E,E,E,G
+E,E,E,E,E,E,E,E,E,E,E,E,E,E,E,E
+E,E,E,E,E,E,E,E,E,E,E,E,E,E,E,E
+E,E,E,E,E,E,E,E,E,E,E,E,E,E,E,E
+E,E,E,G,G,G,G,E,E,E,E,E,E,E,E,E
+E,E,E,E,E,E,E,E,E,E,E,E,E,E,E,E
+E,E,E,E,E,E,E,E,E,E,E,E,E,E,E,E
+E,E,E,E,E,E,E,E,E,E,E,E,E,E,E,E
+E,E,E,E,E,G,G,G,G,G,G,E,E,E,E,E
+E,E,E,E,E,E,E,E,E,E,E,E,E,E,E,E
+E,E,E,E,E,E,E,E,E,E,E,E,E,E,E,E
+E,E,E,E,E,E,E,E,E,E,E,E,E,E,E,E
+E,E,E,G,G,G,G,E,E,E,E,E,E,E,E,E
+E,E,E,E,E,E,E,E,E,E,E,E,E,E,E,E
+E,E,E,E,E,E,E,E,E,E,E,E,E,E,E,E
+G,E,E,E,E,E,E,E,E,E,E,E,E,E,E,G
