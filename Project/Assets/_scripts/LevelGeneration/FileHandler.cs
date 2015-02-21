@@ -21,7 +21,7 @@ public static class FileReader{
 		for (int j = 0; j < vertLines.Length; j++) 
         {
 			// split on comma
-            string[] inputLine = vertLines[j].Split(new[] { ',' });
+           var inputLine = vertLines[j].Split(new[] { ',' });
 			
 			for(int i = 0; i < gridWidth; i++)
             {
