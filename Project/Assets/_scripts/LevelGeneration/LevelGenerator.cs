@@ -2,7 +2,8 @@
 using System.Collections;
 using System.IO;
 
-public class LevelGenerator : MonoBehaviour {
+public class LevelGenerator : MonoBehaviour 
+{
     private ArrayList lrRooms = new ArrayList();
     private ArrayList lrtRooms = new ArrayList();
     private ArrayList lrbRooms = new ArrayList();
@@ -14,36 +15,30 @@ public class LevelGenerator : MonoBehaviour {
     public Point roomGridSize { get; private set; }
     public GameObject levelContainer { get; set; }
 
-    // should this be Start() or Awake()?
     public LevelGenerator()
     {
 		//load all text files for different roomType
-		TextAsset[] files_1 = Resources.LoadAll <TextAsset>("RoomFiles/LR/");
-		Debug.Log (files_1.Length);
+		var files_1 = Resources.LoadAll <TextAsset>("RoomFiles/LR/");
 		for (int i = 0; i<files_1.Length; i++) {
 			TileType[,] tiles = FileReader.LoadFile (files_1[i]);
 			lrRooms.Add (tiles);
 		}
-		TextAsset[] files_2 = Resources.LoadAll <TextAsset>("RoomFiles/LRB/");
-		Debug.Log (files_2.Length);
+		var files_2 = Resources.LoadAll <TextAsset>("RoomFiles/LRB/");
 		for (int i = 0; i<files_2.Length; i++) {
 			TileType[,] tiles = FileReader.LoadFile (files_2[i]);
 			lrbRooms.Add (tiles);
 		}
-		TextAsset[] files_3 = Resources.LoadAll <TextAsset>("RoomFiles/LRT/");
-		Debug.Log (files_3.Length);
+		var files_3 = Resources.LoadAll <TextAsset>("RoomFiles/LRT/");
 		for (int i = 0; i<files_3.Length; i++) {
 			TileType[,] tiles = FileReader.LoadFile (files_3[i]);
 			lrtRooms.Add (tiles);
 		}
-		TextAsset[] files_4 = Resources.LoadAll <TextAsset>("RoomFiles/LRTB/");
-		Debug.Log (files_4.Length);
+		var files_4 = Resources.LoadAll <TextAsset>("RoomFiles/LRTB/");
 		for (int i = 0; i<files_4.Length; i++) {
 			TileType[,] tiles = FileReader.LoadFile (files_4[i]);
 			lrtbRooms.Add (tiles);
 		}
-		TextAsset[] files_5 = Resources.LoadAll <TextAsset>("RoomFiles/Empty/");
-		Debug.Log (files_5.Length);
+		var files_5 = Resources.LoadAll <TextAsset>("RoomFiles/Empty/");
 		for (int i = 0; i<files_1.Length; i++) {
 			TileType[,] tiles = FileReader.LoadFile (files_5[i]);
 			emptyRoom.Add (tiles);

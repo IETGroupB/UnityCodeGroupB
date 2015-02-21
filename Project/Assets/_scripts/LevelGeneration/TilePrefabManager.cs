@@ -6,12 +6,11 @@ public class TilePrefabManager : MonoBehaviour {
     
     void Awake()
     {
-        Debug.Log("start tile manager");
         tileGameObjects = new Hashtable();
         // load tile prefabs
-        foreach (TileType tileType in Tile.prefabs.Keys)
+        foreach (var tileType in Tile.prefabs.Keys)
         {
-            GameObject currentTile = Resources.Load(Tile.prefabs[tileType]) as GameObject;
+            var currentTile = Resources.Load(Tile.prefabs[tileType]) as GameObject;
             currentTile.GetComponent<Tile>().type = tileType;
             tileGameObjects.Add(tileType, currentTile);
         }
