@@ -33,11 +33,6 @@ public class Room {
         {
             for (int y = 0; y < tiles.GetLength(1); y++)
             {
-                // positions in array are translated to positions in worldspace as array[x,y] = world[x,-y]
-                //var tilePosition = new Point(tiles.GetLength(0) + x, - (tiles.GetLength(1) + y));
-
-                // just place solid tiles for the moment
-                //if (tiles[x, y] == TileType.Solid)
                 switch(tiles[x, y])
                 {
                     case TileType.Solid:
@@ -51,6 +46,11 @@ public class Room {
                 }
             }
         }
+
+        if (switchLocation == null && exits != ExitType.None)
+        {
+            Debug.LogError("Room file does not contain switch");
+        }
     }
 
     public void AddSwitch() 
@@ -61,7 +61,7 @@ public class Room {
 
         //TODO update for switch position
         switchObj.transform.parent = roomObj.transform;
-        switchObj.transform.localPosition = new Vector3(1.0f, -13.0f, 0.1f);
+        switchObj.transform.localPosition = new Vector3(switchLocation.x, -switchLocation.y, 0.1f);
 
         switchParams = switchObj.GetComponent<Switch>();
     }

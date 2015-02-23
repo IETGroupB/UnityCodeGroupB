@@ -8,7 +8,7 @@ public enum TileType {Solid, Empty, Switch};
 public class Tile : MonoBehaviour {
     public static Dictionary<TileType, string> prefabs = new Dictionary<TileType, string>() {    
         {TileType.Solid, "Tiles/solid_tile"},
-        {TileType.Switch, "Switch/switch"},
+        {TileType.Switch, "Tiles/Switch/switch"},
     };
 
     public TileType type;
