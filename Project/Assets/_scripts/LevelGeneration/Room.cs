@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public enum ExitType { LR, LRT, LRB, LRTB, None };
 public enum LightingType {Dark, Dim, Bright};
@@ -11,6 +11,7 @@ public class Room {
     public ExitType exits;
     public TileType[,] tiles = new TileType[16, 16];
     public LightingType lightState;
+    public GameObject[] trapTiles;
 
     private TilePrefabManager prefabs;
     private GameObject roomObj;
@@ -29,6 +30,7 @@ public class Room {
     public void DrawRoom(GameObject room)
     {
         roomObj = room;
+        List<GameObject> trapTileList = new List<GameObject>();
         for (int x = 0; x < tiles.GetLength(0); x++)
         {
             for (int y = 0; y < tiles.GetLength(1); y++)
@@ -36,16 +38,24 @@ public class Room {
                 switch(tiles[x, y])
                 {
                     case TileType.Solid:
-                        var currentTile = (GameObject) MonoBehaviour.Instantiate(prefabs.tileGameObjects[tiles[x, y]] as GameObject);
-                        currentTile.transform.parent = room.transform;
-                        currentTile.transform.localPosition = new Vector3(x, -y, 0.0f);
+                        var solidTile = (GameObject) MonoBehaviour.Instantiate(prefabs.tileGameObjects[tiles[x, y]] as GameObject);
+                        solidTile.transform.parent = room.transform;
+                        solidTile.transform.localPosition = new Vector3(x, -y, 0.0f);
                         break;
                     case TileType.Switch:
                         switchLocation = new Point(x, y);
                         break;
+                    case TileType.Trap:
+                        var trapTile = (GameObject)MonoBehaviour.Instantiate(prefabs.tileGameObjects[tiles[x, y]] as GameObject);
+                        trapTile.transform.parent = room.transform;
+                        trapTile.transform.localPosition = new Vector3(x, -y, 0.0f);
+                        trapTileList.Add(trapTile);
+                        break;
                 }
             }
         }
+
+        trapTiles = trapTileList.ToArray();
 
         if (switchLocation == null && exits != ExitType.None)
         {
@@ -64,5 +74,13 @@ public class Room {
         switchObj.transform.localPosition = new Vector3(switchLocation.x, -switchLocation.y, 0.1f);
 
         switchParams = switchObj.GetComponent<Switch>();
+    }
+
+    public void ToggleTraps(bool on)
+    {
+        for (int i = 0; i < trapTiles.Length; i++)
+        {
+            trapTiles[i].GetComponent<TrapTile>().isActive = on;
+        }
     }
 }

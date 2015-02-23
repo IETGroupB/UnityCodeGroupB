@@ -80,10 +80,12 @@ public class SwitchSystem : MonoBehaviour {
                     !roomGrid.GetRoom(switchRooms[i]).isExit)
                 {
                     alarmActive = true;
+                    ToggleTraps(true);
                 }
                 else
                 {
                     alarmActive = false;
+                    ToggleTraps(false);
                 }
 
                 UpdateLights();
@@ -115,6 +117,14 @@ public class SwitchSystem : MonoBehaviour {
                     room.lightState = LightingType.Dark;
                 }
             }
+        }
+    }
+
+    private void ToggleTraps(bool on)
+    {
+        for (int i = 0; i < roomGrid.solutionPath.Length; i++)
+        {
+            roomGrid.GetRoom(roomGrid.solutionPath[i]).ToggleTraps(on);
         }
     }
 

@@ -10,6 +10,7 @@ public static class FileReader{
             {"G", TileType.Solid},
             {"_", TileType.Empty},
             {"S", TileType.Switch},
+            {"T", TileType.Trap},
         };
 
 	public static TileType[,] LoadFile(TextAsset t1){
