@@ -12,7 +12,7 @@ GameObject:
   - 61: {fileID: 6135910}
   - 114: {fileID: 11435910}
   m_Layer: 0
-  m_Name: Wall
+  m_Name: wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -8,7 +8,7 @@ public static class FileReader{
     private static Dictionary<string, TileType> TileIDs = new Dictionary<string, TileType>()
         {
             {"G", TileType.Solid},
-            {"E", TileType.Empty},
+            {"_", TileType.Empty},
             {"S", TileType.Switch},
         };
 
