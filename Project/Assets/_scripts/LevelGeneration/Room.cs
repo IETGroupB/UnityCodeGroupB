@@ -69,7 +69,6 @@ public class Room {
 
         var switchObj = (GameObject) MonoBehaviour.Instantiate(prefabs.tileGameObjects[TileType.Switch] as GameObject);
 
-        //TODO update for switch position
         switchObj.transform.parent = roomObj.transform;
         switchObj.transform.localPosition = new Vector3(switchLocation.x, -switchLocation.y, 0.1f);
 
