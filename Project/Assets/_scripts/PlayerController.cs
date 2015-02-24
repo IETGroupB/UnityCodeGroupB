@@ -14,18 +14,16 @@ public class PlayerController : MonoBehaviour
 	float groundRadius = 0.2f;
 	public LayerMask whatIsGround;
 
-	// Use this for initialization
-	void Start () 
-	{
-	
-	}
-	
-	// Update is called once per frame
+    public void KillPlayer()
+    {
+
+    }
+
 	void FixedUpdate () 
 	{
 		grounded = Physics2D.OverlapCircle (groundCheck.position, groundRadius, whatIsGround);
 
-		float move = Input.GetAxis ("Horizontal");
+		var move = Input.GetAxis ("Horizontal");
 
 		rigidbody2D.velocity = new Vector2 (move * maxSpeed, rigidbody2D.velocity.y);
 
@@ -59,7 +57,7 @@ public class PlayerController : MonoBehaviour
 	void Flip()
 	{
 		facingRight = !facingRight;
-		Vector3 theScale = transform.localScale;
+		var theScale = transform.localScale;
 		theScale.x *= -1;
 		transform.localScale = theScale;
 	}

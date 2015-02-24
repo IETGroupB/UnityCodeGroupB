@@ -47,8 +47,7 @@ public class TrapTile : Tile {
             GameObject other = coll.transform.gameObject;
             if (other.name == "Character")
             {
-                // kill player
-                Debug.DrawLine(transform.position, other.transform.position);
+                other.GetComponent<PlayerController>().KillPlayer();
             }
         }
     }
