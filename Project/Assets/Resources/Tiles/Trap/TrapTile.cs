@@ -6,12 +6,14 @@ public class TrapTile : Tile {
 
     private Sprite on;
     private Sprite off;
+    private Light light;
 
 	void Start () 
     {
         audio.mute = true;
         particleSystem.Stop();
-        
+
+        light = transform.GetChild(0).GetComponent<Light>();
         on = Resources.Load<Sprite>("Tiles/Trap/trap_on");
         off = Resources.Load<Sprite>("Tiles/Trap/trap_off");
 
@@ -27,6 +29,7 @@ public class TrapTile : Tile {
                 audio.mute = false;
                 particleSystem.Play();
                 GetComponent<SpriteRenderer>().sprite = on;
+                light.enabled = true;
             }
         }
         else
@@ -35,7 +38,8 @@ public class TrapTile : Tile {
             {
                 audio.mute = true;
                 particleSystem.Stop();
-                GetComponent<SpriteRenderer>().sprite = off; 
+                GetComponent<SpriteRenderer>().sprite = off;
+                light.enabled = false;
             }
         }
     }
@@ -48,6 +52,13 @@ public class TrapTile : Tile {
             if (other.name == "Character")
             {
                 other.GetComponent<PlayerController>().KillPlayer();
+            }
+            else if (other.tag == "PlayerGibs")
+            {
+                if (Random.value <= 0.05f)
+                {
+                    other.rigidbody2D.AddForce((new Vector2(other.transform.position.x - transform.position.x, other.transform.position.y - transform.position.y)).normalized * 100.0f);
+                }
             }
         }
     }
