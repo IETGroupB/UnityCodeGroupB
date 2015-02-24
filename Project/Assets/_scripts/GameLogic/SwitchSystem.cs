@@ -44,8 +44,11 @@ public class SwitchSystem : MonoBehaviour {
             switchRoomsGlobalIndex = hasSwitchGlobalList.ToArray();
             switchRooms = hasSwitchList.ToArray();
             furthestSwitch = 0;
+
+            switchSystemActive = true;
         }
-        switchSystemActive = true;
+
+        
         UpdateLights();
     }
 
