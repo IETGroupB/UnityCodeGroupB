@@ -2052,7 +2052,7 @@ Light:
   m_Type: 2
   m_Color: {r: 0, g: .852941155, b: .0764705762, a: 1}
   m_Intensity: 3.80999994
-  m_Range: .200000003
+  m_Range: .274518251
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -2066,11 +2066,11 @@ Light:
   m_DrawHalo: 0
   m_ActuallyLightmapped: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Lightmapping: 1
+  m_Lightmapping: 0
   m_ShadowSamples: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -2406,11 +2406,11 @@ Light:
   m_DrawHalo: 0
   m_ActuallyLightmapped: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Lightmapping: 1
+  m_Lightmapping: 0
   m_ShadowSamples: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0

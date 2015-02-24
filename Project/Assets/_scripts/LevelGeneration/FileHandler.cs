@@ -19,7 +19,7 @@ public static class FileReader{
 		
         var tiles = new TileType[vertLines.Length, gridWidth];
 
-		for (int j = 0; j < vertLines.Length; j++) 
+        for (int j = 0; j < gridHeight; j++) 
         {
 			// split on comma
            var inputLine = vertLines[j].Split(new[] { ',' });
