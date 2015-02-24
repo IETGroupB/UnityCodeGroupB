@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
         parts = new GameObject[3];
         parts[0] = transform.FindChild("Head").gameObject;
         parts[1] = transform.FindChild("Body").gameObject;
-        parts[2] = transform.FindChild("Wheel").gameObject;
+       	parts[2] = transform.FindChild("Wheel").gameObject;
     }
 
 	void FixedUpdate () 

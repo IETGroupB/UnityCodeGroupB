@@ -79,24 +79,123 @@ public class LevelGenerator : MonoBehaviour
 
     }
 
-    public void DrawLevel()
-    {
-        // Draw Rooms
-        for (int h = 0; h < roomGridSize.y; h++)
-        {
-            for (int w = 0; w < roomGridSize.x; w++)
-            {
-                var currentRoom = roomGrid.GetRoom(w, h);
-                GameObject room = new GameObject("room_" + w + "_" + h);
-                room.transform.parent = levelContainer.transform;
-                room.transform.localPosition = new Vector3(w * currentRoom.tiles.GetLength(0), -(h * currentRoom.tiles.GetLength(1)), 0.0f);
 
-                currentRoom.DrawRoom(room);   
-            }
-        }
+	public void DrawLevel()
+	{
+		// Draw Rooms
+		for (int h = 0; h < roomGridSize.y; h++)
+		{
+			for (int w = 0; w < roomGridSize.x; w++)
+			{
+				var currentRoom = roomGrid.GetRoom(w, h);
+				GameObject room = new GameObject("room_" + w + "_" + h);
+				room.transform.parent = levelContainer.transform;
+				room.transform.localPosition = new Vector3(w * currentRoom.tiles.GetLength(0), -(h * currentRoom.tiles.GetLength(1)), 0.0f);
+				
+				currentRoom.DrawRoom(room);   
+			}
+		}
 
+		// Draw Wall 
+		// new Vector3 (w * 16 + 8 , -h * 16 -8 , 0)
+		for (int h = 0; h < roomGridSize.y; h++)
+		{
+			for (int w = 0; w < roomGridSize.x; w++)
+			{
+				// Vertical Wall for right and left side of room, not including room along the eage.
+				var currentRoom = roomGrid.GetRoom(w, h);
+				if(currentRoom.exits == ExitType.None)
+				{
+					if(w + 1 < roomGridSize.x )
+					{
+						var nextRoom = roomGrid.GetRoom(w + 1, h);
+						if(nextRoom.exits != ExitType.None)
+						{
+							DrawVerticalWall((w + 1) * 16 - 1, -h * 16 + 1);
+						}
+					}
+				}
+				else
+				{
+					if(w + 1 < roomGridSize.x )
+					{
+						var nextRoom = roomGrid.GetRoom(w + 1, h);
+						if(nextRoom.exits == ExitType.None)
+						{
+							DrawVerticalWall((w + 1) * 16, -h * 16 + 1);
+						}
+					}
+				}
 
-    }
+				// Horizontal Wall for up and down side of room, not including room along the eage.
+				if(currentRoom.exits == ExitType.None)
+				{
+					if(h + 1 < roomGridSize.y )
+					{
+						var nextRoom = roomGrid.GetRoom(w, h + 1);
+						if(nextRoom.exits != ExitType.None)
+						{
+							DrawHorizontalWall(w * 16, (-h - 1) * 16 + 1);
+
+						}
+					}
+				}
+				else
+				{
+					if(h + 1 < roomGridSize.y )
+					{
+						var nextRoom = roomGrid.GetRoom(w, h + 1);
+						if(nextRoom.exits == ExitType.None)
+						{
+							DrawHorizontalWall(w * 16, (-h - 1) * 16);
+						}
+					}
+				}
+
+				// Edge Up
+				if(h == 0 && currentRoom.exits != ExitType.None)
+				{
+					DrawHorizontalWall(w * 16 , -h * 16 + 1);
+				}
+
+				// Edge down
+				if((h + 1) == roomGridSize.y && currentRoom.exits != ExitType.None)
+				{
+					DrawHorizontalWall(w * 16 , (-h - 1) * 16);
+				}
+
+				// Edge left
+				if(w == 0 && currentRoom.exits != ExitType.None)
+				{
+					DrawVerticalWall(w * 16 - 1, -h * 16 + 1);
+				}
+
+				// Edge right
+				if((w + 1) == roomGridSize.x && currentRoom.exits != ExitType.None)
+				{
+					DrawVerticalWall((w + 1) * 16, -h * 16 + 1);
+				}
+			}
+		}
+	}
+
+	public void DrawHorizontalWall(int x, int y)
+	{
+		GameObject currentWall = GameObject.FindGameObjectWithTag("Wall");
+		for(int i=x; i<x+16; i++)
+		{
+			GameObject.Instantiate (currentWall, new Vector3(i, y, 0), new Quaternion (0, 0, 0, 0));
+		}
+	}
+
+	public void DrawVerticalWall(int x, int y)
+	{
+		GameObject currentWall = GameObject.FindGameObjectWithTag("Wall");
+		for(int i=y; i>y-18; i--)
+		{
+			GameObject.Instantiate (currentWall, new Vector3(x, i, 0), new Quaternion (0, 0, 0, 0));
+		}
+	}
 
     public string RoomGridToString()
     {
