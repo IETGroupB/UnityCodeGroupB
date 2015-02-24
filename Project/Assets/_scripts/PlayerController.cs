@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public bool Fire2Down = false;
     public Transform groundCheck;
     public LayerMask whatIsGround;
+    public GameObject body;
 
     private bool facingRight = true;
 	private bool grounded = false;
@@ -24,6 +25,8 @@ public class PlayerController : MonoBehaviour
         parts[0] = transform.FindChild("Head").gameObject;
         parts[1] = transform.FindChild("Body").gameObject;
        	parts[2] = transform.FindChild("Wheel").gameObject;
+
+        body = parts[1];
     }
 
 	void FixedUpdate () 
