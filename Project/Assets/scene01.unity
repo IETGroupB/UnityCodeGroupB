@@ -691,7 +691,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 818209278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c843c882fb3d8645b5cc41e92248fd8, type: 3}
+  m_Script: {fileID: 11500000, guid: efbcc8950681eae498ddfde1c6db0d80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &863512283
@@ -704,6 +704,7 @@ GameObject:
   - 4: {fileID: 863512284}
   - 212: {fileID: 863512285}
   - 60: {fileID: 863512286}
+  - 58: {fileID: 863512287}
   m_Layer: 8
   m_Name: Body
   m_TagString: PlayerGibs
@@ -751,7 +752,7 @@ PolygonCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 863512283}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Material: {fileID: 6200000, guid: e84a53a6a4634f441a4e3c86b5f3744f, type: 2}
   m_IsTrigger: 0
   m_Poly:
@@ -773,6 +774,17 @@ PolygonCollider2D:
       - {x: -.0199999996, y: -.444999993}
       - {x: .0900000036, y: -.435000002}
       - {x: .0500000007, y: -.514999986}
+--- !u!58 &863512287
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 863512283}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Radius: .0900000036
+  m_Center: {x: 1.90734863e-06, y: -.860000014}
 --- !u!1 &934170864
 GameObject:
   m_ObjectHideFlags: 0
@@ -2539,7 +2551,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1712653585}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.6300001, y: 15.0699997, z: 0}
+  m_LocalPosition: {x: 13.7003803, y: 15.1019516, z: 0}
   m_LocalScale: {x: 1.04022408, y: 1.04022396, z: 1.04022396}
   m_Children:
   - {fileID: 1664438572}

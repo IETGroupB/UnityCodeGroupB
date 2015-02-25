@@ -12,6 +12,7 @@ public static class FileReader{
             {"S", TileType.Switch},
             {"T", TileType.Trap},
 			{"L", TileType.RoomLight},
+            {"E", TileType.Exit},
         };
 
 	public static TileType[,] LoadFile(TextAsset t1){

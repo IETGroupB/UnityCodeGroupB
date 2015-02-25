@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 //16
-public enum TileType {Solid, Empty, Switch, Trap, RoomLight};
+public enum TileType {Solid, Empty, Switch, Trap, RoomLight, Exit};
 
 public class Tile : MonoBehaviour {
     public static Dictionary<TileType, string> prefabs = new Dictionary<TileType, string>() {    
