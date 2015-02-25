@@ -10,7 +10,7 @@ public class Tile : MonoBehaviour {
         {TileType.Solid, "Tiles/solid_tile"},
         {TileType.Switch, "Tiles/Switch/switch"},
         {TileType.Trap, "Tiles/Trap/trap"},
-		{TileType.RoomLight, "Tiles/RoomLight/roomLight"},
+		//{TileType.RoomLight, "Tiles/RoomLight/roomLight"},
     };
 
     public TileType type;
