@@ -83,11 +83,13 @@ public class SwitchSystem : MonoBehaviour {
                     !roomGrid.GetRoom(switchRooms[i]).isExit)
                 {
                     alarmActive = true;
+					ToggleAlarm (true);
                     ToggleTraps(true);
                 }
                 else
                 {
                     alarmActive = false;
+					ToggleAlarm (false);
                     ToggleTraps(false);
                 }
 
@@ -134,7 +136,15 @@ public class SwitchSystem : MonoBehaviour {
         }
     }
 
-    public string lightStatesToString()
+	private void ToggleAlarm(bool on)
+	{
+		for (int i = 0; i < roomGrid.solutionPath.Length; i++)
+		{
+			roomGrid.GetRoom(roomGrid.solutionPath[i]).ToggleAlarm(on);
+		}
+	}
+	
+	public string lightStatesToString()
     {
         var s = "";
         foreach (var point in roomGrid.solutionPath)
