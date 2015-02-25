@@ -7,7 +7,8 @@ public enum LightingType {Dark, Dim, Bright};
 public class Room {
     public bool isSolutionPath = false;
     public bool isExit = false;
-    public bool isStart = false; 
+    public bool isStart = false;
+    public Point Exit;
     public ExitType exits;
     public TileType[,] tiles = new TileType[16, 16];
     public LightingType lightState;
@@ -61,6 +62,9 @@ public class Room {
 						
 						roomLightList.Add (roomLightTile);
 						break;
+                    case TileType.Exit:
+                        Exit = new Point(x, y);
+                        break;
                 }	
             }
         }
