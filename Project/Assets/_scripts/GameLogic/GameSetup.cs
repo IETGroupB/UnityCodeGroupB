@@ -6,7 +6,7 @@ public class GameSetup : MonoBehaviour {
     SwitchSystem switchSystem;
     GameObject character;
 
-    void Start()
+    void Awake()
     {
         character = GameObject.Find("Character");
     }
