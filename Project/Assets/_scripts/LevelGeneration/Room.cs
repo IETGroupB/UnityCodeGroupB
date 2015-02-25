@@ -12,6 +12,7 @@ public class Room {
     public TileType[,] tiles = new TileType[16, 16];
     public LightingType lightState;
     public GameObject[] trapTiles;
+	public GameObject[] lightTiles;
 
     private TilePrefabManager prefabs;
     private GameObject roomObj;
@@ -20,6 +21,7 @@ public class Room {
     private Point switchLocation;
     private bool hasSwitch;
     public Switch switchParams;
+	public RoomLight lightParams;
 
     public Room(ExitType exits, TilePrefabManager prefabsLink)
     {
@@ -31,6 +33,7 @@ public class Room {
     {
         roomObj = room;
         List<GameObject> trapTileList = new List<GameObject>();
+		List<GameObject> roomLightList = new List<GameObject>();
         for (int x = 0; x < tiles.GetLength(0); x++)
         {
             for (int y = 0; y < tiles.GetLength(1); y++)
@@ -51,11 +54,19 @@ public class Room {
                         trapTile.transform.localPosition = new Vector3(x, -y, 0.0f);
                         trapTileList.Add(trapTile);
                         break;
-                }
+					case TileType.RoomLight:
+						var roomLightTile = (GameObject)MonoBehaviour.Instantiate(Resources.Load("Tiles/RoomLight/roomLight", typeof(GameObject)))  as GameObject;
+						roomLightTile.transform.parent = room.transform;
+						roomLightTile.transform.localPosition = new Vector3(x, -y, 0.0f);
+						
+						roomLightList.Add (roomLightTile);
+						break;
+                }	
             }
         }
 
         trapTiles = trapTileList.ToArray();
+		lightTiles = roomLightList.ToArray();
 
         if (switchLocation == null && exits != ExitType.None)
         {
@@ -82,4 +93,25 @@ public class Room {
             trapTiles[i].GetComponent<TrapTile>().isActive = on;
         }
     }
+
+	public void UpdateRoomLight(){
+		Color  c = new Color(Random.Range(0.0f, 1.0f),Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
+		for (int  i = 0; i < lightTiles.Length; i++) 
+		{
+			lightParams = lightTiles[i].GetComponent<RoomLight>();
+
+			lightParams.gameObject.light.color = c;
+			switch (lightState) {
+				case LightingType.Bright:
+					lightParams.gameObject.light.intensity = 3.6f;
+					break;
+				case LightingType.Dim:
+					lightParams.gameObject.light.intensity = 1.0f;
+					break;
+				case LightingType.Dark:
+					lightParams.gameObject.light.intensity = 0.0f;
+					break;
+				}
+		}
+	}
 }
