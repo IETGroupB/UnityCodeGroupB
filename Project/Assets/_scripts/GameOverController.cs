@@ -16,7 +16,7 @@ namespace AssemblyCSharp
 
 		public PlayerController player;       // Reference to the player's health.
 		public float restartDelay = 5f;         // Time to wait before restarting the level
-		
+
 		
 		Animator anim;                          // Reference to the animator component.
 		float restartTimer;                     // Timer to count up to restarting the level
@@ -43,6 +43,7 @@ namespace AssemblyCSharp
 				// .. if it reaches the restart delay...
 				if(restartTimer >= restartDelay)
 				{
+					testRoomGeneration.levelSize = 4;
 					// .. then reload the currently loaded level.
 					Application.LoadLevel(Application.loadedLevel);
 				}

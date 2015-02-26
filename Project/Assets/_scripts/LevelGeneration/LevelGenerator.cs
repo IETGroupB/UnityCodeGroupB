@@ -91,8 +91,14 @@ public class LevelGenerator : MonoBehaviour
 				GameObject room = new GameObject("room_" + w + "_" + h);
 				room.transform.parent = levelContainer.transform;
 				room.transform.localPosition = new Vector3(w * currentRoom.tiles.GetLength(0), -(h * currentRoom.tiles.GetLength(1)), 0.0f);
-				
-				currentRoom.DrawRoom(room);   
+				if(currentRoom.isExit)
+				{
+					currentRoom.DrawExitRoom(room); 
+				}
+				else
+				{
+					currentRoom.DrawRoom(room);  
+				}
 			}
 		}
 
