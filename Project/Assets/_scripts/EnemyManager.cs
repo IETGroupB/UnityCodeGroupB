@@ -5,7 +5,7 @@ public class EnemyManager : MonoBehaviour {
 	
 	public GameObject enemy;
 	public float spawnTime = 3f;
-	public Transform[] spawPoints;
+	//public Transform[] spawnPoints;
 	public bool switchOn;
 	public int MaxEnemy;
 	public int numEnemy;
@@ -28,8 +28,8 @@ public class EnemyManager : MonoBehaviour {
 	}
 	void Spawn () {
 		//if (switchOn) {
-		int spawnPointIndex = Random.Range (0, spawPoints.Length);
-		Instantiate (enemy, spawPoints [spawnPointIndex].position, spawPoints [spawnPointIndex].rotation);
+		//int spawnPointIndex = Random.Range (0, spawnPoints.Length);
+		Instantiate (enemy, this.transform.position, this.transform.rotation);//spawnPoints [spawnPointIndex].position, spawnPoints [spawnPointIndex].rotation);
 		//}
 	}
 }
