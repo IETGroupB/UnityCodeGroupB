@@ -3,6 +3,11 @@ using System.Collections;
 
 public class Door : Tile 
 {
+	Animator anim;                          // Reference to the animator component.
+	float restartTimer;   
+
+	public static bool endLevel = false;
+
 	void OnTriggerStay2D(Collider2D coll)
 	{
 		Debug.Log("OnTriggerStay2D");
@@ -13,8 +18,7 @@ public class Door : Tile
 			if (other.GetComponent<PlayerController>().Fire2Down)
 			{
 				transform.GetComponent<CircleCollider2D>().enabled = false;
-				testRoomGeneration.levelSize++;
-				Application.LoadLevel(Application.loadedLevel);
+				endLevel =  true;
 			}
 		}
 	}
