@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public enum ExitType { LR, LRT, LRB, LRTB, None };
 public enum LightingType {Dark, Dim, Bright};
 
-public class Room {
+public class Room    {
     public bool isSolutionPath = false;
     public bool isExit = false;
     public bool isStart = false;
@@ -32,6 +32,8 @@ public class Room {
 
     public void DrawRoom(GameObject room)
     {
+        if (exits == ExitType.None) return;
+
         roomObj = room;
         List<GameObject> trapTileList = new List<GameObject>();
 		List<GameObject> roomLightList = new List<GameObject>();
@@ -58,7 +60,7 @@ public class Room {
 					case TileType.RoomLight:
 						var roomLightTile = (GameObject)MonoBehaviour.Instantiate(Resources.Load("Tiles/RoomLight/roomLight", typeof(GameObject)))  as GameObject;
 						roomLightTile.transform.parent = room.transform;
-						roomLightTile.transform.localPosition = new Vector3(x, -y, 0.0f);
+						roomLightTile.transform.localPosition = new Vector3(x, -y, -0.2f);
 						
 						roomLightList.Add (roomLightTile);
 						break;
@@ -76,6 +78,14 @@ public class Room {
         {
             Debug.LogError("Room file does not contain switch");
         }
+
+        var bg = new GameObject();
+        bg.name = "background sprite";
+        var sr = bg.AddComponent<SpriteRenderer>();
+        sr.sprite = RoomBackgrounds.sprites[(int) Mathf.Floor(Random.value * RoomBackgrounds.sprites.Length)];
+        sr.material = new Material(Shader.Find("Diffuse"));
+        bg.transform.parent = roomObj.transform;
+        bg.transform.localPosition = new Vector3(7.5f, -7.5f, 0.5f);
     }
 
 	public void DrawExitRoom(GameObject room)
