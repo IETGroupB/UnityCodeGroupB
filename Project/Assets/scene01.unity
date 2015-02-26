@@ -18,7 +18,7 @@ RenderSettings:
   m_FogDensity: .00999999978
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientLight: {r: .200000003, g: .200000003, b: .200000003, a: 1}
+  m_AmbientLight: {r: .0441176295, g: .0441176295, b: .0441176295, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: .5
   m_FlareStrength: 1
@@ -874,7 +874,7 @@ Light:
     type: 2}
   m_PrefabInternal: {fileID: 2100842762}
   m_GameObject: {fileID: 934170864}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Type: 0
   m_Color: {r: 1, g: .0220588446, b: .0220588446, a: 1}
@@ -1165,7 +1165,7 @@ Light:
     m_Softness: 4
     m_SoftnessFade: 1
   m_Cookie: {fileID: 0}
-  m_DrawHalo: 1
+  m_DrawHalo: 0
   m_ActuallyLightmapped: 0
   m_Flare: {fileID: 0}
   m_RenderMode: 0
@@ -3044,7 +3044,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
+  m_BackGroundColor: {r: .066176489, g: .0747549236, b: .0882353187, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -3494,7 +3494,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae6976e80664e9e4596e5810c27769cc, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: ae6976e80664e9e4596e5810c27769cc, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: ae6976e80664e9e4596e5810c27769cc, type: 2}
       propertyPath: m_RootOrder
