@@ -102,7 +102,7 @@ public class SwitchSystem : MonoBehaviour {
     /*
      * bright lights up to furthestSwitch room, dim lights until furthestSwitch + 1 room
      */
-    private void UpdateLights()
+    public void UpdateLights()
     {
         for (int i = 0; i < roomGrid.solutionPath.Length; i++)
         {

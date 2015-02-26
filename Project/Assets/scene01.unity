@@ -73,6 +73,7 @@ NavMeshSettings:
     minRegionArea: 2
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
+    tileSizeHint: 0
   m_NavMesh: {fileID: 0}
 --- !u!1 &103924274
 GameObject:
@@ -136,6 +137,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
+--- !u!1 &188219981
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 188219983}
+  - 114: {fileID: 188219982}
+  m_Layer: 0
+  m_Name: BackgroundNear
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &188219982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 188219981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 017faf285f033074d8e38e1fde7b923e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomGridSize: {x: 4, y: 4}
+  starScale: {x: .899999976, y: .899999976, z: .899999976}
+  starCount: 300
+  starSpeed: .349999994
+  zPos: 10
+--- !u!4 &188219983
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 188219981}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 818209280}
+  m_RootOrder: 0
 --- !u!1001 &233076664
 Prefab:
   m_ObjectHideFlags: 0
@@ -714,7 +759,9 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 188219983}
+  - {fileID: 863408564}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!114 &818209281
@@ -755,6 +802,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efbcc8950681eae498ddfde1c6db0d80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &863408563
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 863408564}
+  - 114: {fileID: 863408565}
+  m_Layer: 0
+  m_Name: BackgroundFar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &863408564
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 863408563}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 818209280}
+  m_RootOrder: 1
+--- !u!114 &863408565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 863408563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 017faf285f033074d8e38e1fde7b923e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomGridSize: {x: 4, y: 4}
+  starScale: {x: .400000006, y: .400000006, z: .400000006}
+  starCount: 250
+  starSpeed: .100000001
+  zPos: 10
 --- !u!1 &863512283
 GameObject:
   m_ObjectHideFlags: 0
@@ -2857,8 +2948,8 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ignoreReversedGraphics: 1
-  blockingObjects: 0
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
