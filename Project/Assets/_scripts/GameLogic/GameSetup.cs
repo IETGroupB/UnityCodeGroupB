@@ -30,6 +30,7 @@ public class GameSetup : MonoBehaviour {
 
     public void DestroyLevel()
     {
-        //TODO tead down level here
+        levelGen.DeleteLevel();
+        switchSystem = null;
     }
 }
