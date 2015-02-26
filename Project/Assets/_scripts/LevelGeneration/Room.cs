@@ -98,6 +98,14 @@ public class Room {
         }
     }
 
+	public void ToggleAlarm(bool on)
+	{
+		for (int i = 0; i < lightTiles.Length; i++)
+		{
+			lightTiles[i].GetComponent<RoomLight>().isAlarmActive = on;
+		}
+	}
+	
 	public void UpdateRoomLight(){
 		Color  c = new Color(Random.Range(0.0f, 1.0f),Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
 		for (int  i = 0; i < lightTiles.Length; i++) 
