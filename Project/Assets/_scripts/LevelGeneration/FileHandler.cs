@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections.Generic;
 
 public static class FileReader{
 	private static int gridWidth = 16;
 	private static int gridHeight = 16;
-
+	public static int[,] radiusInput = new int[16,16];
     private static Dictionary<string, TileType> TileIDs = new Dictionary<string, TileType>()
         {
             {"G", TileType.Solid},
@@ -28,9 +29,23 @@ public static class FileReader{
 			
 			for(int i = 0; i < gridWidth; i++)
             {
-                if (TileIDs.ContainsKey(inputLine[i]))
+				if (TileIDs.ContainsKey(inputLine[i][0].ToString()))
                 {
-                    tiles[i, j] = TileIDs[inputLine[i]];
+                    //tiles[i, j] = TileIDs[inputLine[i]];
+					if(inputLine[i][0].ToString() == "L"){
+						if(inputLine[i].Length > 1){
+							int radius = (int)Char.GetNumericValue(inputLine[i][1]);
+							tiles[i, j] = TileIDs[inputLine[i][0].ToString()];
+
+							radiusInput[i, j] = radius;
+						}else{
+							radiusInput[i, j] = 9;
+							Debug.Log (radiusInput[i, j]);
+							tiles[i, j] = TileIDs[inputLine[i][0].ToString()];
+						}
+					}else{
+						tiles[i, j] = TileIDs[inputLine[i][0].ToString()];
+					}
                 }
                 else
                 {

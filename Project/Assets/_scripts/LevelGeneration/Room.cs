@@ -14,6 +14,7 @@ public class Room    {
     public LightingType lightState;
     public GameObject[] trapTiles;
 	public GameObject[] lightTiles;
+	public int[] radiusArray;
 
     private TilePrefabManager prefabs;
     private GameObject roomObj;
@@ -37,6 +38,7 @@ public class Room    {
         roomObj = room;
         List<GameObject> trapTileList = new List<GameObject>();
 		List<GameObject> roomLightList = new List<GameObject>();
+		List<int> radiusLightList = new List<int>();
         for (int x = 0; x < tiles.GetLength(0); x++)
         {
             for (int y = 0; y < tiles.GetLength(1); y++)
@@ -61,8 +63,9 @@ public class Room    {
 						var roomLightTile = (GameObject)MonoBehaviour.Instantiate(Resources.Load("Tiles/RoomLight/roomLight", typeof(GameObject)))  as GameObject;
 						roomLightTile.transform.parent = room.transform;
 						roomLightTile.transform.localPosition = new Vector3(x, -y, -0.2f);
-						
 						roomLightList.Add (roomLightTile);
+						int radius = FileReader.radiusInput[x, y];
+						radiusLightList.Add (radius);
 						break;
                     case TileType.Exit:
                         Exit = new Point(x, y);
@@ -73,6 +76,7 @@ public class Room    {
 
         trapTiles = trapTileList.ToArray();
 		lightTiles = roomLightList.ToArray();
+		radiusArray = radiusLightList.ToArray ();
 
         if (switchLocation == null && exits != ExitType.None)
         {
@@ -93,6 +97,7 @@ public class Room    {
 		roomObj = room;
 		List<GameObject> trapTileList = new List<GameObject>();
 		List<GameObject> roomLightList = new List<GameObject>();
+		List<int> radiusLightList = new List<int>();
 		for (int x = 0; x < tiles.GetLength(0); x++)
 		{
 			for (int y = 0; y < tiles.GetLength(1); y++)
@@ -117,8 +122,9 @@ public class Room    {
 					var roomLightTile = (GameObject)MonoBehaviour.Instantiate(Resources.Load("Tiles/RoomLight/roomLight", typeof(GameObject)))  as GameObject;
 					roomLightTile.transform.parent = room.transform;
 					roomLightTile.transform.localPosition = new Vector3(x, -y, 0.0f);
-					
 					roomLightList.Add (roomLightTile);
+					int radius = FileReader.radiusInput[x, y];
+					radiusLightList.Add (radius);
 					break;
 				case TileType.Exit:
 					var exitDoor = (GameObject)MonoBehaviour.Instantiate(Resources.Load("Tiles/door", typeof(GameObject)))  as GameObject;
@@ -131,7 +137,8 @@ public class Room    {
 		
 		trapTiles = trapTileList.ToArray();
 		lightTiles = roomLightList.ToArray();
-		
+		radiusArray = radiusLightList.ToArray ();
+
 		if (switchLocation == null && exits != ExitType.None)
 		{
 			Debug.LogError("Room file does not contain switch");
@@ -171,11 +178,11 @@ public class Room    {
 		for (int  i = 0; i < lightTiles.Length; i++) 
 		{
 			lightParams = lightTiles[i].GetComponent<RoomLight>();
-
+			lightParams.gameObject.light.range = radiusArray[i];
 			lightParams.gameObject.light.color = c;
 			switch (lightState) {
 				case LightingType.Bright:
-					lightParams.gameObject.light.intensity = 3.6f;
+					lightParams.gameObject.light.intensity = 10.6f;
 					break;
 				case LightingType.Dim:
 					lightParams.gameObject.light.intensity = 1.0f;
