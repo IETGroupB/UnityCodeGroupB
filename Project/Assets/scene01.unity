@@ -73,6 +73,7 @@ NavMeshSettings:
     minRegionArea: 2
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
+    tileSizeHint: 0
   m_NavMesh: {fileID: 0}
 --- !u!1 &103924274
 GameObject:
@@ -965,6 +966,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 934170866}
   - 108: {fileID: 934170865}
+  - 82: {fileID: 934170868}
   m_Layer: 0
   m_Name: FlashLight
   m_TagString: Untagged
@@ -1034,6 +1036,65 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 4
   isAlarmActive: 0
+--- !u!82 &934170868
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 8228244, guid: ae6976e80664e9e4596e5810c27769cc,
+    type: 2}
+  m_PrefabInternal: {fileID: 2100842762}
+  m_GameObject: {fileID: 934170864}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 8300000, guid: 287f92594c1bb374297b06101aba0bcf, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: .0900000036
+  m_Pitch: 1
+  Loop: 1
+  Mute: 1
+  Priority: 13
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!1 &943406624
 GameObject:
   m_ObjectHideFlags: 0
@@ -2618,7 +2679,7 @@ AudioSource:
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: e287524da2102bb43a0c1e907eda48a9, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: .741999984
+  m_Volume: .75999999
   m_Pitch: 1
   Loop: 1
   Mute: 1
@@ -3091,8 +3152,8 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ignoreReversedGraphics: 1
-  blockingObjects: 0
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -3526,8 +3587,8 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ignoreReversedGraphics: 1
-  blockingObjects: 0
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
