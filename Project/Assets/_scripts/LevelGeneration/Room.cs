@@ -121,7 +121,7 @@ public class Room    {
 				case TileType.RoomLight:
 					var roomLightTile = (GameObject)MonoBehaviour.Instantiate(Resources.Load("Tiles/RoomLight/roomLight", typeof(GameObject)))  as GameObject;
 					roomLightTile.transform.parent = room.transform;
-					roomLightTile.transform.localPosition = new Vector3(x, -y, 0.0f);
+					roomLightTile.transform.localPosition = new Vector3(x, -y, 2.0f);
 					roomLightList.Add (roomLightTile);
 					int radius = FileReader.radiusInput[x, y];
 					radiusLightList.Add (radius);
@@ -182,10 +182,10 @@ public class Room    {
 			lightParams.gameObject.light.color = c;
 			switch (lightState) {
 				case LightingType.Bright:
-					lightParams.gameObject.light.intensity = 10.6f;
+					lightParams.gameObject.light.intensity = 7.6f;
 					break;
 				case LightingType.Dim:
-					lightParams.gameObject.light.intensity = 1.0f;
+					lightParams.gameObject.light.intensity = 2.0f;
 					break;
 				case LightingType.Dark:
 					lightParams.gameObject.light.intensity = 0.0f;

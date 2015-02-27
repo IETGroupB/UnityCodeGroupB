@@ -12,7 +12,7 @@ public class RoomLight : Tile {
 	void Start () {
 		rLight = transform.GetComponent<Light>();
 		rLight.intensity = 0.0f;
-		rLight.range = 0.0f;
+		rLight.range = 1.0f;
 		isAlarmActive = false;
 		alarmLight = transform.GetChild (0).GetComponent<Light> ();
 		alarmLight.intensity = 0.0f;

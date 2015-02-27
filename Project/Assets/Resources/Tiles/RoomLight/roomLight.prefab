@@ -64,13 +64,13 @@ Light:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Type: 0
   m_Color: {r: 1, g: .0220588446, b: .0220588446, a: 1}
-  m_Intensity: 3
+  m_Intensity: 5.9000001
   m_Range: 2
-  m_SpotAngle: 33
+  m_SpotAngle: 117
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -80,7 +80,7 @@ Light:
     m_Softness: 4
     m_SoftnessFade: 1
   m_Cookie: {fileID: 0}
-  m_DrawHalo: 1
+  m_DrawHalo: 0
   m_ActuallyLightmapped: 0
   m_Flare: {fileID: 0}
   m_RenderMode: 0

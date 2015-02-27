@@ -31,16 +31,13 @@ public static class FileReader{
             {
 				if (TileIDs.ContainsKey(inputLine[i][0].ToString()))
                 {
-                    //tiles[i, j] = TileIDs[inputLine[i]];
 					if(inputLine[i][0].ToString() == "L"){
 						if(inputLine[i].Length > 1){
 							int radius = (int)Char.GetNumericValue(inputLine[i][1]);
 							tiles[i, j] = TileIDs[inputLine[i][0].ToString()];
-
 							radiusInput[i, j] = radius;
 						}else{
 							radiusInput[i, j] = 9;
-							Debug.Log (radiusInput[i, j]);
 							tiles[i, j] = TileIDs[inputLine[i][0].ToString()];
 						}
 					}else{
