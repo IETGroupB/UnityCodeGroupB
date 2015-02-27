@@ -13,6 +13,12 @@ public class RoomGrid  {
 
     public RoomGrid(int width, int height, float goDownProbability)
     {
+        // set background height and width
+        var nearBG = GameObject.Find("BackgroundNear");
+        var farBG = GameObject.Find("BackgroundFar");
+        nearBG.GetComponent<Background>().roomGridSize = new Vector2(width, height);
+        farBG.GetComponent<Background>().roomGridSize = new Vector2(width, height);
+
         this.width = width;
         this.height = height;
         this.goDownProbability = goDownProbability;
