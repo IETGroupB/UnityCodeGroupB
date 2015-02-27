@@ -7,12 +7,20 @@ public class EnemyMovement : MonoBehaviour {
 	//Transform player;
 	//NavMeshAgent nav;
 
+	public GameObject objSwitch;
+	SwitchSystem switchSystem;
+
+
 	void Start(){
 		speed = 100;
 		switchOn = true;
+		objSwitch = GameObject.FindGameObjectWithTag ("LevelGenerator");
+		switchSystem = objSwitch.GetComponent<SwitchSystem> ();
+
 	}
 
 	void Update(){
+		switchOn = switchSystem.alarmActive;
 		Vector3 movement = GameObject.FindGameObjectWithTag ("PlayerGibs").transform.position - transform.position;
 		if (switchOn) {
 			rigidbody2D.velocity= (movement * speed * Time.deltaTime);

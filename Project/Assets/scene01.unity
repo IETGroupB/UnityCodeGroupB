@@ -799,7 +799,7 @@ GameObject:
   - 114: {fileID: 818209283}
   m_Layer: 0
   m_Name: LevelGeneration
-  m_TagString: Untagged
+  m_TagString: LevelGenerator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1129,6 +1129,7 @@ MonoBehaviour:
   switchOn: 1
   MaxEnemy: 1
   numEnemy: 0
+  objSwitch: {fileID: 0}
 --- !u!4 &1148668769
 Transform:
   m_ObjectHideFlags: 0
