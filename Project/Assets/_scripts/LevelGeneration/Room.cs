@@ -87,7 +87,7 @@ public class Room    {
         bg.name = "background sprite";
         var sr = bg.AddComponent<SpriteRenderer>();
         sr.sprite = RoomBackgrounds.sprites[(int) Mathf.Floor(Random.value * RoomBackgrounds.sprites.Length)];
-        sr.material = new Material(Shader.Find("Diffuse"));
+        sr.material = new Material(Shader.Find("Transparent/Diffuse"));
         bg.transform.parent = roomObj.transform;
         bg.transform.localPosition = new Vector3(7.5f, -7.5f, 0.5f);
     }
