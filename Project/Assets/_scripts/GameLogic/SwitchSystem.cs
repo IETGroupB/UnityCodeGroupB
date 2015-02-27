@@ -110,22 +110,22 @@ public class SwitchSystem : MonoBehaviour {
             if (i <= switchRoomsGlobalIndex[furthestSwitch])
             {
                 room.lightState = LightingType.Bright;
-				room.UpdateRoomLight();
             }
             else if (furthestSwitch + 1 < switchRooms.Length) // check that it is not the last room
             {
                 if (i <= switchRoomsGlobalIndex[furthestSwitch + 1])
                 {
                     room.lightState = LightingType.Dim;
-					room.UpdateRoomLight();
                 }
                 else
                 {
                     room.lightState = LightingType.Dark;
-					room.UpdateRoomLight();
                 }
             }
+			room.UpdateRoomLight();
+
         }
+
     }
 
     private void ToggleTraps(bool on)

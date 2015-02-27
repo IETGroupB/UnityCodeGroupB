@@ -62,7 +62,7 @@ public class Room    {
 					case TileType.RoomLight:
 						var roomLightTile = (GameObject)MonoBehaviour.Instantiate(Resources.Load("Tiles/RoomLight/roomLight", typeof(GameObject)))  as GameObject;
 						roomLightTile.transform.parent = room.transform;
-						roomLightTile.transform.localPosition = new Vector3(x, -y, -0.2f);
+						roomLightTile.transform.localPosition = new Vector3(x, -y, 0.3f);
 						roomLightList.Add (roomLightTile);
 						int radius = FileReader.radiusInput[x, y];
 						radiusLightList.Add (radius);
@@ -121,7 +121,7 @@ public class Room    {
 				case TileType.RoomLight:
 					var roomLightTile = (GameObject)MonoBehaviour.Instantiate(Resources.Load("Tiles/RoomLight/roomLight", typeof(GameObject)))  as GameObject;
 					roomLightTile.transform.parent = room.transform;
-					roomLightTile.transform.localPosition = new Vector3(x, -y, 2.0f);
+					roomLightTile.transform.localPosition = new Vector3(x, -y, 0.03f);
 					roomLightList.Add (roomLightTile);
 					int radius = FileReader.radiusInput[x, y];
 					radiusLightList.Add (radius);
@@ -167,10 +167,8 @@ public class Room    {
 
 	public void ToggleAlarm(bool on)
 	{
-		for (int i = 0; i < lightTiles.Length; i++)
-		{
-			lightTiles[i].GetComponent<RoomLight>().isAlarmActive = on;
-		}
+		//for just one alarm light in each room
+			lightTiles[0].GetComponent<RoomLight>().isAlarmActive = on;
 	}
 	
 	public void UpdateRoomLight(){
@@ -182,10 +180,10 @@ public class Room    {
 			lightParams.gameObject.light.color = c;
 			switch (lightState) {
 				case LightingType.Bright:
-					lightParams.gameObject.light.intensity = 7.6f;
+					lightParams.gameObject.light.intensity = 4.6f;
 					break;
 				case LightingType.Dim:
-					lightParams.gameObject.light.intensity = 2.0f;
+					lightParams.gameObject.light.intensity = 1.0f;
 					break;
 				case LightingType.Dark:
 					lightParams.gameObject.light.intensity = 0.0f;
