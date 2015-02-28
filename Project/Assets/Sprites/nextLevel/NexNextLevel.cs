@@ -30,7 +30,6 @@ namespace AssemblyCSharp
 				// .. if it reaches the restart delay...
 				if(restartTimer >= restartDelay)
 				{
-					Intro.playIntro = false;
 					Door.endLevel = false;
 					testRoomGeneration.levelSize++;
 					// .. then reload the currently loaded level.
