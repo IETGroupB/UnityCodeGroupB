@@ -89,70 +89,12 @@ public class Room    {
             Debug.LogError("Room file does not contain switch");
         }
 
-        /*var bg = new GameObject();
-        bg.name = "background sprite";
-        var sr = bg.AddComponent<SpriteRenderer>();
-        sr.sprite = RoomBackgrounds.sprites[(int) Mathf.Floor(Random.value * RoomBackgrounds.sprites.Length)];
-        sr.material = new Material(Shader.Find("Transparent/Diffuse"));
-        bg.transform.parent = roomObj.transform;
-        bg.transform.localPosition = new Vector3(7.5f, -7.5f, 0.5f);*/
-        var bg = (GameObject) GameObject.Instantiate(Resources.Load("RoomBacks/windowPrefab") as GameObject);
+
+
+        var bg = (GameObject)GameObject.Instantiate(GameObject.Find("LevelGeneration").GetComponent<RoomBackgrounds>().GetRoomBackground());
         bg.transform.parent = roomObj.transform;
         bg.transform.localPosition = new Vector3(7.5f, -7.5f, 0.5f);
     }
-
-	public void DrawExitRoom(GameObject room)
-	{
-		roomObj = room;
-		List<GameObject> trapTileList = new List<GameObject>();
-		List<GameObject> roomLightList = new List<GameObject>();
-		List<int> radiusLightList = new List<int>();
-		for (int x = 0; x < tiles.GetLength(0); x++)
-		{
-			for (int y = 0; y < tiles.GetLength(1); y++)
-			{
-				switch(tiles[x, y])
-				{
-				case TileType.Solid:
-					var solidTile = (GameObject) MonoBehaviour.Instantiate(prefabs.tileGameObjects[tiles[x, y]] as GameObject);
-					solidTile.transform.parent = room.transform;
-					solidTile.transform.localPosition = new Vector3(x, -y, 0.0f);
-					break;
-				case TileType.Switch:
-					switchLocation = new Point(x, y);
-					break;
-				case TileType.Trap:
-					var trapTile = (GameObject)MonoBehaviour.Instantiate(prefabs.tileGameObjects[tiles[x, y]] as GameObject);
-					trapTile.transform.parent = room.transform;
-					trapTile.transform.localPosition = new Vector3(x, -y, 0.0f);
-					trapTileList.Add(trapTile);
-					break;
-				case TileType.RoomLight:
-					var roomLightTile = (GameObject)MonoBehaviour.Instantiate(Resources.Load("Tiles/RoomLight/roomLight", typeof(GameObject)))  as GameObject;
-					roomLightTile.transform.parent = room.transform;
-					roomLightTile.transform.localPosition = new Vector3(x, -y, 0.03f);
-					roomLightList.Add (roomLightTile);
-					int radius = FileReader.radiusInput[x, y];
-					radiusLightList.Add (radius);
-					break;
-				case TileType.Exit:
-					var exitDoor = (GameObject)MonoBehaviour.Instantiate(Resources.Load("Tiles/door", typeof(GameObject)))  as GameObject;
-					exitDoor.transform.parent = room.transform;
-					exitDoor.transform.localPosition = new Vector3(x, -y, 0.0f);
-					break;
-				}	
-			}
-		}
-		
-		trapTiles = trapTileList.ToArray();
-		lightTiles = roomLightList.ToArray();
-		radiusArray = radiusLightList.ToArray ();
-
-		if (switchLocation == null && exits != ExitType.None)
-		{
-			Debug.LogError("Room file does not contain switch");
-		}
-	}
 
     public void AddSwitch() 
     {

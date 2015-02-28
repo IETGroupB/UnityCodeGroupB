@@ -133,8 +133,6 @@ public class SwitchSystem : MonoBehaviour {
 			room.UpdateRoomLight();
 
         }
-        Debug.Log(lightStatesToString());
-
     }
 
     private void ToggleTraps(bool on)
