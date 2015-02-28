@@ -16,7 +16,7 @@ public class LevelGenerator : MonoBehaviour
     public GameObject levelContainer { get; set; }
 	public GameObject wallContainer { get; set; }
 
-    public LevelGenerator()
+    void Awake()
     {
 		//load all text files for different roomType
 		var files = Resources.LoadAll <TextAsset>("RoomFiles/LR/");

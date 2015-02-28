@@ -1081,6 +1081,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 4
+  state: 0
   isAlarmActive: 0
 --- !u!82 &934170868
 AudioSource:

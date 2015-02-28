@@ -16,6 +16,7 @@ public class SwitchSystem : MonoBehaviour {
     private RoomGrid roomGrid;
     public int furthestSwitch;
     private bool switchSystemActive;
+    private int initialToggle;
 
     /*
      * Called on creation of level to set up the switch system
@@ -43,12 +44,12 @@ public class SwitchSystem : MonoBehaviour {
 
             switchRoomsGlobalIndex = hasSwitchGlobalList.ToArray();
             switchRooms = hasSwitchList.ToArray();
-            furthestSwitch = 0;
+            furthestSwitch = -1;
 
             switchSystemActive = true;
+            initialToggle = 0;
         }
 
-        
         UpdateLights();
     }
 
@@ -65,7 +66,7 @@ public class SwitchSystem : MonoBehaviour {
     {
         // exit if not set up
         if (!switchSystemActive) return;
-        
+
         // poll the switches to check for changes
         for (int i = furthestSwitch + 1; i < switchRooms.Length; i++)
         {
@@ -76,22 +77,16 @@ public class SwitchSystem : MonoBehaviour {
                 // new furthest switch reached
                 furthestSwitch = i;
                  
-                if (
+                var alarmFlag = 
                     !alarmActive &&
                     Random.value < alarmProbability && 
                     !roomGrid.GetRoom(switchRooms[i]).isStart && 
-                    !roomGrid.GetRoom(switchRooms[i]).isExit)
-                {
-                    alarmActive = true;
-					ToggleAlarm (true);
-                    ToggleTraps(true);
-                }
-                else
-                {
-                    alarmActive = false;
-					ToggleAlarm (false);
-                    ToggleTraps(false);
-                }
+                    !roomGrid.GetRoom(switchRooms[i]).isExit;
+                
+                alarmActive = alarmFlag;
+				ToggleAlarm(alarmFlag);
+                ToggleTraps(alarmFlag);
+                
 
                 UpdateLights();
                 break;
@@ -107,24 +102,38 @@ public class SwitchSystem : MonoBehaviour {
         for (int i = 0; i < roomGrid.solutionPath.Length; i++)
         {
             var room = roomGrid.GetRoom(roomGrid.solutionPath[i]);
-            if (i <= switchRoomsGlobalIndex[furthestSwitch])
+
+            // no switches hit
+            if (furthestSwitch < 0)
             {
-                room.lightState = LightingType.Bright;
-            }
-            else if (furthestSwitch + 1 < switchRooms.Length) // check that it is not the last room
-            {
-                if (i <= switchRoomsGlobalIndex[furthestSwitch + 1])
+                if (i <= switchRoomsGlobalIndex[0])
                 {
                     room.lightState = LightingType.Dim;
                 }
-                else
+            }
+            else
+            {
+                if (i <= switchRoomsGlobalIndex[furthestSwitch])
                 {
-                    room.lightState = LightingType.Dark;
+                    room.lightState = LightingType.Bright;
+                }
+                // check that it is not the last room
+                else if (furthestSwitch + 1 < switchRooms.Length)
+                {
+                    if (i <= switchRoomsGlobalIndex[furthestSwitch + 1])
+                    {
+                        room.lightState = LightingType.Dim;
+                    }
+                    else
+                    {
+                        room.lightState = LightingType.Dark;
+                    }
                 }
             }
 			room.UpdateRoomLight();
 
         }
+        Debug.Log(lightStatesToString());
 
     }
 

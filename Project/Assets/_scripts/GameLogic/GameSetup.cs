@@ -25,7 +25,6 @@ public class GameSetup : MonoBehaviour {
 
         switchSystem = gameObject.GetComponent<SwitchSystem>();
         switchSystem.SetUp(levelGen.roomGrid);
-        switchSystem.UpdateLights();
     }
 
 

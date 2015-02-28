@@ -5,12 +5,12 @@ using System.Collections;
 public class RoomLight : Tile {
 	Light rLight;
 	private float radius;
-	private LightingType state;
+	public LightingType state;
 	public bool isAlarmActive;
 	Light alarmLight;
 	private AudioSource alarmSound;
 
-	void Start () {
+	void Awake () {
 		rLight = transform.GetComponent<Light>();
 		rLight.intensity = 0.0f;
 		rLight.range = 1.0f;
