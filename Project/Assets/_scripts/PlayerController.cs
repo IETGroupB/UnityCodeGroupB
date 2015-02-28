@@ -3,7 +3,10 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour 
 {
-    
+    public Color ambientDark;
+    public Color ambientDim;
+    public Color ambientBright;
+    public float ColourFadeRate;
 
 	public float maxSpeed = 1f;
 	public float jumpForce = 700f;
@@ -18,6 +21,9 @@ public class PlayerController : MonoBehaviour
 	private bool grounded = false;
     private float groundRadius = 0.2f;
     private GameObject[] parts;
+    private RoomGrid roomGrid;
+
+    private Color ambientLight;
 
     void Awake()
     {
@@ -27,6 +33,12 @@ public class PlayerController : MonoBehaviour
        	parts[2] = transform.FindChild("Wheel").gameObject;
 
         body = parts[1];
+        ambientLight = new Color(0.0f, 0.0f, 0.0f);
+    }
+
+    void Start()
+    {
+        roomGrid = GameObject.Find("LevelGeneration").GetComponent<LevelGenerator>().roomGrid;
     }
 
 	void FixedUpdate () 
@@ -49,16 +61,16 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	void Update () 
-	{
+	void Update ()
+    {
         if (!alive) return;
 
-		if(grounded && Input.GetButtonDown("Fire1"))
-		{
-			rigidbody2D.AddForce(new Vector2(0,jumpForce));
-		}
+        if (grounded && Input.GetButtonDown("Fire1"))
+        {
+            rigidbody2D.AddForce(new Vector2(0, jumpForce));
+        }
 
-        if(Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire2"))
         {
             Fire2Down = true;
         }
@@ -66,7 +78,36 @@ public class PlayerController : MonoBehaviour
         {
             Fire2Down = false;
         }
-	}
+
+        {
+            //switch on light state of closest room
+            switch (roomGrid.GetRoom(roomGrid.GetClosestRoom(new Vector2(transform.position.x, transform.position.y))).lightState)
+            {
+                case LightingType.Dark:
+                    ambientLight = new Color(
+                        Mathf.Lerp(ambientLight.r, ambientDark.r, Time.deltaTime * ColourFadeRate),
+                        Mathf.Lerp(ambientLight.g, ambientDark.g, Time.deltaTime * ColourFadeRate),
+                        Mathf.Lerp(ambientLight.b, ambientDark.b, Time.deltaTime * ColourFadeRate));
+                    break;
+                    
+                case LightingType.Dim:
+                    ambientLight = new Color(
+                        Mathf.Lerp(ambientLight.r, ambientDim.r, Time.deltaTime * ColourFadeRate),
+                        Mathf.Lerp(ambientLight.g, ambientDim.g, Time.deltaTime * ColourFadeRate),
+                        Mathf.Lerp(ambientLight.b, ambientDim.b, Time.deltaTime * ColourFadeRate));
+                    break;
+                    
+                case LightingType.Bright:
+                    ambientLight = new Color(
+                        Mathf.Lerp(ambientLight.r, ambientBright.r, Time.deltaTime * ColourFadeRate),
+                        Mathf.Lerp(ambientLight.g, ambientBright.g, Time.deltaTime * ColourFadeRate),
+                        Mathf.Lerp(ambientLight.b, ambientBright.b, Time.deltaTime * ColourFadeRate));
+                    break;
+            }
+
+            RenderSettings.ambientLight = ambientLight;
+        }
+    }
 
     public void KillPlayer()
     {

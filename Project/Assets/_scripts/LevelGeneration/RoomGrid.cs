@@ -11,6 +11,25 @@ public class RoomGrid  {
     private int width;
     private int height;
 
+
+    public Point GetClosestRoom(Vector2 globalPosition)
+    {
+        var closestRoom = new Point(-1, -1);
+        var closestMagnitude = Mathf.Infinity;
+
+        foreach(Point p in solutionPath)
+        {
+            var roomCentre = new Vector2(p.x * 16 + 8, -(p.y * 16 + 8));
+            if (Vector2.Distance(roomCentre, globalPosition) < closestMagnitude)
+            {
+                closestRoom = p;
+                closestMagnitude = Vector2.Distance(roomCentre, globalPosition);
+            }
+        }
+
+        return closestRoom;
+    }
+
     public RoomGrid(int width, int height, float goDownProbability)
     {
         // set background height and width
