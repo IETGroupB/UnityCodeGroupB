@@ -69,6 +69,12 @@ public class Room    {
 						break;
                     case TileType.Exit:
                         Exit = new Point(x, y);
+                        if (isExit)    
+                        {
+                            var exitDoor = (GameObject)MonoBehaviour.Instantiate(Resources.Load("Tiles/door", typeof(GameObject))) as GameObject;
+                            exitDoor.transform.parent = room.transform;
+                            exitDoor.transform.localPosition = new Vector3(x, -y, 0.0f);
+                        }
                         break;
                 }	
             }
@@ -90,6 +96,9 @@ public class Room    {
         sr.material = new Material(Shader.Find("Transparent/Diffuse"));
         bg.transform.parent = roomObj.transform;
         bg.transform.localPosition = new Vector3(7.5f, -7.5f, 0.5f);*/
+        var bg = (GameObject) GameObject.Instantiate(Resources.Load("RoomBacks/windowPrefab") as GameObject);
+        bg.transform.parent = roomObj.transform;
+        bg.transform.localPosition = new Vector3(7.5f, -7.5f, 0.5f);
     }
 
 	public void DrawExitRoom(GameObject room)
