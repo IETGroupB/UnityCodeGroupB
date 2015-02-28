@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 
 public class LevelGenerator : MonoBehaviour 
@@ -9,11 +10,11 @@ public class LevelGenerator : MonoBehaviour
     private ArrayList lrbRooms = new ArrayList();
     private ArrayList lrtbRooms = new ArrayList();
     private ArrayList emptyRoom = new ArrayList();
-
-    
+	   
     public RoomGrid roomGrid { get; private set; }
     public Point roomGridSize { get; private set; }
     public GameObject levelContainer { get; set; }
+	public GameObject wallContainer { get; set; }
 
     public LevelGenerator()
     {
@@ -82,6 +83,9 @@ public class LevelGenerator : MonoBehaviour
 
 	public void DrawLevel()
 	{
+		wallContainer = new GameObject("WallContainer");
+		wallContainer.transform.parent = transform;
+
 		// Draw Rooms
 		for (int h = 0; h < roomGridSize.y; h++)
 		{
@@ -187,19 +191,23 @@ public class LevelGenerator : MonoBehaviour
 
 	public void DrawHorizontalWall(int x, int y)
 	{
-		GameObject currentWall = GameObject.FindGameObjectWithTag("Wall");
 		for(int i=x; i<x+16; i++)
 		{
-			GameObject.Instantiate (currentWall, new Vector3(i, y, 0), new Quaternion (0, 0, 0, 0));
+			GameObject wall = (GameObject)MonoBehaviour.Instantiate(Resources.Load("Tiles/wall", typeof(GameObject)))  as GameObject;
+			wall.transform.parent = wallContainer.transform;
+			wall.transform.localPosition = new Vector3(i, y, 0.0f);
 		}
+
+
 	}
 
 	public void DrawVerticalWall(int x, int y)
 	{
-		GameObject currentWall = GameObject.FindGameObjectWithTag("Wall");
 		for(int i=y; i>y-18; i--)
 		{
-			GameObject.Instantiate (currentWall, new Vector3(x, i, 0), new Quaternion (0, 0, 0, 0));
+			GameObject wall = (GameObject)MonoBehaviour.Instantiate(Resources.Load("Tiles/wall", typeof(GameObject)))  as GameObject;
+			wall.transform.parent = wallContainer.transform;
+			wall.transform.localPosition = new Vector3(x, i, 0.0f);
 		}
 	}
 
