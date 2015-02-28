@@ -83,13 +83,13 @@ public class Room    {
             Debug.LogError("Room file does not contain switch");
         }
 
-        var bg = new GameObject();
+        /*var bg = new GameObject();
         bg.name = "background sprite";
         var sr = bg.AddComponent<SpriteRenderer>();
         sr.sprite = RoomBackgrounds.sprites[(int) Mathf.Floor(Random.value * RoomBackgrounds.sprites.Length)];
         sr.material = new Material(Shader.Find("Transparent/Diffuse"));
         bg.transform.parent = roomObj.transform;
-        bg.transform.localPosition = new Vector3(7.5f, -7.5f, 0.5f);
+        bg.transform.localPosition = new Vector3(7.5f, -7.5f, 0.5f);*/
     }
 
 	public void DrawExitRoom(GameObject room)
