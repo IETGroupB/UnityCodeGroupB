@@ -3170,6 +3170,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bbe3ce7da67d724d98582d80e7c573b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ambientDark: {r: .0316817723, g: .0231941976, b: .0955882072, a: 0}
+  ambientDim: {r: .0821053609, g: .0767733678, b: .147058845, a: 0}
+  ambientBright: {r: .175173014, g: .180166468, b: .198529422, a: 0}
+  ColourFadeRate: 2.16000009
   maxSpeed: 10
   jumpForce: 700
   alive: 1
@@ -3178,7 +3182,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 4294967039
-  body: {fileID: 0}
+  body: {fileID: 863512283}
 --- !u!58 &1712653590
 CircleCollider2D:
   m_ObjectHideFlags: 0
