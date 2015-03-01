@@ -79,6 +79,7 @@ public class PlayerController : MonoBehaviour
             Fire2Down = false;
         }
 
+        //do ambient light fade
         {
             //switch on light state of closest room
             switch (roomGrid.GetRoom(roomGrid.GetClosestRoom(new Vector2(transform.position.x, transform.position.y))).lightState)

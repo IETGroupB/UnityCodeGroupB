@@ -18,6 +18,7 @@ public class Room    {
 
     private TilePrefabManager prefabs;
     private GameObject roomObj;
+    private GameObject[] CeilingLights;
 
     //switch specific parameters
     private Point switchLocation;
@@ -38,6 +39,7 @@ public class Room    {
         roomObj = room;
         List<GameObject> trapTileList = new List<GameObject>();
 		List<GameObject> roomLightList = new List<GameObject>();
+        List<GameObject> ceilingLightList = new List<GameObject>();
 		List<int> radiusLightList = new List<int>();
         for (int x = 0; x < tiles.GetLength(0); x++)
         {
@@ -67,6 +69,12 @@ public class Room    {
 						int radius = FileReader.radiusInput[x, y];
 						radiusLightList.Add (radius);
 						break;
+                    case TileType.CeilingLight:
+                        var ceilingLight = (GameObject)MonoBehaviour.Instantiate(prefabs.tileGameObjects[tiles[x, y]] as GameObject);
+                        ceilingLight.transform.parent = room.transform;
+                        ceilingLight.transform.localPosition = new Vector3(x, -y, 0.0f);
+                        ceilingLightList.Add(ceilingLight);
+                        break;
                     case TileType.Exit:
                         Exit = new Point(x, y);
                         if (isExit)    
@@ -83,6 +91,7 @@ public class Room    {
         trapTiles = trapTileList.ToArray();
 		lightTiles = roomLightList.ToArray();
 		radiusArray = radiusLightList.ToArray ();
+        CeilingLights = ceilingLightList.ToArray();
 
         if (switchLocation == null && exits != ExitType.None)
         {
@@ -94,6 +103,8 @@ public class Room    {
         var bg = (GameObject)GameObject.Instantiate(GameObject.Find("LevelGeneration").GetComponent<RoomBackgrounds>().GetRoomBackground());
         bg.transform.parent = roomObj.transform;
         bg.transform.localPosition = new Vector3(7.5f, -7.5f, 0.5f);
+
+        Resources.Load<GameObject>(Tile.prefabs[TileType.CeilingLight]);
     }
 
     public void AddSwitch() 
@@ -118,7 +129,7 @@ public class Room    {
 
 	public void ToggleAlarm(bool on)
 	{
-		//for just one alarm light in each room
+		    //for just one alarm light in each room
 			lightTiles[0].GetComponent<RoomLight>().isAlarmActive = on;
 	}
 	
@@ -141,5 +152,10 @@ public class Room    {
 					break;
 				}
 		}
+
+        for (int i = 0; i < CeilingLights.Length; i++)
+        {
+            CeilingLights[i].GetComponent<CeilingLight>().UpdateLightIntensity(lightState);
+        }
 	}
 }
