@@ -4,11 +4,12 @@ using System.Collections;
 public class EnemyMovement : MonoBehaviour {
 	public float speed;
 	public bool switchOn;
-	//Transform player;
-	//NavMeshAgent nav;
 
 	public GameObject objSwitch;
+	public GameObject target;
 	SwitchSystem switchSystem;
+	private RoomGrid roomGrid;
+	private Point targetRoom, enemyRoom;
 
 
 	void Start(){
@@ -17,26 +18,51 @@ public class EnemyMovement : MonoBehaviour {
 		objSwitch = GameObject.FindGameObjectWithTag ("LevelGenerator");
 		switchSystem = objSwitch.GetComponent<SwitchSystem> ();
 
+		roomGrid = GameObject.Find("LevelGeneration").GetComponent<LevelGenerator>().roomGrid;
+		target = GameObject.Find ("Character");
 	}
 
 	void Update(){
 		switchOn = switchSystem.alarmActive;
-		Vector3 movement = GameObject.FindGameObjectWithTag ("PlayerGibs").transform.position - transform.position;
+		int enemyRoomIndex = 0; 
+		int targetRoomIndex = 0;
+		int indexDiff = 0;
+
+
+		Vector3 movement = Vector3.Normalize(target.transform.position - transform.position);
 		if (switchOn) {
-			rigidbody2D.velocity= (movement * speed * Time.deltaTime);
+			rigidbody2D.isKinematic = true;
+
+			targetRoom = roomGrid.GetClosestRoom (target.transform.position);
+			enemyRoom = roomGrid.GetClosestRoom (transform.position);
+
+			for(int i = 0;i<roomGrid.solutionPath.Length;i++){
+				if(targetRoom ==  roomGrid.solutionPath[i]){
+					targetRoomIndex = i;
+				}
+				if(enemyRoom == roomGrid.solutionPath[i]){
+					enemyRoomIndex = i;
+				}
+			}
+
+			indexDiff = targetRoomIndex-enemyRoomIndex;
+
+			if(indexDiff<=1&&indexDiff>=-1){
+				movement = target.transform.position-transform.position;
+				rigidbody2D.velocity = (0.5f*movement * speed* Time.deltaTime);
+			}
+
+			else if(indexDiff>0){
+				movement = new Vector3(roomGrid.solutionPath[enemyRoomIndex+1].x*16+8,-(roomGrid.solutionPath[enemyRoomIndex+1].y*16+8),0)-transform.position;
+				rigidbody2D.velocity = (Vector3.Normalize(movement) * speed*indexDiff*indexDiff * Time.deltaTime);
+			}
+			else{
+				movement = new Vector3(roomGrid.solutionPath[enemyRoomIndex-1].x*16+8,-(roomGrid.solutionPath[enemyRoomIndex-1].y*16+8),0)-transform.position;
+				rigidbody2D.velocity = (Vector3.Normalize(movement) * speed*indexDiff*indexDiff * Time.deltaTime);
+			}
+
+		} else {
+			rigidbody2D.isKinematic = false;
 		}
 	}
-	//	void turnSwitch(){
-	//		if (Time.timeSinceLevelLoad > 3.0f)
-	//						switchOn = true;
-	//				else
-	//						switchOn = false;
-	//	}
-	
-
-	
-	// Update is called once per frame
-	/*void Update () {
-		nav.SetDestination (player.position);
-	}*/
 }
