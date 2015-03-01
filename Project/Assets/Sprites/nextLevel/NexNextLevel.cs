@@ -33,7 +33,7 @@ namespace AssemblyCSharp
 					Door.endLevel = false;
 					testRoomGeneration.levelSize++;
 					// .. then reload the currently loaded level.
-					Application.LoadLevel(Application.loadedLevel);
+					Application.LoadLevel("scene01");
 				}
 			}
 		}
