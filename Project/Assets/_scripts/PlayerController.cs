@@ -1,8 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour 
 {
+    public string energyFormat;
+    public float energy;
+    public float energyDrainRate;
+    private Text energyText;
+    private float chargeEnergy = 0.0f;
+    private static float chargeRate = 20.0f;
+    private static float maxEnergy = 105.0f;
+    // rate at which text fades after death
+    public float textFadeRate;
+
     public Color ambientDark;
     public Color ambientDim;
     public Color ambientBright;
@@ -35,11 +46,15 @@ public class PlayerController : MonoBehaviour
         body = parts[1];
         ambientLight = new Color(0.0f, 0.0f, 0.0f);
 		jump = transform.GetComponent<AudioSource>();
+
+        energyText = GameObject.Find("Energy").GetComponent<Text>(); 
     }
 
     void Start()
     {
         roomGrid = GameObject.Find("LevelGeneration").GetComponent<LevelGenerator>().roomGrid;
+        energy = maxEnergy;
+        energyFormat = energyFormat.Replace("\\n", "\n");
     }
 
 	void FixedUpdate () 
@@ -60,11 +75,53 @@ public class PlayerController : MonoBehaviour
 		{
 			Flip();
 		}
+
+
+        //drain energy (update to do it based on movement??)
+        energy -= Time.deltaTime * energyDrainRate;
+
+        if (chargeEnergy > 0.0f)
+        {
+            var chargeAmount = chargeRate * Time.deltaTime;
+
+            if (chargeAmount > chargeEnergy) chargeAmount = chargeEnergy;
+
+            chargeEnergy -= chargeAmount;
+            energy += chargeAmount;
+
+            // add drain delay if 100% max energy is reached
+            if (energy > 100.0f) energy = maxEnergy;
+        }
+        
+        string energyToString;
+
+        if( energy >= 100.0f - float.Epsilon)
+            energyToString = "100";
+        // catch edge case
+        else if (energy >= 99.0f)
+            energyToString = " 99";
+        else if(energy >= 10.0f)
+            energyToString = " " + energy.ToString("00");
+        else if (energy > 0.0f)
+            energyToString = "  " + energy.ToString("0");
+        else
+        {
+            energyToString = "  0";
+            KillPlayer();
+        }
+
+        energyText.text = string.Format(energyFormat, energyToString);
 	}
 
 	void Update ()
     {
-        if (!alive) return;
+        if (!alive)
+        {
+            if(energyText.color.a > 0.0f)
+                energyText.color = new Color(energyText.color.r, energyText.color.g, energyText.color.b, energyText.color.a - textFadeRate * Time.deltaTime);
+
+            return;
+        }
 
         if (grounded && Input.GetButtonDown("Fire1"))
         {
@@ -110,6 +167,14 @@ public class PlayerController : MonoBehaviour
 
             RenderSettings.ambientLight = ambientLight;
         }
+    }
+
+    public void ChargePlayer(float amount)
+    {
+        if (energy + amount + chargeEnergy > maxEnergy)
+            amount -= energy + amount + chargeEnergy - maxEnergy;
+
+        chargeEnergy += amount;
     }
 
     public void KillPlayer()

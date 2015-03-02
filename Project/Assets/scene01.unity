@@ -230,6 +230,77 @@ Prefab:
   m_RootGameObject: {fileID: 1959331655}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &174316519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 174316520}
+  - 222: {fileID: 174316522}
+  - 114: {fileID: 174316521}
+  m_Layer: 5
+  m_Name: Energy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &174316520
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 174316519}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1757667645}
+  m_RootOrder: 1
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -156.100006, y: 84}
+  m_SizeDelta: {x: 213.699997, y: 79.7699966}
+  m_Pivot: {x: .5, y: .5}
+--- !u!114 &174316521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 174316519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: .996078432, g: .996078432, b: .996078432, a: 1}
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 87f54565559f542458a7f54eaaaa8496, type: 3}
+    m_FontSize: 16
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 8
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: '_____________
+
+
+    Energy: 100%
+
+    _____________'
+--- !u!222 &174316522
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 174316519}
 --- !u!1001 &233076664
 Prefab:
   m_ObjectHideFlags: 0
@@ -3114,6 +3185,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bbe3ce7da67d724d98582d80e7c573b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  energyFormat: '_____________\n\nEnergy: {0}%\n_____________'
+  deathText: _____________\n\n%ERROR%\n_____________
+  energy: 0
+  energyDrainRate: 3.08999991
   ambientDark: {r: .0316817723, g: .0231941976, b: .0955882072, a: 0}
   ambientDim: {r: .0821053609, g: .0767733678, b: .147058845, a: 0}
   ambientBright: {r: .175173014, g: .180166468, b: .198529422, a: 0}
@@ -3315,6 +3390,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 765920555}
+  - {fileID: 174316520}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_AnchorMin: {x: 0, y: 0}

@@ -32,6 +32,9 @@ public class Switch : Tile {
                 switchIndicator.color = onColour;
                 switchActive = true;
 				switchSound.Play ();
+
+                other.GetComponent<PlayerController>().ChargePlayer(20.0f);
+
                 // no need to keep checking after switch is activated
                 transform.GetComponent<CircleCollider2D>().enabled = false;
             }
