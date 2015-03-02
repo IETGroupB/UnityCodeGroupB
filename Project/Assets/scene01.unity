@@ -3172,7 +3172,7 @@ MonoBehaviour:
   ambientDark: {r: .0316817723, g: .0231941976, b: .0955882072, a: 0}
   ambientDim: {r: .0821053609, g: .0767733678, b: .147058845, a: 0}
   ambientBright: {r: .175173014, g: .180166468, b: .198529422, a: 0}
-  ColourFadeRate: 2.16000009
+  ColourFadeRate: .660000026
   maxSpeed: 10
   jumpForce: 700
   alive: 1
