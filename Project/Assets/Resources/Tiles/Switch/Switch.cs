@@ -4,6 +4,7 @@ using System.Collections;
 public class Switch : Tile {
     Light switchIndicator;
     private bool switchActive = false;
+	private AudioSource switchSound;
 
     Color offColour = new Color(1.0f, 0.0f, 0.0f);
     Color onColour = new Color(0.0f, 1.0f, 0.0f);
@@ -12,6 +13,7 @@ public class Switch : Tile {
     {
         switchIndicator = transform.GetChild(0).GetComponent<Light>();
         switchIndicator.color = offColour;
+		switchSound = transform.GetComponent<AudioSource>();
 	}
 
     public bool GetState()
@@ -29,7 +31,7 @@ public class Switch : Tile {
             {
                 switchIndicator.color = onColour;
                 switchActive = true;
-
+				switchSound.Play ();
                 // no need to keep checking after switch is activated
                 transform.GetComponent<CircleCollider2D>().enabled = false;
             }
