@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     private float groundRadius = 0.2f;
     private GameObject[] parts;
     private RoomGrid roomGrid;
-
+	private AudioSource jump;
     private Color ambientLight;
 
     void Awake()
@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
 
         body = parts[1];
         ambientLight = new Color(0.0f, 0.0f, 0.0f);
+		jump = transform.GetComponent<AudioSource>();
     }
 
     void Start()
@@ -68,6 +69,7 @@ public class PlayerController : MonoBehaviour
         if (grounded && Input.GetButtonDown("Fire1"))
         {
             rigidbody2D.AddForce(new Vector2(0, jumpForce));
+			jump.Play ();
         }
 
         if (Input.GetButtonDown("Fire2"))
