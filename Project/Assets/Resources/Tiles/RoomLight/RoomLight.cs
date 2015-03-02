@@ -8,7 +8,6 @@ public class RoomLight : Tile {
 	public LightingType state;
 	public bool isAlarmActive;
 	Light alarmLight;
-	private AudioSource alarmSound;
 
 	void Awake () {
 		rLight = transform.GetComponent<Light>();
@@ -17,8 +16,6 @@ public class RoomLight : Tile {
 		isAlarmActive = false;
 		alarmLight = transform.GetChild (0).GetComponent<Light> ();
 		alarmLight.intensity = 0.0f;
-		alarmSound = alarmLight.audio;
-		alarmSound.mute = true;
 
 	}
 
@@ -26,10 +23,8 @@ public class RoomLight : Tile {
 		if (isAlarmActive) {
 			alarmLight.intensity = 5.0f;
 			alarmLight.transform.Rotate (300 * Time.deltaTime, 300 * Time.deltaTime, 300 * Time.deltaTime, Space.Self);
-			alarmSound.mute = false;
 		} else {
 			alarmLight.intensity = 0.0f;
-			alarmSound.mute = true;
 		}
 	}
 	
