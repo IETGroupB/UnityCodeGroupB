@@ -103,7 +103,7 @@ public class TrapTile : Tile {
             }
             else if (other.tag == "PlayerGibs")
             {
-                if (Random.value <= 0.03f)
+                if (Random.value <= 0.1f)
                 {
                     other.rigidbody2D.AddForce((new Vector2(other.transform.position.x - transform.position.x, other.transform.position.y - transform.position.y)).normalized * shockForce);
                     isShocking = true;

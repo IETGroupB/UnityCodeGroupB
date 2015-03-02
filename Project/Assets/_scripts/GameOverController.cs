@@ -37,7 +37,7 @@ namespace AssemblyCSharp
 				{
 					testRoomGeneration.levelSize = 4;
 					// .. then reload the currently loaded level.
-					Application.LoadLevel(Application.loadedLevel);
+					Application.LoadLevel("menu");
 				}
 			}
 		}

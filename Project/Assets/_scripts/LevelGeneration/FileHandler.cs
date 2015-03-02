@@ -13,6 +13,7 @@ public static class FileReader{
             {"S", TileType.Switch},
             {"T", TileType.Trap},
 			{"L", TileType.RoomLight},
+            {"C", TileType.CeilingLight},
             {"E", TileType.Exit},
         };
 

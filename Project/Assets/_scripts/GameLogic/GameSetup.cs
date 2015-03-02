@@ -5,10 +5,12 @@ public class GameSetup : MonoBehaviour {
     LevelGenerator levelGen;
     SwitchSystem switchSystem;
     GameObject character;
+	GameObject EnemySpawner;
 
     void Awake()
     {
         character = GameObject.Find("Character");
+		EnemySpawner = GameObject.Find ("EnemySpawner");
     }
 
     public void Initialise(int width, int height, float goDownProb)
@@ -22,6 +24,7 @@ public class GameSetup : MonoBehaviour {
         var StartPosition = new Vector3(Entrance.x + Start.x * 16, 0.3f + -Entrance.y + -Start.y, 0.0f);
 
         character.transform.position = StartPosition;
+		EnemySpawner.transform.position = StartPosition;
 
         switchSystem = gameObject.GetComponent<SwitchSystem>();
         switchSystem.SetUp(levelGen.roomGrid);

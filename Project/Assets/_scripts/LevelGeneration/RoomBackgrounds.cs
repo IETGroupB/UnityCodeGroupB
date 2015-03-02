@@ -1,20 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RoomBackgrounds {
-    public static Sprite[] sprites = new Sprite[] {
-        Resources.Load<Sprite>("RoomBacks/wall"),
-        Resources.Load<Sprite>("RoomBacks/window"),
-    };
+public class RoomBackgrounds : MonoBehaviour {
+    private GameObject[] backs;
 
-    public static GameObject RoomBackground()
+    void Awake()
     {
-        var bg = new GameObject();
-        bg.AddComponent<SpriteRenderer>();
+        backs = new GameObject[] {
+            Resources.Load<GameObject>("RoomBacks/wallPrefab"),
+            Resources.Load<GameObject>("RoomBacks/windowPrefab"),
+        };
+    }
 
-        var sr = bg.GetComponent<SpriteRenderer>();
-        sr.sprite = Resources.Load<Sprite>("RoomBackgrounds/window.png");
-
-        return bg;
+    public GameObject GetRoomBackground()
+    {
+        return backs[(int) Mathf.Floor(Random.value * backs.Length)];
     }
 }
