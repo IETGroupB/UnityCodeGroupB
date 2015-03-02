@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Switch : Tile {
     Light switchIndicator;
+    public float chargeAmount;
     private bool switchActive = false;
 	private AudioSource switchSound;
 
@@ -33,7 +34,7 @@ public class Switch : Tile {
                 switchActive = true;
 				switchSound.Play ();
 
-                other.GetComponent<PlayerController>().ChargePlayer(20.0f);
+                other.GetComponent<PlayerController>().ChargePlayer(chargeAmount);
 
                 // no need to keep checking after switch is activated
                 transform.GetComponent<CircleCollider2D>().enabled = false;

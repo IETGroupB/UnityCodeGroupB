@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public float energyDrainRate;
     private Text energyText;
     private float chargeEnergy = 0.0f;
+    private float drainEnergy = 0.0f;
     private static float chargeRate = 20.0f;
     private static float maxEnergy = 105.0f;
     // rate at which text fades after death
@@ -77,9 +78,21 @@ public class PlayerController : MonoBehaviour
 		}
 
 
-        //drain energy (update to do it based on movement??)
-        energy -= Time.deltaTime * energyDrainRate;
+        // don't drain energy if charging
+        if (chargeEnergy <= 0.0f)
+            energy -= Time.deltaTime * energyDrainRate;
 
+        // drain energy after being attacked
+        if (drainEnergy > 0.0f)
+        {
+            var drainAmount = chargeRate * Time.deltaTime;
+
+            if (drainAmount > drainEnergy) drainAmount = drainEnergy;
+            drainEnergy -= drainAmount;
+            energy -= drainAmount;
+        }
+
+        // increase energy after a charge
         if (chargeEnergy > 0.0f)
         {
             var chargeAmount = chargeRate * Time.deltaTime;
@@ -167,6 +180,11 @@ public class PlayerController : MonoBehaviour
 
             RenderSettings.ambientLight = ambientLight;
         }
+    }
+
+    public void DrainEnergy(float amount)
+    {
+        drainEnergy += amount;
     }
 
     public void ChargePlayer(float amount)
