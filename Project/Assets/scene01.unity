@@ -73,6 +73,7 @@ NavMeshSettings:
     minRegionArea: 2
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
+    tileSizeHint: 0
   m_NavMesh: {fileID: 0}
 --- !u!1 &103924274
 GameObject:
@@ -1078,21 +1079,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1323271880}
   m_RootOrder: 0
---- !u!114 &934170867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400000, guid: ae6976e80664e9e4596e5810c27769cc,
-    type: 2}
-  m_PrefabInternal: {fileID: 2100842762}
-  m_GameObject: {fileID: 1323271879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abfc7f93a6068c047964018a739a68cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 4
-  state: 0
-  isAlarmActive: 0
 --- !u!1 &943406624
 GameObject:
   m_ObjectHideFlags: 0
@@ -1327,7 +1313,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1323271880}
   - 108: {fileID: 1323271881}
-  - 114: {fileID: 934170867}
+  - 114: {fileID: 1323271882}
   m_Layer: 0
   m_Name: roomLight
   m_TagString: Untagged
@@ -1384,6 +1370,24 @@ Light:
   m_ShadowAngle: 0
   m_IndirectIntensity: 1
   m_AreaSize: {x: 1, y: 1}
+--- !u!114 &1323271882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11474218, guid: ae6976e80664e9e4596e5810c27769cc,
+    type: 2}
+  m_PrefabInternal: {fileID: 2100842762}
+  m_GameObject: {fileID: 1323271879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abfc7f93a6068c047964018a739a68cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 4
+  state: 0
+  isAlarmActive: 0
+  DimIntensity: 1
+  BrightIntensity: 3.5
+  fadeRate: .569999993
 --- !u!1 &1349277280
 GameObject:
   m_ObjectHideFlags: 0
@@ -3198,8 +3202,8 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ignoreReversedGraphics: 1
-  blockingObjects: 0
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -3633,8 +3637,8 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ignoreReversedGraphics: 1
-  blockingObjects: 0
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295

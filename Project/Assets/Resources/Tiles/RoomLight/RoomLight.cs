@@ -8,6 +8,9 @@ public class RoomLight : Tile {
 	public LightingType state;
 	public bool isAlarmActive;
 	Light alarmLight;
+	public float DimIntensity;
+	public float BrightIntensity;
+	public float fadeRate;
 
 	void Awake () {
 		rLight = transform.GetComponent<Light>();
@@ -16,8 +19,15 @@ public class RoomLight : Tile {
 		isAlarmActive = false;
 		alarmLight = transform.GetChild (0).GetComponent<Light> ();
 		alarmLight.intensity = 0.0f;
-
+		rLight.enabled = false;
 	}
+
+	public void UpdatePointLightIntensity(LightingType state){
+		this.state = state;
+		if (state != LightingType.Dark) rLight.enabled = true;
+	}
+
+
 
 	 void Update(){
 		if (isAlarmActive) {
@@ -25,6 +35,18 @@ public class RoomLight : Tile {
 			alarmLight.transform.Rotate (300 * Time.deltaTime, 300 * Time.deltaTime, 300 * Time.deltaTime, Space.Self);
 		} else {
 			alarmLight.intensity = 0.0f;
+		}
+
+		switch (state) {
+		case LightingType.Bright:
+			rLight.intensity = Mathf.Lerp(rLight.intensity, BrightIntensity, Time.deltaTime * fadeRate);
+			break;
+		case LightingType.Dim:
+			rLight.intensity = Mathf.Lerp(rLight.intensity, DimIntensity, Time.deltaTime * fadeRate);
+			break;
+		case LightingType.Dark:
+			rLight.intensity = Mathf.Lerp(rLight.intensity, 0.0f, Time.deltaTime * fadeRate);;
+			break;
 		}
 	}
 	

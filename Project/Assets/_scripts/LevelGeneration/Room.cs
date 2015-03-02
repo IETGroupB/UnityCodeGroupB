@@ -140,17 +140,7 @@ public class Room    {
 			lightParams = lightTiles[i].GetComponent<RoomLight>();
 			lightParams.gameObject.light.range = radiusArray[i];
 			lightParams.gameObject.light.color = c;
-			switch (lightState) {
-				case LightingType.Bright:
-					lightParams.gameObject.light.intensity = 4.6f;
-					break;
-				case LightingType.Dim:
-					lightParams.gameObject.light.intensity = 1.0f;
-					break;
-				case LightingType.Dark:
-					lightParams.gameObject.light.intensity = 0.0f;
-					break;
-				}
+			lightParams.UpdatePointLightIntensity(lightState);
 		}
 
         for (int i = 0; i < CeilingLights.Length; i++)
