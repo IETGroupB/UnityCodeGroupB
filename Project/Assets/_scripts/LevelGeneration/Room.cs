@@ -64,7 +64,7 @@ public class Room    {
 					case TileType.RoomLight:
 						var roomLightTile = (GameObject)MonoBehaviour.Instantiate(Resources.Load("Tiles/RoomLight/roomLight", typeof(GameObject)))  as GameObject;
 						roomLightTile.transform.parent = room.transform;
-						roomLightTile.transform.localPosition = new Vector3(x, -y, 0.3f);
+						roomLightTile.transform.localPosition = new Vector3(x, -y, -5.0f);
 						roomLightList.Add (roomLightTile);
 						int radius = FileReader.radiusInput[x, y];
 						radiusLightList.Add (radius);
