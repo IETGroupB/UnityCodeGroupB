@@ -35,7 +35,13 @@ public class PlayerController : MonoBehaviour
     private GameObject[] parts;
     private RoomGrid roomGrid;
 	private AudioSource jump;
+    
+    
     private Color ambientLight;
+    public float headlightIntensityDark;
+    public float headlightEnergyDrain;
+    public float headlightIntensityDim;
+    private GameObject headlight;
 
     void Awake()
     {
@@ -44,8 +50,11 @@ public class PlayerController : MonoBehaviour
         parts[1] = transform.FindChild("Body").gameObject;
        	parts[2] = transform.FindChild("Wheel").gameObject;
 
+        headlight = parts[0].transform.FindChild("Spotlight").gameObject;
+
         body = parts[1];
         ambientLight = new Color(0.0f, 0.0f, 0.0f);
+
 		jump = transform.GetComponent<AudioSource>();
 
         energyText = GameObject.Find("Energy").GetComponent<Text>(); 
@@ -151,7 +160,7 @@ public class PlayerController : MonoBehaviour
             Fire2Down = false;
         }
 
-        //do ambient light fade
+        //do light fade
         {
             //switch on light state of closest room
             switch (roomGrid.GetRoom(roomGrid.GetClosestRoom(new Vector2(transform.position.x, transform.position.y))).lightState)
@@ -161,6 +170,8 @@ public class PlayerController : MonoBehaviour
                         Mathf.Lerp(ambientLight.r, ambientDark.r, Time.deltaTime * ColourFadeRate),
                         Mathf.Lerp(ambientLight.g, ambientDark.g, Time.deltaTime * ColourFadeRate),
                         Mathf.Lerp(ambientLight.b, ambientDark.b, Time.deltaTime * ColourFadeRate));
+
+                    headlight.GetComponent<Light>().intensity = Mathf.Lerp(headlight.GetComponent<Light>().intensity, headlightIntensityDark, Time.deltaTime * ColourFadeRate);
                     break;
                     
                 case LightingType.Dim:
@@ -168,6 +179,8 @@ public class PlayerController : MonoBehaviour
                         Mathf.Lerp(ambientLight.r, ambientDim.r, Time.deltaTime * ColourFadeRate),
                         Mathf.Lerp(ambientLight.g, ambientDim.g, Time.deltaTime * ColourFadeRate),
                         Mathf.Lerp(ambientLight.b, ambientDim.b, Time.deltaTime * ColourFadeRate));
+
+                    headlight.GetComponent<Light>().intensity = Mathf.Lerp(headlight.GetComponent<Light>().intensity, headlightIntensityDim, Time.deltaTime * ColourFadeRate);
                     break;
                     
                 case LightingType.Bright:
@@ -175,6 +188,9 @@ public class PlayerController : MonoBehaviour
                         Mathf.Lerp(ambientLight.r, ambientBright.r, Time.deltaTime * ColourFadeRate),
                         Mathf.Lerp(ambientLight.g, ambientBright.g, Time.deltaTime * ColourFadeRate),
                         Mathf.Lerp(ambientLight.b, ambientBright.b, Time.deltaTime * ColourFadeRate));
+
+
+                    headlight.GetComponent<Light>().intensity = Mathf.Lerp(headlight.GetComponent<Light>().intensity, 0.0f, Time.deltaTime * 1.5f);
                     break;
             }
 
@@ -218,5 +234,6 @@ public class PlayerController : MonoBehaviour
 		var theScale = transform.localScale;
 		theScale.x *= -1;
 		transform.localScale = theScale;
+        headlight.transform.rotation = Quaternion.Euler(new Vector3(0.0f, -headlight.transform.rotation.eulerAngles.y, 0.0f));
 	}
 }
