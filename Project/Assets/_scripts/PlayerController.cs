@@ -4,15 +4,14 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour 
 {
-    public string energyFormat;
     public float energy;
     public float energyDrainRate;
+    private string guiText;
     private Text energyText;
     private float chargeEnergy = 0.0f;
     private float drainEnergy = 0.0f;
     private static float chargeRate = 20.0f;
     private static float maxEnergy = 105.0f;
-    // rate at which text fades after death
     public float textFadeRate;
 
     public Color ambientDark;
@@ -64,7 +63,7 @@ public class PlayerController : MonoBehaviour
     {
         roomGrid = GameObject.Find("LevelGeneration").GetComponent<LevelGenerator>().roomGrid;
         energy = maxEnergy;
-        energyFormat = energyFormat.Replace("\\n", "\n");
+        guiText = energyText.text;
     }
 
 	void FixedUpdate () 
@@ -132,7 +131,7 @@ public class PlayerController : MonoBehaviour
             KillPlayer();
         }
 
-        energyText.text = string.Format(energyFormat, energyToString);
+        energyText.text = string.Format(guiText, energyToString);
 	}
 
 	void Update ()

@@ -259,10 +259,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1757667645}
   m_RootOrder: 1
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -156.100006, y: 84}
-  m_SizeDelta: {x: 213.699997, y: 79.7699966}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 120.779999, y: 71}
+  m_SizeDelta: {x: 213.700012, y: 79.7699966}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &174316521
 MonoBehaviour:
@@ -292,7 +292,7 @@ MonoBehaviour:
   m_Text: '_____________
 
 
-    Energy: 100%
+    Energy: {0}%
 
     _____________'
 --- !u!222 &174316522
@@ -3114,7 +3114,7 @@ SpriteRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -3249,7 +3249,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bbe3ce7da67d724d98582d80e7c573b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energyFormat: '_____________\n\nEnergy: {0}%\n_____________'
   energy: 0
   energyDrainRate: 3.08999991
   textFadeRate: .479999989
