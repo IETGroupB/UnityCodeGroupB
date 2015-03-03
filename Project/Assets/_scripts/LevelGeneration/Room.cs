@@ -14,6 +14,7 @@ public class Room    {
     public LightingType lightState;
     public GameObject[] trapTiles;
 	public GameObject[] lightTiles;
+    public GameObject[,] solidTiles;
 	public int[] radiusArray;
 
     private TilePrefabManager prefabs;
@@ -30,6 +31,7 @@ public class Room    {
     {
         this.exits = exits;
         prefabs = prefabsLink;
+        solidTiles = new GameObject[16, 16];
     }
 
     public void DrawRoom(GameObject room)
@@ -51,6 +53,7 @@ public class Room    {
                         var solidTile = (GameObject) MonoBehaviour.Instantiate(prefabs.tileGameObjects[tiles[x, y]] as GameObject);
                         solidTile.transform.parent = room.transform;
                         solidTile.transform.localPosition = new Vector3(x, -y, 0.0f);
+                        solidTiles[x, y] = solidTile;
                         break;
                     case TileType.Switch:
                         switchLocation = new Point(x, y);

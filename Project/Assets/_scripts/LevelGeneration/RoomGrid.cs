@@ -8,8 +8,8 @@ public class RoomGrid  {
     private Room[,] roomGrid;
     public Point[] solutionPath { get; private set; }
     // must be at least 2x2 to work
-    private int width;
-    private int height;
+    public int width { get; private set; }
+    public int height { get; private set; }
 
 
     public Point GetClosestRoom(Vector2 globalPosition)

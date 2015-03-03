@@ -73,7 +73,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e6cb852cae39974468f42508c47bf373, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0c2598242cb22914cab16000cc6510a0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
