@@ -32,16 +32,36 @@ public static class FileReader{
             {
 				if (TileIDs.ContainsKey(inputLine[i][0].ToString()))
                 {
-					if(inputLine[i][0].ToString() == "L"){
-						if(inputLine[i].Length > 1){
-							int radius = (int)Char.GetNumericValue(inputLine[i][1]);
-							tiles[i, j] = TileIDs[inputLine[i][0].ToString()];
-							radiusInput[i, j] = radius;
-						}else{
-							radiusInput[i, j] = 9;
-							tiles[i, j] = TileIDs[inputLine[i][0].ToString()];
-						}
-					}else{
+                    if (inputLine[i][0].ToString() == "L")
+                    {
+                        if (inputLine[i].Length > 1)
+                        {
+                            int radius = int.Parse(inputLine[i].Substring(1));
+                            tiles[i, j] = TileIDs[inputLine[i][0].ToString()];
+                            radiusInput[i, j] = radius;
+                        }
+                        else
+                        {
+                            radiusInput[i, j] = 9;
+                            tiles[i, j] = TileIDs[inputLine[i][0].ToString()];
+                        }
+                    }
+                    else if (inputLine[i][0].ToString() == "C")
+                    {
+                        if (inputLine[i].Length > 1)
+                        {
+                            int radius = int.Parse(inputLine[i].Substring(1));
+                            tiles[i, j] = TileIDs[inputLine[i][0].ToString()];
+                            radiusInput[i, j] = radius;
+                        }
+                        else
+                        {
+                            radiusInput[i, j] = 10;
+                            tiles[i, j] = TileIDs[inputLine[i][0].ToString()];
+                        }
+                    }
+                    else
+                    {
 						tiles[i, j] = TileIDs[inputLine[i][0].ToString()];
 					}
                 }

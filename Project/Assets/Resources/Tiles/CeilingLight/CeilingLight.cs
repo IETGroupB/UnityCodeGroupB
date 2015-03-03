@@ -21,6 +21,11 @@ public class CeilingLight : Tile {
         if (intensity != LightingType.Dark) spotlight.enabled = true;
     }
 
+    public void SetRange(int length)
+    {
+        spotlight.range = (Mathf.Abs(spotlight.transform.localPosition.y) + length) / Mathf.Cos((90 - spotlight.transform.rotation.eulerAngles.x) * Mathf.Deg2Rad);
+    }
+
     void Update()
     {
         switch (intensity)

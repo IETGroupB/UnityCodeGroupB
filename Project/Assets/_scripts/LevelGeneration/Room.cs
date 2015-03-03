@@ -73,6 +73,7 @@ public class Room    {
                         var ceilingLight = (GameObject)MonoBehaviour.Instantiate(prefabs.tileGameObjects[tiles[x, y]] as GameObject);
                         ceilingLight.transform.parent = room.transform;
                         ceilingLight.transform.localPosition = new Vector3(x, -y, 0.0f);
+                        ceilingLight.GetComponent<CeilingLight>().SetRange(FileReader.radiusInput[x, y]);
                         ceilingLightList.Add(ceilingLight);
                         break;
                     case TileType.Exit:
