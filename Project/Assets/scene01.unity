@@ -3619,10 +3619,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c572ee3a8bef894db44ff251fe6a6b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trackSpeed: .180000007
+  trackSpeed: .140000001
   yOffset: 2
   tiltScale: 40
-  xyTiltRatio: 1.25999999
+  xyTiltRatio: 1.57000005
 --- !u!1 &1825858681
 GameObject:
   m_ObjectHideFlags: 0
@@ -3878,7 +3878,7 @@ SpriteRenderer:
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 37456adc381c9334aa70523f2dd2c366, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &1959331658
