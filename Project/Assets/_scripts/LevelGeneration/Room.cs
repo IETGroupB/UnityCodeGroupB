@@ -85,7 +85,7 @@ public class Room    {
                         {
                             var exitDoor = (GameObject)MonoBehaviour.Instantiate(Resources.Load("Tiles/door", typeof(GameObject))) as GameObject;
                             exitDoor.transform.parent = room.transform;
-                            exitDoor.transform.localPosition = new Vector3(x, -y, 0.0f);
+                            exitDoor.transform.localPosition = new Vector3(x, -y, 0.002f);
                         }
                         break;
                 }	
