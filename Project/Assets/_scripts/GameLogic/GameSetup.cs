@@ -28,6 +28,7 @@ public class GameSetup : MonoBehaviour {
         character.transform.position = StartPosition;
 		EnemySpawner.transform.position = StartPosition;
         camera.transform.position = new Vector3(StartPosition.x, StartPosition.y, camera.transform.position.z);
+        camera.GetComponent<CameraController>().ResetTilt();
 
         switchSystem = gameObject.GetComponent<SwitchSystem>();
         switchSystem.SetUp(levelGen.roomGrid);
