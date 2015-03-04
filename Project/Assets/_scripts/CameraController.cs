@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour {
     private Vector2 tilt;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         playerCharacter = GameObject.Find("Character");
         lastLocation = new Vector2(0.0f, 0.0f);
         tilt = new Vector2(0.0f, 0.0f);
@@ -26,7 +26,6 @@ public class CameraController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        ResetTilt();
         transform.position = new Vector3(
             Mathf.Lerp(transform.position.x, playerCharacter.transform.position.x, Time.deltaTime * trackSpeed * 
             Mathf.Pow(Mathf.Abs(transform.position.x - playerCharacter.transform.position.x), 2)),
