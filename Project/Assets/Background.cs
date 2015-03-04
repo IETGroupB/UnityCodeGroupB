@@ -13,12 +13,16 @@ public class Background : MonoBehaviour {
     private GameObject[] starRef;
 
     private const int RoomSize = 16;
-
+    private bool isRunning;
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         starPrefab = Resources.Load<GameObject>("star");
         starRef = new GameObject[starCount];
+        isRunning = false;
+	}
 
+    public void StartBackground()
+    {
         for (var i = 0; i < starCount; i++)
         {
             starRef[i] = Instantiate(starPrefab) as GameObject;
@@ -30,11 +34,16 @@ public class Background : MonoBehaviour {
                 );
             starRef[i].transform.localScale = starScale;
         }
-	}
+
+        isRunning = true;
+    }
+
 	
 	// Update is called once per frame
 	void Update () 
     {
+        if (!isRunning) return;
+
         var move = new Vector3(-starSpeed, 0, 0) * Time.deltaTime;
         for (var i = 0; i < starCount; i++)
         {

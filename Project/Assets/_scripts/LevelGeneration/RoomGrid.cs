@@ -35,8 +35,10 @@ public class RoomGrid  {
         // set background height and width
         var nearBG = GameObject.Find("BackgroundNear");
         var farBG = GameObject.Find("BackgroundFar");
-        nearBG.GetComponent<Background>().roomGridSize = new Vector2(width, height);
-        farBG.GetComponent<Background>().roomGridSize = new Vector2(width, height);
+        nearBG.GetComponent<Background>().roomGridSize = new Vector2(4 * width, 4 * height);
+        nearBG.GetComponent<Background>().StartBackground();
+        farBG.GetComponent<Background>().roomGridSize = new Vector2(5 * width, 5 * height);
+        farBG.GetComponent<Background>().StartBackground();
 
         this.width = width;
         this.height = height;

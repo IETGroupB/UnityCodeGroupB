@@ -43,6 +43,7 @@ public class TrapTile : Tile {
                 segments[i] = new GameObject();
                 segments[i].AddComponent<SpriteRenderer>();
                 segments[i].GetComponent<SpriteRenderer>().sprite = bolt;
+                segments[i].GetComponent<SpriteRenderer>().sortingOrder = 200;
             }
         }
     }

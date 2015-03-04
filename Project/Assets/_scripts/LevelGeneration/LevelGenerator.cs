@@ -387,7 +387,7 @@ public class LevelGenerator : MonoBehaviour
 		{
 			GameObject wall = (GameObject)MonoBehaviour.Instantiate(Resources.Load("Tiles/wall", typeof(GameObject)))  as GameObject;
 			wall.transform.parent = wallContainer.transform;
-			wall.transform.localPosition = new Vector3(i, y, 1.0f);
+            wall.transform.localPosition = new Vector3(i, y, 0.002f);
 		}
 
 
@@ -399,7 +399,7 @@ public class LevelGenerator : MonoBehaviour
 		{
 			GameObject wall = (GameObject)MonoBehaviour.Instantiate(Resources.Load("Tiles/wall", typeof(GameObject)))  as GameObject;
 			wall.transform.parent = wallContainer.transform;
-			wall.transform.localPosition = new Vector3(x, i, 1.0f);
+            wall.transform.localPosition = new Vector3(x, i, 0.002f);
 		}
 	}
 

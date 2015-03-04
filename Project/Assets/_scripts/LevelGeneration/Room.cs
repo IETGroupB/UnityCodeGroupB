@@ -106,7 +106,7 @@ public class Room    {
 
         var bg = (GameObject)GameObject.Instantiate(GameObject.Find("LevelGeneration").GetComponent<RoomBackgrounds>().GetRoomBackground());
         bg.transform.parent = roomObj.transform;
-        bg.transform.localPosition = new Vector3(7.5f, -7.5f, 0.5f);
+        bg.transform.localPosition = new Vector3(7.5f, -7.5f, 0.003f);
 
         Resources.Load<GameObject>(Tile.prefabs[TileType.CeilingLight]);
     }
@@ -118,7 +118,7 @@ public class Room    {
         var switchObj = (GameObject) MonoBehaviour.Instantiate(prefabs.tileGameObjects[TileType.Switch] as GameObject);
 
         switchObj.transform.parent = roomObj.transform;
-        switchObj.transform.localPosition = new Vector3(switchLocation.x, -switchLocation.y, 0.1f);
+        switchObj.transform.localPosition = new Vector3(switchLocation.x, -switchLocation.y, 0.0015f);
 
         switchParams = switchObj.GetComponent<Switch>();
     }
