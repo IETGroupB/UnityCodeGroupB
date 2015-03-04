@@ -4,6 +4,7 @@ using System.Collections;
 public class EnemyMovement : MonoBehaviour {
 	public float speed;
 	public bool switchOn;
+	public float drainAmount;
 
 	public GameObject objSwitch;
 	public GameObject target;
@@ -14,6 +15,7 @@ public class EnemyMovement : MonoBehaviour {
 
 	void Start(){
 		speed = 100;
+		drainAmount = 0.15f;
 		switchOn = true;
 		objSwitch = GameObject.FindGameObjectWithTag ("LevelGenerator");
 		switchSystem = objSwitch.GetComponent<SwitchSystem> ();
@@ -63,6 +65,13 @@ public class EnemyMovement : MonoBehaviour {
 
 		} else {
 			rigidbody2D.isKinematic = false;
+		}
+	}
+
+	void OnTriggerStay2D(Collider2D other){
+		if (other.gameObject.name == "Character"&&switchOn) {
+			float distance = Vector3.Distance(transform.position,other.transform.position);
+			other.GetComponent<PlayerController>().DrainEnergy(drainAmount/(distance*distance));		
 		}
 	}
 }
