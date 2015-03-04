@@ -177,10 +177,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomGridSize: {x: 4, y: 4}
-  starScale: {x: .699999988, y: .699999988, z: .600000024}
-  starCount: 300
-  starSpeed: 1
-  zPos: 20
+  starScale: {x: .5, y: .5, z: 1}
+  starCount: 800
+  starSpeed: 3.06999993
+  zPos: 16
 --- !u!1001 &172682204
 Prefab:
   m_ObjectHideFlags: 0
@@ -1241,10 +1241,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomGridSize: {x: 4, y: 4}
-  starScale: {x: .800000012, y: .800000012, z: .600000024}
-  starCount: 300
-  starSpeed: 3
-  zPos: 10
+  starScale: {x: 1, y: 1, z: 1}
+  starCount: 1000
+  starSpeed: 5.96999979
+  zPos: 8
 --- !u!4 &1061963282
 Transform:
   m_ObjectHideFlags: 0
@@ -3546,7 +3546,7 @@ Camera:
     height: 1
   near clip plane: .300000012
   far clip plane: 1000
-  field of view: 81.4000015
+  field of view: 23
   orthographic: 0
   orthographic size: 8.47991943
   m_Depth: -1
@@ -3567,7 +3567,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1802129551}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.7003803, y: 17.1175632, z: -10}
+  m_LocalPosition: {x: 13.7003803, y: 17.1175632, z: -40}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3583,9 +3583,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c572ee3a8bef894db44ff251fe6a6b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trackSpeed: .25
+  trackSpeed: .180000007
   yOffset: 2
-  tiltScale: 20
+  tiltScale: 40
+  xyTiltRatio: 1.25999999
 --- !u!1 &1825858681
 GameObject:
   m_ObjectHideFlags: 0
