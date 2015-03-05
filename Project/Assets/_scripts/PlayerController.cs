@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     private static float chargeRate = 20.0f;
     private static float maxEnergy = 105.0f;
     public float textFadeRate;
+	public Texture2D fgImage;
+	public Texture2D bgImage;
 
     public Color ambientDark;
     public Color ambientDim;
@@ -32,9 +34,7 @@ public class PlayerController : MonoBehaviour
 	private bool grounded = false;
     private float groundRadius = 0.2f;
     private GameObject[] parts;
-    private RoomGrid roomGrid;
-	private AudioSource jump;
-    
+    private RoomGrid roomGrid;    
     
     private Color ambientLight;
     public float headlightIntensityDark;
@@ -53,8 +53,6 @@ public class PlayerController : MonoBehaviour
 
         body = parts[1];
         ambientLight = new Color(0.0f, 0.0f, 0.0f);
-
-		jump = transform.GetComponent<AudioSource>();
 
         energyText = GameObject.Find("Energy").GetComponent<Text>(); 
     }
@@ -147,7 +145,6 @@ public class PlayerController : MonoBehaviour
         if (grounded && Input.GetButtonDown("Fire1"))
         {
             rigidbody2D.AddForce(new Vector2(0, jumpForce));
-			jump.Play ();
         }
 
         if (Input.GetButtonDown("Fire2"))
@@ -234,5 +231,17 @@ public class PlayerController : MonoBehaviour
 		theScale.x *= -1;
 		transform.localScale = theScale;
         headlight.transform.rotation = Quaternion.Euler(new Vector3(0.0f, -headlight.transform.rotation.eulerAngles.y, 0.0f));
+	}
+
+	void OnGUI(){
+		GUI.BeginGroup (new Rect(10, 10, 256, 32));
+		GUI.Box (new Rect(0,0,256,32), bgImage);
+		GUI.BeginGroup (new Rect(0, 0, (energy/100)*256, 32));
+		GUI.Box (new Rect(0, 0, 256, 32), fgImage);
+		GUI.EndGroup ();
+		GUI.EndGroup ();
+		//if (GUI.Button(new Rect(10, 10, 150, 100), "I am a button"))
+		//	print("You clicked the button!");
+
 	}
 }
