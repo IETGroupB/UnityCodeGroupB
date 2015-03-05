@@ -236,7 +236,7 @@ public class PlayerController : MonoBehaviour
 	}
 
 	void OnGUI(){
-		if (alive == true) {
+		if (alive == true && Door.endLevel == false) {
 			GUI.BeginGroup (new Rect (energyX, energyY, 256, 32));
 			GUI.Box (new Rect (0, 0, 256, 32), bgImage);
 			GUI.BeginGroup (new Rect (0, 0, (energy / 100) * 256, 32));
