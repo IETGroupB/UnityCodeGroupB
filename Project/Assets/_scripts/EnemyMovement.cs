@@ -5,6 +5,7 @@ public class EnemyMovement : MonoBehaviour {
 	public float speed;
 	public bool switchOn;
 	public float drainAmount;
+	Light enemyLight;
 
 	public GameObject objSwitch;
 	public GameObject target;
@@ -16,6 +17,7 @@ public class EnemyMovement : MonoBehaviour {
 	void Start(){
 		speed = 100;
 		drainAmount = 0.15f;
+		enemyLight = transform.GetComponent<Light>();
 		switchOn = true;
 		objSwitch = GameObject.FindGameObjectWithTag ("LevelGenerator");
 		switchSystem = objSwitch.GetComponent<SwitchSystem> ();
@@ -63,8 +65,11 @@ public class EnemyMovement : MonoBehaviour {
 				rigidbody2D.velocity = (Vector3.Normalize(movement) * speed*indexDiff*indexDiff * Time.deltaTime);
 			}
 
+			enemyLight.enabled = true;
+
 		} else {
 			rigidbody2D.isKinematic = false;
+			enemyLight.enabled = false;
 		}
 	}
 
