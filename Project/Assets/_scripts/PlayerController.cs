@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     public float textFadeRate;
 	public Texture2D fgImage;
 	public Texture2D bgImage;
+	public float energyX;
+	public float energyY;
 
     public Color ambientDark;
     public Color ambientDim;
@@ -234,14 +236,13 @@ public class PlayerController : MonoBehaviour
 	}
 
 	void OnGUI(){
-		GUI.BeginGroup (new Rect(10, 10, 256, 32));
-		GUI.Box (new Rect(0,0,256,32), bgImage);
-		GUI.BeginGroup (new Rect(0, 0, (energy/100)*256, 32));
-		GUI.Box (new Rect(0, 0, 256, 32), fgImage);
-		GUI.EndGroup ();
-		GUI.EndGroup ();
-		//if (GUI.Button(new Rect(10, 10, 150, 100), "I am a button"))
-		//	print("You clicked the button!");
-
+		if (alive == true) {
+			GUI.BeginGroup (new Rect (energyX, energyY, 256, 32));
+			GUI.Box (new Rect (0, 0, 256, 32), bgImage);
+			GUI.BeginGroup (new Rect (0, 0, (energy / 100) * 256, 32));
+			GUI.Box (new Rect (0, 0, 256, 32), fgImage);
+			GUI.EndGroup ();
+			GUI.EndGroup ();
+		}
 	}
 }
