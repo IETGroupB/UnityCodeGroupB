@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
 
 		var move = Input.GetAxis ("Horizontal");
 
-		rigidbody2D.velocity = new Vector2 (move * maxSpeed, rigidbody2D.velocity.y);
+		GetComponent<Rigidbody2D>().velocity = new Vector2 (move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
 
 		if(move > 0 && !facingRight)
 		{
@@ -146,7 +146,7 @@ public class PlayerController : MonoBehaviour
 
         if (grounded && Input.GetButtonDown("Fire1"))
         {
-            rigidbody2D.AddForce(new Vector2(0, jumpForce));
+            GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce));
         }
 
         if (Input.GetButtonDown("Fire2"))
@@ -215,11 +215,11 @@ public class PlayerController : MonoBehaviour
 
         Destroy(GetComponent<CircleCollider2D>());
         Destroy(GetComponent<BoxCollider2D>());
-        Destroy(rigidbody2D);
+        Destroy(GetComponent<Rigidbody2D>());
 
         for (var i = 0; i < parts.Length; i++)
         {
-            parts[i].collider2D.enabled = true;
+            parts[i].GetComponent<Collider2D>().enabled = true;
             parts[i].AddComponent<Rigidbody2D>();
         }
         

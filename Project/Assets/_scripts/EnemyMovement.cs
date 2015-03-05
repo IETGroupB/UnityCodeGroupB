@@ -35,7 +35,7 @@ public class EnemyMovement : MonoBehaviour {
 
 		Vector3 movement = Vector3.Normalize(target.transform.position - transform.position);
 		if (switchOn) {
-			rigidbody2D.isKinematic = true;
+			GetComponent<Rigidbody2D>().isKinematic = true;
 
 			targetRoom = roomGrid.GetClosestRoom (target.transform.position);
 			enemyRoom = roomGrid.GetClosestRoom (transform.position);
@@ -53,22 +53,22 @@ public class EnemyMovement : MonoBehaviour {
 
 			if(indexDiff<=1&&indexDiff>=-1){
 				movement = target.transform.position-transform.position;
-				rigidbody2D.velocity = (0.5f*movement * speed* Time.deltaTime);
+				GetComponent<Rigidbody2D>().velocity = (0.5f*movement * speed* Time.deltaTime);
 			}
 
 			else if(indexDiff>0){
 				movement = new Vector3(roomGrid.solutionPath[enemyRoomIndex+1].x*16+8,-(roomGrid.solutionPath[enemyRoomIndex+1].y*16+8),0)-transform.position;
-				rigidbody2D.velocity = (Vector3.Normalize(movement) * speed*indexDiff*indexDiff * Time.deltaTime);
+				GetComponent<Rigidbody2D>().velocity = (Vector3.Normalize(movement) * speed*indexDiff*indexDiff * Time.deltaTime);
 			}
 			else{
 				movement = new Vector3(roomGrid.solutionPath[enemyRoomIndex-1].x*16+8,-(roomGrid.solutionPath[enemyRoomIndex-1].y*16+8),0)-transform.position;
-				rigidbody2D.velocity = (Vector3.Normalize(movement) * speed*indexDiff*indexDiff * Time.deltaTime);
+				GetComponent<Rigidbody2D>().velocity = (Vector3.Normalize(movement) * speed*indexDiff*indexDiff * Time.deltaTime);
 			}
 
 			enemyLight.enabled = true;
 
 		} else {
-			rigidbody2D.isKinematic = false;
+			GetComponent<Rigidbody2D>().isKinematic = false;
 			enemyLight.enabled = false;
 		}
 	}
