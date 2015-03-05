@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class RoomGrid  {
     private float goDownProbability = 0.4f;
@@ -7,21 +8,50 @@ public class RoomGrid  {
     private Room[,] roomGrid;
     public Point[] solutionPath { get; private set; }
     // must be at least 2x2 to work
-    private int width;
-    private int height;
+    public int width { get; private set; }
+    public int height { get; private set; }
+
+
+    public Point GetClosestRoom(Vector2 globalPosition)
+    {
+        var closestRoom = new Point(-1, -1);
+        var closestMagnitude = Mathf.Infinity;
+
+        foreach(Point p in solutionPath)
+        {
+            var roomCentre = new Vector2(p.x * 16 + 8, -(p.y * 16 + 8));
+            if (Vector2.Distance(roomCentre, globalPosition) < closestMagnitude)
+            {
+                closestRoom = p;
+                closestMagnitude = Vector2.Distance(roomCentre, globalPosition);
+            }
+        }
+
+        return closestRoom;
+    }
 
     public RoomGrid(int width, int height, float goDownProbability)
     {
+        // set background height and width
+        var nearBG = GameObject.Find("BackgroundNear");
+        var farBG = GameObject.Find("BackgroundFar");
+        nearBG.GetComponent<Background>().roomGridSize = new Vector2(4 * width, 4 * height);
+        nearBG.GetComponent<Background>().StartBackground();
+        farBG.GetComponent<Background>().roomGridSize = new Vector2(5 * width, 5 * height);
+        farBG.GetComponent<Background>().StartBackground();
+
         this.width = width;
         this.height = height;
         this.goDownProbability = goDownProbability;
         roomGrid  = new Room[width, height];
 
+        TilePrefabManager tfb = GameObject.Find("LevelGeneration").GetComponent<TilePrefabManager>();
+
         for (int i = 0; i < roomGrid.GetLength(0); i++)
         {
             for (int j = 0; j < roomGrid.GetLength(1); j++)
             {
-                roomGrid[i, j] = new Room(ExitType.None);
+                roomGrid[i, j] = new Room(ExitType.None, tfb);
             }
         }
         GeneratePath();
@@ -29,7 +59,7 @@ public class RoomGrid  {
 
     private void GeneratePath()
     {
-        var tempSolutionPath = new ArrayList();
+        var tempSolutionPath = new List<Point>();
 
         var currentLocation = new Point((int)(Random.value * width), 0);
         var solutionPathComplete = false;
@@ -154,12 +184,7 @@ public class RoomGrid  {
             }
         }
 
-        solutionPath = new Point[tempSolutionPath.Count];
-        for (int i = 0; i < tempSolutionPath.Count; i++)
-        {
-            solutionPath[i] = (Point) tempSolutionPath[i];
-        }
-        
+        solutionPath = tempSolutionPath.ToArray();
     }
 
     public Room GetRoom(int x, int y)

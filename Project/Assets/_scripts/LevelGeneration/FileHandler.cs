@@ -1,47 +1,78 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Text;
-using System.IO;
+using System;
+using System.Collections.Generic;
 
-public static class FileHandler{
+public static class FileReader{
+	private static int gridWidth = 16;
+	private static int gridHeight = 16;
+	public static int[,] radiusInput = new int[16,16];
+    private static Dictionary<string, TileType> TileIDs = new Dictionary<string, TileType>()
+        {
+            {"G", TileType.Solid},
+            {"_", TileType.Empty},
+            {"S", TileType.Switch},
+            {"T", TileType.Trap},
+			{"L", TileType.RoomLight},
+            {"C", TileType.CeilingLight},
+            {"E", TileType.Exit},
+        };
 
-	public static int mapWidth = 16;
+	public static TileType[,] LoadFile(TextAsset t1){
+		// split input on new line, remove whitespace
+		var vertLines = t1.text.Split(new[] {'\r','\n'}, System.StringSplitOptions.RemoveEmptyEntries);
+		
+        var tiles = new TileType[vertLines.Length, gridWidth];
 
-	public static TileType[,] Load(string filePath){
-		try{
-			Debug.Log("Loading File...");
-			using(StreamReader sr = new StreamReader(filePath)){
-				string input = sr.ReadToEnd();
-				string[] lines = input.Split(new[]{'\r','\n'}, System.StringSplitOptions.RemoveEmptyEntries);
-				TileType[,] tiles = new TileType[lines.Length, mapWidth];
-				Debug.Log("Parsing...");
-				for(int i = 0; i<lines.Length; i++)
-				{
-					string st = lines[i];
-					string[] nums = st.Split(new[] {',' });
-					if(nums.Length != mapWidth){
+        for (int j = 0; j < gridHeight; j++) 
+        {
+			// split on comma
+           var inputLine = vertLines[j].Split(new[] { ',' });
+			
+			for(int i = 0; i < gridWidth; i++)
+            {
+				if (TileIDs.ContainsKey(inputLine[i][0].ToString()))
+                {
+                    if (inputLine[i][0].ToString() == "L")
+                    {
+                        if (inputLine[i].Length > 1)
+                        {
+                            int radius = int.Parse(inputLine[i].Substring(1));
+                            tiles[i, j] = TileIDs[inputLine[i][0].ToString()];
+                            radiusInput[i, j] = radius;
+                        }
+                        else
+                        {
+                            radiusInput[i, j] = 9;
+                            tiles[i, j] = TileIDs[inputLine[i][0].ToString()];
+                        }
+                    }
+                    else if (inputLine[i][0].ToString() == "C")
+                    {
+                        if (inputLine[i].Length > 1)
+                        {
+                            int radius = int.Parse(inputLine[i].Substring(1));
+                            tiles[i, j] = TileIDs[inputLine[i][0].ToString()];
+                            radiusInput[i, j] = radius;
+                        }
+                        else
+                        {
+                            radiusInput[i, j] = 10;
+                            tiles[i, j] = TileIDs[inputLine[i][0].ToString()];
+                        }
+                    }
+                    else
+                    {
+						tiles[i, j] = TileIDs[inputLine[i][0].ToString()];
 					}
-					for(int j = 0; j< Mathf.Min(nums.Length, mapWidth); j++){
-						int val;
-						if(int.TryParse(nums[j], out val)){
-							if(val == 1){
-								tiles[i,j] = TileType.Solid;
-							}else{
-								tiles[i, j] = TileType.Empty;
-							}
-
-						}else{
-							tiles[i, j] = TileType.Empty;
-						}
-					}
-				}
-				Debug.Log("Parsing Completed!");
-				return tiles;
+                }
+                else
+                {
+                    tiles[i, j] = TileType.Empty;
+                    Debug.LogError("Invalid Tile Identifier " + inputLine[i] + " in file " + t1.name);
+                }
 			}
 		}
-		catch(IOException e){
-			Debug.Log(e.Message);
-		}
-		return null;
+		
+		return tiles;
 	}
 }
