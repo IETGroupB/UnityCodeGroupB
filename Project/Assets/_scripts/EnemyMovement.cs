@@ -12,6 +12,7 @@ public class EnemyMovement : MonoBehaviour {
 	SwitchSystem switchSystem;
 	private RoomGrid roomGrid;
 	private Point targetRoom, enemyRoom;
+	private AudioSource enemySound;
 
 
 	void Start(){
@@ -21,9 +22,11 @@ public class EnemyMovement : MonoBehaviour {
 		switchOn = true;
 		objSwitch = GameObject.FindGameObjectWithTag ("LevelGenerator");
 		switchSystem = objSwitch.GetComponent<SwitchSystem> ();
+		enemySound = transform.GetComponent<AudioSource> ();
 
 		roomGrid = GameObject.Find("LevelGeneration").GetComponent<LevelGenerator>().roomGrid;
 		target = GameObject.Find ("Character");
+		enemySound.mute = true;
 	}
 
 	void Update(){
@@ -36,7 +39,7 @@ public class EnemyMovement : MonoBehaviour {
 		Vector3 movement = Vector3.Normalize(target.transform.position - transform.position);
 		if (switchOn) {
 			GetComponent<Rigidbody2D>().isKinematic = true;
-
+			enemySound.mute = false;
 			targetRoom = roomGrid.GetClosestRoom (target.transform.position);
 			enemyRoom = roomGrid.GetClosestRoom (transform.position);
 
@@ -70,6 +73,7 @@ public class EnemyMovement : MonoBehaviour {
 		} else {
 			GetComponent<Rigidbody2D>().isKinematic = false;
 			enemyLight.enabled = false;
+			enemySound.mute = true;
 		}
 	}
 

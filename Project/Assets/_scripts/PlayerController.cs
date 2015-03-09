@@ -31,6 +31,9 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheck;
     public LayerMask whatIsGround;
     public GameObject body;
+	private AudioSource[] playerSound;
+	private AudioSource jumpSound;
+	private AudioSource movementSound;
 
     private bool facingRight = true;
 	private bool grounded = false;
@@ -57,6 +60,9 @@ public class PlayerController : MonoBehaviour
         ambientLight = new Color(0.0f, 0.0f, 0.0f);
 
         energyText = GameObject.Find("Energy").GetComponent<Text>(); 
+		playerSound = GetComponents<AudioSource> ();
+		jumpSound = playerSound [0];
+		movementSound = playerSound [1];
     }
 
     void Start()
@@ -147,6 +153,7 @@ public class PlayerController : MonoBehaviour
         if (grounded && Input.GetButtonDown("Fire1"))
         {
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce));
+			jumpSound.Play ();
         }
 
         if (Input.GetButtonDown("Fire2"))

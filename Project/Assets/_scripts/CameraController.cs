@@ -10,12 +10,21 @@ public class CameraController : MonoBehaviour {
 
     private Vector2 lastLocation;
     private Vector2 tilt;
-
+	private AudioSource[] cameraSound;
+	private AudioSource backgroundSound;
+	private AudioSource endLevelSound;
+	private AudioSource gameOverSound;
+	//private AudioSource alarmSound;
 	// Use this for initialization
 	void Awake () {
         playerCharacter = GameObject.Find("Character");
+		//switchButton = GameObject.Find ("Switch");
         lastLocation = new Vector2(0.0f, 0.0f);
         tilt = new Vector2(0.0f, 0.0f);
+		cameraSound = GetComponents<AudioSource> ();
+		backgroundSound = cameraSound [0];
+		endLevelSound = cameraSound [1];
+		gameOverSound = cameraSound [2];
     }
 	
     public void ResetTilt()
@@ -49,5 +58,23 @@ public class CameraController : MonoBehaviour {
             ));
 
         lastLocation = new Vector2(playerCharacter.transform.position.x, playerCharacter.transform.position.y);
+
+		if (Door.endLevel == false && playerCharacter.GetComponent<PlayerController> ().alive == true) {
+			backgroundSound.mute = false;
+			endLevelSound.mute = true;
+			gameOverSound.mute = true;
+		} else if (Door.endLevel == true) {
+			backgroundSound.mute = true;
+			endLevelSound.mute = false;
+			gameOverSound.mute = true;
+		} else if (playerCharacter.GetComponent<PlayerController> ().alive == false) {
+			backgroundSound.mute = true;
+			endLevelSound.mute = true;
+			gameOverSound.mute = false;
+		} else {
+			backgroundSound.mute = true;
+			endLevelSound.mute = true;
+			gameOverSound.mute = true;
+		}
 	}
 }
