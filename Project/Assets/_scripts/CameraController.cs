@@ -7,6 +7,10 @@ public class CameraController : MonoBehaviour {
     public float yOffset;
     public float tiltScale;
     public float xyTiltRatio;
+	public bool CanMute;
+	public Texture2D sound;
+	public Texture2D mute;
+	public Texture2D MuteTexture;
 
     private Vector2 lastLocation;
     private Vector2 tilt;
@@ -14,6 +18,8 @@ public class CameraController : MonoBehaviour {
 	private AudioSource backgroundSound;
 	private AudioSource endLevelSound;
 	private AudioSource gameOverSound;
+
+
 	//private AudioSource alarmSound;
 	// Use this for initialization
 	void Awake () {
@@ -25,6 +31,8 @@ public class CameraController : MonoBehaviour {
 		backgroundSound = cameraSound [0];
 		endLevelSound = cameraSound [1];
 		gameOverSound = cameraSound [2];
+		CanMute = true; 
+		MuteTexture = sound;
     }
 	
     public void ResetTilt()
@@ -75,6 +83,20 @@ public class CameraController : MonoBehaviour {
 			backgroundSound.mute = true;
 			endLevelSound.mute = true;
 			gameOverSound.mute = true;
+		}
+	}
+
+	void OnGUI(){
+		if (GUI.Button (new Rect (0, Screen.height-30, 50, 30), MuteTexture)) {
+		if(CanMute){
+				AudioListener.pause = true;
+				MuteTexture = mute;
+				CanMute = false;
+		}else{
+				AudioListener.pause = false;
+				MuteTexture = sound;
+				CanMute = true;
+			}
 		}
 	}
 }

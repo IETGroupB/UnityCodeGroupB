@@ -221,9 +221,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   switchOn: 0
-  drainAmount: 1
+  drainAmount: 10
   objSwitch: {fileID: 0}
   target: {fileID: 0}
+  attackRate: 0
+  nextAttack: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -14,6 +14,10 @@ public class EnemyMovement : MonoBehaviour {
 	private Point targetRoom, enemyRoom;
 	private AudioSource enemySound;
 
+	public float attackRate;
+	public float nextAttack;
+
+
 
 	void Start(){
 		speed = 100;
@@ -27,6 +31,9 @@ public class EnemyMovement : MonoBehaviour {
 		roomGrid = GameObject.Find("LevelGeneration").GetComponent<LevelGenerator>().roomGrid;
 		target = GameObject.Find ("Character");
 		enemySound.mute = true;
+
+		attackRate = 3.0f;
+		nextAttack = 0.0f;
 	}
 
 	void Update(){
@@ -79,8 +86,11 @@ public class EnemyMovement : MonoBehaviour {
 
 	void OnTriggerStay2D(Collider2D other){
 		if (other.gameObject.name == "Character"&&switchOn) {
-			float distance = Vector3.Distance(transform.position,other.transform.position);
-			other.GetComponent<PlayerController>().DrainEnergy(drainAmount/(distance*distance));		
+			//if(Time.time>nextAttack){
+			//	nextAttack=Time.time+attackRate;
+				float distance = Vector3.Distance(transform.position,other.transform.position);
+				other.GetComponent<PlayerController>().DrainEnergy(drainAmount/(distance*distance));		
+			//}
 		}
 	}
 }
