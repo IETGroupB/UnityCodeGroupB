@@ -814,7 +814,7 @@ AudioListener:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 802463692}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!1 &818209278
 GameObject:
   m_ObjectHideFlags: 0
@@ -1069,7 +1069,7 @@ CircleCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 943406624}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Material: {fileID: 6200000, guid: e84a53a6a4634f441a4e3c86b5f3744f, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0

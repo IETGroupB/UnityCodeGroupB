@@ -221,7 +221,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   switchOn: 0
-  drainAmount: 10
+  drainAmount: 0
+  boltSegmentCount: 4
+  shockDuration: .200000003
   objSwitch: {fileID: 0}
   target: {fileID: 0}
   attackRate: 0
