@@ -223,7 +223,7 @@ MonoBehaviour:
   switchOn: 0
   drainAmount: 0
   boltSegmentCount: 4
-  shockDuration: .200000003
+  shockDuration: .100000001
   objSwitch: {fileID: 0}
   target: {fileID: 0}
   attackRate: 0

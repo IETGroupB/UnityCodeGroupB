@@ -108,16 +108,16 @@ public class EnemyMovement : MonoBehaviour {
 		}
 
 		if (isShocking) {
-			DrawBolt(new Vector2(target.transform.position.x - transform.position.x, target.transform.position.y - transform.position.y));
-			
+			DrawBolt (new Vector2 (target.transform.position.x - transform.position.x, target.transform.position.y - transform.position.y));
+		
 			shockTime += Time.deltaTime;
 			if (shockTime > shockDuration)
 			{
 				shockTime = 0.0f;
 				isShocking = false;
 				HideBolt();
+				}
 			}
-		}
 	}
 
 	void OnTriggerStay2D(Collider2D other){
@@ -127,8 +127,9 @@ public class EnemyMovement : MonoBehaviour {
 			float distance = Vector3.Distance (transform.position, other.transform.position);
 			other.GetComponent<PlayerController> ().DrainEnergy (drainAmount / (distance * distance));
 			//}
-		} 
 
+		} 
+	
 		if (switchOn && !isShocking)
 		{
 			//GameObject other = coll.transform.gameObject;
@@ -137,20 +138,7 @@ public class EnemyMovement : MonoBehaviour {
 				//other.GetComponent<PlayerController>().KillPlayer();
 				
 				isShocking = true;
-				//shockTarget = other.GetComponent<PlayerController>().body;
 				ShowBolt();
-				//zap.Play();
-			}
-			else if (other.tag == "PlayerGibs")
-			{
-				if (Random.value <= 0.1f)
-				{
-					//other.GetComponent<Rigidbody2D>().AddForce((new Vector2(other.transform.position.x - transform.position.x, other.transform.position.y - transform.position.y)).normalized * shockForce);
-					isShocking = true;
-					//shockTarget = other;
-					ShowBolt();
-					//zap.Play();
-				}
 			}
 		}
 	}
@@ -188,6 +176,7 @@ public class EnemyMovement : MonoBehaviour {
 		var angle = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
 		
 		segments[index].transform.parent = transform;
+		segments[index].transform.parent.eulerAngles = new Vector3 (0.0f, 0.0f, 0.0f);
 		segments[index].transform.localPosition = new Vector3(start.x, start.y, -0.5f);
 		segments[index].transform.localScale = new Vector3(difference.magnitude, 1.0f, 1.0f);
 		segments[index].transform.eulerAngles = new Vector3(0.0f, 0.0f, angle);
