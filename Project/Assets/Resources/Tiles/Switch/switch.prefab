@@ -12,6 +12,7 @@ GameObject:
   - 58: {fileID: 5800000}
   - 212: {fileID: 21200000}
   - 82: {fileID: 8267306}
+  - 167: {fileID: 16755410}
   m_Layer: 0
   m_Name: switch
   m_TagString: Untagged
@@ -187,6 +188,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   chargeAmount: 25
+--- !u!167 &16755410
+AudioReverbZone:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_MinDistance: 10
+  m_MaxDistance: 15
+  m_ReverbPreset: 27
+  m_Room: -1602
+  m_RoomHF: 0
+  m_DecayTime: 2.91000009
+  m_DecayHFRatio: 1.29999995
+  m_Reflections: -602
+  m_ReflectionsDelay: .0149999997
+  m_Reverb: -302
+  m_ReverbDelay: .0219999999
+  m_HFReference: 5000
+  m_RoomRolloffFactor: 0
+  m_Diffusion: 100
+  m_Density: 100
+  m_LFReference: 250
+  m_RoomLF: 0
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

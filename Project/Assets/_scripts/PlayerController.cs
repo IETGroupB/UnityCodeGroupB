@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
 	private bool grounded = false;
     private float groundRadius = 0.2f;
     private GameObject[] parts;
+    private SpriteRenderer[] flipParts;
     private RoomGrid roomGrid;    
     
     private Color ambientLight;
@@ -53,6 +54,10 @@ public class PlayerController : MonoBehaviour
         parts[0] = transform.FindChild("Head").gameObject;
         parts[1] = transform.FindChild("Body").gameObject;
        	parts[2] = transform.FindChild("Wheel").gameObject;
+
+        flipParts = new SpriteRenderer[2];
+        flipParts[0] = transform.FindChild("HeadFlip").gameObject.GetComponent<SpriteRenderer>();
+        flipParts[1] = transform.FindChild("BodyFlip").gameObject.GetComponent<SpriteRenderer>();
 
         headlight = parts[0].transform.FindChild("Spotlight").gameObject;
 
@@ -240,6 +245,10 @@ public class PlayerController : MonoBehaviour
 		theScale.x *= -1;
 		transform.localScale = theScale;
         headlight.transform.rotation = Quaternion.Euler(new Vector3(0.0f, -headlight.transform.rotation.eulerAngles.y, 0.0f));
+
+        flipParts[0].enabled = !flipParts[0].enabled;
+        flipParts[1].enabled = !flipParts[1].enabled;
+        parts[2].transform.localScale = new Vector3(-parts[2].transform.localScale.x, parts[2].transform.localScale.y, parts[2].transform.localScale.z);
 	}
 
 	void OnGUI(){

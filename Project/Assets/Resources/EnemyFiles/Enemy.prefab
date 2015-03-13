@@ -16,6 +16,7 @@ GameObject:
   - 58: {fileID: 5873756}
   - 108: {fileID: 10881758}
   - 82: {fileID: 8227184}
+  - 167: {fileID: 16748852}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -224,6 +225,30 @@ MonoBehaviour:
   drainAmount: 1
   objSwitch: {fileID: 0}
   target: {fileID: 0}
+--- !u!167 &16748852
+AudioReverbZone:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 134932}
+  m_Enabled: 1
+  m_MinDistance: 10
+  m_MaxDistance: 15
+  m_ReverbPreset: 27
+  m_Room: -1602
+  m_RoomHF: 0
+  m_DecayTime: 2.91000009
+  m_DecayHFRatio: 1.29999995
+  m_Reflections: -602
+  m_ReflectionsDelay: .0149999997
+  m_Reverb: -302
+  m_ReverbDelay: .0219999999
+  m_HFReference: 5000
+  m_RoomRolloffFactor: 0
+  m_Diffusion: 100
+  m_Density: 100
+  m_LFReference: 250
+  m_RoomLF: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
