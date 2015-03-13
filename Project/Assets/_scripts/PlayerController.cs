@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (grounded && Input.GetButtonDown("Fire1"))
+		if (grounded && Input.GetButtonDown("Fire1"))
         {
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce));
 			jumpSound.Play ();
