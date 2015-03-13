@@ -1537,6 +1537,8 @@ GameObject:
   - 82: {fileID: 1712653592}
   - 82: {fileID: 1712653593}
   - 167: {fileID: 1712653594}
+  - 169: {fileID: 1712653595}
+  - 165: {fileID: 1712653596}
   m_Layer: 8
   m_Name: Character
   m_TagString: Player
@@ -1826,6 +1828,35 @@ AudioReverbZone:
   m_Density: 100
   m_LFReference: 250
   m_RoomLF: 0
+--- !u!169 &1712653595
+AudioLowPassFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1712653585}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_CutoffFrequency: 1000.00037
+  m_LowpassResonanceQ: 1
+  lowpassLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: .954545438
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+--- !u!165 &1712653596
+AudioHighPassFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1712653585}
+  m_Enabled: 1
+  m_CutoffFrequency: 1194
+  m_HighpassResonanceQ: 1
 --- !u!1 &1757667639
 GameObject:
   m_ObjectHideFlags: 0
