@@ -18,12 +18,18 @@ public class EnemyMovement : MonoBehaviour {
 	private Sprite bolt;
 	private GameObject[] segments;
 	private bool isShocking = false;
+	private bool attack = false;
 	private float shockTime;
 
 	public float attackRate;
 	public float nextAttack;
 
 
+
+	enum EnemyState{ceaseFire, onFire};
+	EnemyState currentState;
+
+	float lastStateChange;
 
 	void Start(){
 		speed = 100;
@@ -41,6 +47,9 @@ public class EnemyMovement : MonoBehaviour {
 		attackRate = 3.0f;
 		nextAttack = 0.0f;
 
+		currentState = EnemyState.ceaseFire;
+		lastStateChange = Time.time;
+
 		//bolt setup
 		{
 			bolt = Resources.Load<Sprite>("Tiles/Trap/bolt");
@@ -55,7 +64,14 @@ public class EnemyMovement : MonoBehaviour {
 		}
 	}
 
+	void SetCurrentState(EnemyState state){
+		currentState = state;
+		lastStateChange = Time.time;
+	}
 
+	float GetStateElapsed(){
+		return Time.time - lastStateChange;
+	}
 
 	void Update(){
 		switchOn = switchSystem.alarmActive;
@@ -101,6 +117,22 @@ public class EnemyMovement : MonoBehaviour {
 
 			enemyLight.enabled = true;
 
+
+			switch(currentState){
+			case EnemyState.ceaseFire:
+				attack = false;
+				if(GetStateElapsed()>1.0f)
+					SetCurrentState(EnemyState.onFire);
+				break;
+			case EnemyState.onFire:
+				attack = true;
+				if(GetStateElapsed()>1.0f)
+					SetCurrentState(EnemyState.ceaseFire);
+				break;
+			}
+
+
+
 		} else {
 			GetComponent<Rigidbody2D>().isKinematic = false;
 			enemyLight.enabled = false;
@@ -121,28 +153,23 @@ public class EnemyMovement : MonoBehaviour {
 	}
 
 	void OnTriggerStay2D(Collider2D other){
-		if (other.gameObject.name == "Character" && switchOn) {
-			//if(Time.time>nextAttack){
-			//	nextAttack=Time.time+attackRate;
+		if (other.gameObject.name == "Character" && switchOn && attack) {
 			float distance = Vector3.Distance (transform.position, other.transform.position);
 			other.GetComponent<PlayerController> ().DrainEnergy (drainAmount / (distance * distance));
-			//}
-
-		} 
+		}
 	
-		if (switchOn && !isShocking)
+		if (switchOn && !isShocking && attack)
 		{
 			//GameObject other = coll.transform.gameObject;
 			if (other.name == "Character")
 			{
-				//other.GetComponent<PlayerController>().KillPlayer();
-				
+				//other.GetComponent<PlayerController>().KillPlayer();	
 				isShocking = true;
 				ShowBolt();
 			}
 		}
 	}
-
+	
 	private void HideBolt()
 	{
 		foreach (GameObject segment in segments)

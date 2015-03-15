@@ -223,8 +223,12 @@ MonoBehaviour:
   speed: 0
   switchOn: 0
   drainAmount: 1
+  boltSegmentCount: 5
+  shockDuration: .200000003
   objSwitch: {fileID: 0}
   target: {fileID: 0}
+  attackRate: 0
+  nextAttack: 0
 --- !u!167 &16748852
 AudioReverbZone:
   m_ObjectHideFlags: 1
