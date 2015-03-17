@@ -47,7 +47,7 @@ public class EnemyMovement : MonoBehaviour {
 		attackRate = 3.0f;
 		nextAttack = 0.0f;
 
-		currentState = EnemyState.ceaseFire;
+		currentState = EnemyState.onFire;
 		lastStateChange = Time.time;
 
 		//bolt setup
@@ -101,18 +101,20 @@ public class EnemyMovement : MonoBehaviour {
 			indexDiff = targetRoomIndex-enemyRoomIndex;
 
 			//calculate harmming rate by distance//////////////////////////////
-			if(indexDiff<=1&&indexDiff>=-1){
-				movement = target.transform.position-transform.position;
-				GetComponent<Rigidbody2D>().velocity = (0.5f*movement * speed* Time.deltaTime);
-			}
+			if(attack){
+				if(indexDiff<=1&&indexDiff>=-1){
+					movement = target.transform.position-transform.position;
+					GetComponent<Rigidbody2D>().velocity = (0.5f*movement * speed* Time.deltaTime);
+				}
 
-			else if(indexDiff>0){
-				movement = new Vector3(roomGrid.solutionPath[enemyRoomIndex+1].x*16+8,-(roomGrid.solutionPath[enemyRoomIndex+1].y*16+8),0)-transform.position;
-				GetComponent<Rigidbody2D>().velocity = (Vector3.Normalize(movement) * speed*indexDiff*indexDiff * Time.deltaTime);
-			}
-			else{
-				movement = new Vector3(roomGrid.solutionPath[enemyRoomIndex-1].x*16+8,-(roomGrid.solutionPath[enemyRoomIndex-1].y*16+8),0)-transform.position;
-				GetComponent<Rigidbody2D>().velocity = (Vector3.Normalize(movement) * speed*indexDiff*indexDiff * Time.deltaTime);
+				else if(indexDiff>0){
+					movement = new Vector3(roomGrid.solutionPath[enemyRoomIndex+1].x*16+8,-(roomGrid.solutionPath[enemyRoomIndex+1].y*16+8),0)-transform.position;
+					GetComponent<Rigidbody2D>().velocity = (Vector3.Normalize(movement) * speed*indexDiff*indexDiff * Time.deltaTime);
+				}
+				else{
+					movement = new Vector3(roomGrid.solutionPath[enemyRoomIndex-1].x*16+8,-(roomGrid.solutionPath[enemyRoomIndex-1].y*16+8),0)-transform.position;
+					GetComponent<Rigidbody2D>().velocity = (Vector3.Normalize(movement) * speed*indexDiff*indexDiff * Time.deltaTime);
+				}
 			}
 
 			enemyLight.enabled = true;
@@ -121,12 +123,15 @@ public class EnemyMovement : MonoBehaviour {
 			switch(currentState){
 			case EnemyState.ceaseFire:
 				attack = false;
+				movement  = target.transform.position-transform.position;
+				GetComponent<Rigidbody2D>().velocity = (Vector3.Normalize(movement)*(-50.0f)*Time.deltaTime);
 				if(GetStateElapsed()>1.0f)
 					SetCurrentState(EnemyState.onFire);
 				break;
 			case EnemyState.onFire:
 				attack = true;
-				if(GetStateElapsed()>1.0f)
+				speed = 100;
+				if(GetStateElapsed()>1.5f)
 					SetCurrentState(EnemyState.ceaseFire);
 				break;
 			}
@@ -148,8 +153,8 @@ public class EnemyMovement : MonoBehaviour {
 				shockTime = 0.0f;
 				isShocking = false;
 				HideBolt();
-				}
 			}
+		}
 	}
 
 	void OnTriggerStay2D(Collider2D other){
