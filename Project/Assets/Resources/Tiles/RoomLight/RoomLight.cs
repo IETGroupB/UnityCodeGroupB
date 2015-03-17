@@ -27,7 +27,10 @@ public class RoomLight : Tile {
 		if (state != LightingType.Dark) rLight.enabled = true;
 	}
 
-
+	public void SetRadius(int radius)
+	{
+		rLight.range = 5 + radius;
+	}
 
 	 void Update(){
 		if (isAlarmActive) {

@@ -142,7 +142,7 @@ public class Room    {
 		for (int  i = 0; i < lightTiles.Length; i++) 
 		{
 			lightParams = lightTiles[i].GetComponent<RoomLight>();
-			lightParams.gameObject.GetComponent<Light>().range = radiusArray[i];
+			lightParams.gameObject.GetComponent<RoomLight>().SetRadius(radiusArray[i]);
 			lightParams.gameObject.GetComponent<Light>().color = c;
 			lightParams.UpdatePointLightIntensity(lightState);
 		}
