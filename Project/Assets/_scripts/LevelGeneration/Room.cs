@@ -99,7 +99,7 @@ public class Room    {
 
         if (switchLocation == null && exits != ExitType.None)
         {
-            Debug.LogError("Room file does not contain switch");
+            Debug.LogError("Room file (Exit type " + exits + ") does not contain switch");
         }
 
 

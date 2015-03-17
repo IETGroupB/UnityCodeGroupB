@@ -235,7 +235,7 @@ public class LevelGenerator : MonoBehaviour
                             case 8: // lrb
                                 // case 2 rotated 90 degrees
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().material = case2;
-                                roomGrid.GetRoom(w, h).solidTiles[x, y].transform.Rotate(new Vector3(0.0f, 0.0f, 90.0f));
+                                roomGrid.GetRoom(w, h).solidTiles[x, y].transform.Rotate(new Vector3(0.0f, 0.0f, 270.0f));
                                 break;
                             case 10: // rb
                                 // **UNIQUE**
@@ -253,7 +253,7 @@ public class LevelGenerator : MonoBehaviour
                             case 16: // lrt
                                 // case 2 rotated 270 degrees
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().material = case2;
-                                roomGrid.GetRoom(w, h).solidTiles[x, y].transform.Rotate(new Vector3(0.0f, 0.0f, 270.0f));
+                                roomGrid.GetRoom(w, h).solidTiles[x, y].transform.Rotate(new Vector3(0.0f, 0.0f, 90.0f));
                                 break;
                             case 18: // rt
                                 // case 10 rotated 90 degrees
