@@ -39,7 +39,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87ce7887c55772b40bad5d2052e69f57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 134932, guid: b1638ae57fd9f0c4db8b1bb321dae392, type: 2}
+  enemy: {fileID: 115970, guid: 0c5944b800305fc45b84dac4f314fffc, type: 2}
   spawnTime: 3
   switchOn: 1
   MaxEnemy: 1
@@ -56,4 +56,3 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 177212}
   m_IsPrefabParent: 1
-  m_IsExploded: 1

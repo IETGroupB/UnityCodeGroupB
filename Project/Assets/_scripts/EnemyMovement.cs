@@ -26,15 +26,15 @@ public class EnemyMovement : MonoBehaviour {
 
 
 
-	enum EnemyState{ceaseFire, onFire};
+	enum EnemyState{chasing, charging, attacking, ceaseFire, onFire};
 	EnemyState currentState;
 
 	float lastStateChange;
 
 	void Start(){
-		speed = 100;
 		drainAmount = 0.15f;
-		enemyLight = transform.GetComponent<Light>();
+        transform.GetChild(0);
+        enemyLight = transform.FindChild("EnemyLight").GetComponent<Light>();
 		switchOn = true;
 		objSwitch = GameObject.FindGameObjectWithTag ("LevelGenerator");
 		switchSystem = objSwitch.GetComponent<SwitchSystem> ();
@@ -75,22 +75,26 @@ public class EnemyMovement : MonoBehaviour {
 
 	void Update(){
 		switchOn = switchSystem.alarmActive;
-		int enemyRoomIndex = 0; 
-		int targetRoomIndex = 0;
-		int indexDiff = 0;
+		var enemyRoomIndex = 0;
+        var targetRoomIndex = 0;
+        var indexDiff = 0;
 
 
 		Vector3 movement = Vector3.Normalize(target.transform.position - transform.position);
 		if (switchOn) {
-			GetComponent<Rigidbody2D>().isKinematic = true;
+            // set layer to NoCollision to ignore level geometry
+            gameObject.layer = 9;
+            gameObject.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
+
 			enemySound.mute = false;
 
 			//mid-point pathfinding//////////////////////////////////////////////
 			targetRoom = roomGrid.GetClosestRoom (target.transform.position);
 			enemyRoom = roomGrid.GetClosestRoom (transform.position);
 
-			for(int i = 0;i<roomGrid.solutionPath.Length;i++){
-				if(targetRoom ==  roomGrid.solutionPath[i]){
+            for (var i = 0; i < roomGrid.solutionPath.Length; i++)
+            {
+				if(targetRoom == roomGrid.solutionPath[i]){
 					targetRoomIndex = i;
 				}
 				if(enemyRoom == roomGrid.solutionPath[i]){
@@ -98,13 +102,13 @@ public class EnemyMovement : MonoBehaviour {
 				}
 			}
 
-			indexDiff = targetRoomIndex-enemyRoomIndex;
+			indexDiff = targetRoomIndex - enemyRoomIndex;
 
 			//calculate harmming rate by distance//////////////////////////////
 			if(attack){
-				if(indexDiff<=1&&indexDiff>=-1){
+				if(indexDiff<= 1 && indexDiff>= -1){
 					movement = target.transform.position-transform.position;
-					GetComponent<Rigidbody2D>().velocity = (0.5f*movement * speed* Time.deltaTime);
+					GetComponent<Rigidbody2D>().AddForce(movement * speed* Time.deltaTime);
 				}
 
 				else if(indexDiff>0){
@@ -120,26 +124,30 @@ public class EnemyMovement : MonoBehaviour {
 			enemyLight.enabled = true;
 
 
-			switch(currentState){
-			case EnemyState.ceaseFire:
-				attack = false;
-				movement  = target.transform.position-transform.position;
-				GetComponent<Rigidbody2D>().velocity = (Vector3.Normalize(movement)*(-50.0f)*Time.deltaTime);
-				if(GetStateElapsed()>1.0f)
-					SetCurrentState(EnemyState.onFire);
-				break;
-			case EnemyState.onFire:
-				attack = true;
-				speed = 100;
-				if(GetStateElapsed()>1.5f)
-					SetCurrentState(EnemyState.ceaseFire);
-				break;
-			}
+            switch (currentState)
+            {
+                case EnemyState.ceaseFire:
+                    attack = false;
+                    movement = target.transform.position - transform.position;
+                    GetComponent<Rigidbody2D>().velocity = (Vector3.Normalize(movement) * (-50.0f) * Time.deltaTime);
+                    if (GetStateElapsed() > 1.0f)
+                        SetCurrentState(EnemyState.onFire);
+                    break;
+                case EnemyState.onFire:
+                    attack = true;
+                    speed = 100;
+                    if (GetStateElapsed() > 1.5f)
+                        SetCurrentState(EnemyState.ceaseFire);
+                    break;
+            }
 
 
 
 		} else {
-			GetComponent<Rigidbody2D>().isKinematic = false;
+            // set layer to default for collision
+            gameObject.layer = 0;
+            gameObject.GetComponent<Rigidbody2D>().gravityScale = 1.0f;
+
 			enemyLight.enabled = false;
 			enemySound.mute = true;
 		}
@@ -159,7 +167,7 @@ public class EnemyMovement : MonoBehaviour {
 
 	void OnTriggerStay2D(Collider2D other){
 		if (other.gameObject.name == "Character" && switchOn && attack) {
-			float distance = Vector3.Distance (transform.position, other.transform.position);
+            var distance = Vector3.Distance(transform.position, other.transform.position);
 			other.GetComponent<PlayerController> ().DrainEnergy (drainAmount / (distance * distance));
 		}
 	
