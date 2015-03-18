@@ -108,10 +108,10 @@ AudioSource:
   Mute: 1
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 3.41000009
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 2
+  rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -120,53 +120,53 @@ AudioSource:
     m_Curve:
     - time: .00200000009
       value: 1
-      inSlope: -500.200928
-      outSlope: -500.200928
+      inSlope: -500.200653
+      outSlope: -500.200653
       tangentMode: 0
     - time: .00400000019
-      value: .5
-      inSlope: -125.050232
-      outSlope: -125.050232
+      value: .698255837
+      inSlope: -125.050163
+      outSlope: -125.050163
       tangentMode: 0
-    - time: .00800000038
-      value: .25
-      inSlope: -31.262558
-      outSlope: -31.262558
+    - time: .00582608767
+      value: .493023247
+      inSlope: -17.7679234
+      outSlope: -17.7679234
       tangentMode: 0
-    - time: .0160000008
-      value: .125
-      inSlope: -7.8156395
-      outSlope: -7.8156395
+    - time: .0312173907
+      value: .371220946
+      inSlope: -7.8156352
+      outSlope: -7.8156352
       tangentMode: 0
-    - time: .0226015057
-      value: .0524497479
-      inSlope: -1.95390987
-      outSlope: -1.95390987
+    - time: .0472173914
+      value: .292732567
+      inSlope: -1.9539088
+      outSlope: -1.9539088
       tangentMode: 0
-    - time: .0358045101
-      value: .0161746219
-      inSlope: -.488477468
-      outSlope: -.488477468
+    - time: .0748695657
+      value: .175145358
+      inSlope: -.4884772
+      outSlope: -.4884772
       tangentMode: 0
-    - time: .0509323366
-      value: 0
-      inSlope: -.122119367
-      outSlope: -.122119367
+    - time: .132347837
+      value: .0507994182
+      inSlope: -.1221193
+      outSlope: -.1221193
       tangentMode: 0
-    - time: .137578949
-      value: 0
-      inSlope: -.0305298418
-      outSlope: -.0305298418
+    - time: .256000012
+      value: .0078125
+      inSlope: -.030529825
+      outSlope: -.030529825
       tangentMode: 0
-    - time: .265759408
-      value: 0
-      inSlope: -.00763246045
-      outSlope: -.00763246045
+    - time: .512000024
+      value: .00390625
+      inSlope: -.00763245625
+      outSlope: -.00763245625
       tangentMode: 0
-    - time: .453007519
-      value: 0
-      inSlope: -.00200079847
-      outSlope: -.00200079847
+    - time: 1
+      value: .00200000009
+      inSlope: -.00200080103
+      outSlope: -.00200080103
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -215,12 +215,12 @@ AudioSource:
   m_Pitch: 1
   Loop: 0
   Mute: 0
-  Priority: 128
+  Priority: 78
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 3.03999996
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0

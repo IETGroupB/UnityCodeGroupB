@@ -147,11 +147,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: fe51d424ecdb0384f97fdc300e560b8a, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 6ed07ad0f0b387147bba5990ab4c3555, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Priority: 128
   DopplerLevel: 1
@@ -213,7 +213,7 @@ TrailRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 156054}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
@@ -231,7 +231,7 @@ TrailRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Time: .709999979
+  m_Time: .239999995
   m_StartWidth: .129999995
   m_EndWidth: 0
   m_Colors:
@@ -297,7 +297,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 600
   chargeSpeed: 120
-  chargeTime: .400000006
+  chargeTime: .600000024
   dischargeTime: .800000012
   attackDistance: 3.4000001
   drainAmount: 20
@@ -307,7 +307,7 @@ MonoBehaviour:
   objSwitch: {fileID: 0}
   target: {fileID: 0}
   targetScript: {fileID: 0}
-  LightOn: {r: .0100562377, g: .683823526, b: .0704629496, a: 1}
+  LightOn: {r: .683823526, g: .0100562377, b: .0100562377, a: 1}
   LightCharge: {r: .397058845, g: .77545619, b: 1, a: 1}
   LightOff: {r: .118728384, g: .121002853, b: .448529422, a: .509803951}
   switchOn: 0

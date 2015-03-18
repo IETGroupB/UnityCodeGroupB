@@ -22,7 +22,9 @@ public class EnemyMovement : MonoBehaviour {
 	SwitchSystem switchSystem;
 	private RoomGrid roomGrid;
 	private Point targetRoom, enemyRoom;
-	private AudioSource enemySound;
+	private AudioSource audioSource;
+    private AudioClip chargeSound;
+    private AudioClip attackSound;
 	private Sprite bolt;
 	private GameObject[] segments;
     private GameObject enemyLight;
@@ -37,6 +39,9 @@ public class EnemyMovement : MonoBehaviour {
 	float lastStateChange;
 
 	void Start(){
+        chargeSound = Resources.Load<AudioClip>("EnemyFiles/charge");
+        attackSound = Resources.Load<AudioClip>("EnemyFiles/attack");
+
         enemyLight = transform.FindChild("EnemyLight").gameObject;
         enemyLight.GetComponent<Light>().color = LightOn;
         enemyLight.GetComponent<TrailRenderer>().material.SetColor("_TintColor", LightOn);
@@ -45,12 +50,12 @@ public class EnemyMovement : MonoBehaviour {
 		switchOn = true;
 		objSwitch = GameObject.FindGameObjectWithTag ("LevelGenerator");
 		switchSystem = objSwitch.GetComponent<SwitchSystem> ();
-		enemySound = transform.GetComponent<AudioSource> ();
+		audioSource = transform.GetComponent<AudioSource> ();
 
 		roomGrid = GameObject.Find("LevelGeneration").GetComponent<LevelGenerator>().roomGrid;
         target = GameObject.Find("Character").transform.FindChild("Body").gameObject;
         targetScript = GameObject.Find("Character").GetComponent<PlayerController>();
-		enemySound.mute = true;
+		audioSource.mute = true;
 
         currentState = EnemyState.chasing;
 		lastStateChange = Time.time;
@@ -85,7 +90,9 @@ public class EnemyMovement : MonoBehaviour {
         var indexDiff = 0;
 
 		if (switchOn) {
-            
+            var targetEyePos = (new Vector2(target.transform.position.x - transform.position.x, target.transform.position.y - transform.position.y)).normalized * 0.3f;
+            targetEyePos = Vector2.Lerp(new Vector2(enemyLight.transform.localPosition.x, enemyLight.transform.localPosition.y), targetEyePos, Time.deltaTime * 5.0f);
+            enemyLight.transform.localPosition = new Vector3(targetEyePos.x, targetEyePos.y, enemyLight.transform.position.z);
 
             switch (currentState)
             {
@@ -99,7 +106,7 @@ public class EnemyMovement : MonoBehaviour {
                     gameObject.layer = 9;
                     gameObject.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
 
-                    enemySound.mute = false;
+                    audioSource.mute = false;
 
                     //mid-point pathfinding//////////////////////////////////////////////
                     targetRoom = roomGrid.GetClosestRoom(target.transform.position);
@@ -145,6 +152,8 @@ public class EnemyMovement : MonoBehaviour {
                         < attackDistance * 0.5f)
                     {
                         SetCurrentState(EnemyState.charging);
+                        audioSource.clip = chargeSound;
+                        audioSource.Play();
                     }
                     break;
                 case EnemyState.charging:
@@ -169,19 +178,28 @@ public class EnemyMovement : MonoBehaviour {
 
                     // player has escaped attack
                     if (distance > attackDistance)
+                    {
                         SetCurrentState(EnemyState.chasing);
+                        audioSource.Stop();
+                    }
 
                     if (GetStateElapsed() > chargeTime)
                         SetCurrentState(EnemyState.attack);
 
                     break;
                 case EnemyState.attack:
+                    audioSource.Stop();
+                    audioSource.clip = attackSound;
+                    audioSource.Play();
+
                     ShowBolt();
                     DrawBolt(new Vector2(target.transform.position.x - transform.position.x, target.transform.position.y - transform.position.y));
                     targetScript.DrainEnergy(drainAmount);
 
                     var attackShunt = -Vector3.Normalize(target.transform.position - transform.position);
                     GetComponent<Rigidbody2D>().AddForce(attackShunt * shuntForce);
+
+                    GetComponent<AudioSource>().Play();
 
                     SetCurrentState(EnemyState.discharging);
 
@@ -214,7 +232,7 @@ public class EnemyMovement : MonoBehaviour {
             gameObject.GetComponent<Rigidbody2D>().gravityScale = 1.0f;
 
 			enemyLight.GetComponent<Light>().color = LightOff;
-			enemySound.mute = true;
+			audioSource.mute = true;
 		}
 	}
 	
