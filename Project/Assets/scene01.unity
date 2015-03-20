@@ -849,7 +849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5f3c2cabc214234e968b858cd42b691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goDownProb: .150000006
+  goDownProb: .300000012
 --- !u!4 &818209280
 Transform:
   m_ObjectHideFlags: 0
