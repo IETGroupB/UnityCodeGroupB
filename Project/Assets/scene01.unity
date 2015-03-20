@@ -1499,6 +1499,8 @@ MonoBehaviour:
   textFadeRate: .479999989
   fgImage: {fileID: 2800000, guid: cf3d262b62027a342973184c4406b4bc, type: 3}
   bgImage: {fileID: 2800000, guid: 6d79db2d22fc9764696e80dfe206f271, type: 3}
+  borderImage: {fileID: 2800000, guid: db58cff7027b5aa4a8d7d78123366b7e, type: 3}
+  logoImage: {fileID: 2800000, guid: bb3974b0076ac724ebb1e03cce47b2e8, type: 3}
   energyX: 0
   energyY: 0
   ambientDark: {r: .0316817723, g: .0231941976, b: .0955882072, a: 0}

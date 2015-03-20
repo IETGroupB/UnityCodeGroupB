@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public float textFadeRate;
 	public Texture2D fgImage;
 	public Texture2D bgImage;
+	public Texture2D borderImage;
 	public float energyX;
 	public float energyY;
 
@@ -253,12 +254,14 @@ public class PlayerController : MonoBehaviour
 
 	void OnGUI(){
 		if (alive == true && Door.endLevel == false) {
+
 			GUI.BeginGroup (new Rect (energyX, energyY, 256, 32));
 			GUI.Box (new Rect (0, 0, 256, 32), bgImage);
 			GUI.BeginGroup (new Rect (0, 0, (energy / 100) * 256, 32));
 			GUI.Box (new Rect (0, 0, 256, 32), fgImage);
 			GUI.EndGroup ();
 			GUI.EndGroup ();
+			GUI.DrawTexture(new Rect(energyX, energyY, 256, 32), borderImage);
 		}
 	}
 }
