@@ -99,7 +99,7 @@ public class Room    {
 
         if (switchLocation == null && exits != ExitType.None)
         {
-            Debug.LogError("Room file does not contain switch");
+            Debug.LogError("Room file (Exit type " + exits + ") does not contain switch");
         }
 
 
@@ -142,8 +142,8 @@ public class Room    {
 		for (int  i = 0; i < lightTiles.Length; i++) 
 		{
 			lightParams = lightTiles[i].GetComponent<RoomLight>();
-			lightParams.gameObject.light.range = radiusArray[i];
-			lightParams.gameObject.light.color = c;
+			lightParams.gameObject.GetComponent<RoomLight>().SetRadius(radiusArray[i]);
+			lightParams.gameObject.GetComponent<Light>().color = c;
 			lightParams.UpdatePointLightIntensity(lightState);
 		}
 

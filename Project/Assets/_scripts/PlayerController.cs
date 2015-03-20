@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public float textFadeRate;
 	public Texture2D fgImage;
 	public Texture2D bgImage;
+	public Texture2D borderImage;
 	public float energyX;
 	public float energyY;
 
@@ -31,11 +32,15 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheck;
     public LayerMask whatIsGround;
     public GameObject body;
+	private AudioSource[] playerSound;
+	private AudioSource jumpSound;
+	private AudioSource movementSound;
 
     private bool facingRight = true;
 	private bool grounded = false;
     private float groundRadius = 0.2f;
     private GameObject[] parts;
+    private SpriteRenderer[] flipParts;
     private RoomGrid roomGrid;    
     
     private Color ambientLight;
@@ -51,12 +56,19 @@ public class PlayerController : MonoBehaviour
         parts[1] = transform.FindChild("Body").gameObject;
        	parts[2] = transform.FindChild("Wheel").gameObject;
 
+        flipParts = new SpriteRenderer[2];
+        flipParts[0] = transform.FindChild("HeadFlip").gameObject.GetComponent<SpriteRenderer>();
+        flipParts[1] = transform.FindChild("BodyFlip").gameObject.GetComponent<SpriteRenderer>();
+
         headlight = parts[0].transform.FindChild("Spotlight").gameObject;
 
         body = parts[1];
         ambientLight = new Color(0.0f, 0.0f, 0.0f);
 
         energyText = GameObject.Find("Energy").GetComponent<Text>(); 
+		playerSound = GetComponents<AudioSource> ();
+		jumpSound = playerSound [0];
+		movementSound = playerSound [1];
     }
 
     void Start()
@@ -74,7 +86,7 @@ public class PlayerController : MonoBehaviour
 
 		var move = Input.GetAxis ("Horizontal");
 
-		rigidbody2D.velocity = new Vector2 (move * maxSpeed, rigidbody2D.velocity.y);
+		GetComponent<Rigidbody2D>().velocity = new Vector2 (move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
 
 		if(move > 0 && !facingRight)
 		{
@@ -144,9 +156,10 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (grounded && Input.GetButtonDown("Fire1"))
+		if (grounded && Input.GetButtonDown("Fire1"))
         {
-            rigidbody2D.AddForce(new Vector2(0, jumpForce));
+            GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce));
+			jumpSound.Play ();
         }
 
         if (Input.GetButtonDown("Fire2"))
@@ -215,11 +228,11 @@ public class PlayerController : MonoBehaviour
 
         Destroy(GetComponent<CircleCollider2D>());
         Destroy(GetComponent<BoxCollider2D>());
-        Destroy(rigidbody2D);
+        Destroy(GetComponent<Rigidbody2D>());
 
         for (var i = 0; i < parts.Length; i++)
         {
-            parts[i].collider2D.enabled = true;
+            parts[i].GetComponent<Collider2D>().enabled = true;
             parts[i].AddComponent<Rigidbody2D>();
         }
         
@@ -233,16 +246,22 @@ public class PlayerController : MonoBehaviour
 		theScale.x *= -1;
 		transform.localScale = theScale;
         headlight.transform.rotation = Quaternion.Euler(new Vector3(0.0f, -headlight.transform.rotation.eulerAngles.y, 0.0f));
+
+        flipParts[0].enabled = !flipParts[0].enabled;
+        flipParts[1].enabled = !flipParts[1].enabled;
+        parts[2].transform.localScale = new Vector3(-parts[2].transform.localScale.x, parts[2].transform.localScale.y, parts[2].transform.localScale.z);
 	}
 
 	void OnGUI(){
 		if (alive == true && Door.endLevel == false) {
+
 			GUI.BeginGroup (new Rect (energyX, energyY, 256, 32));
 			GUI.Box (new Rect (0, 0, 256, 32), bgImage);
 			GUI.BeginGroup (new Rect (0, 0, (energy / 100) * 256, 32));
 			GUI.Box (new Rect (0, 0, 256, 32), fgImage);
 			GUI.EndGroup ();
 			GUI.EndGroup ();
+			GUI.DrawTexture(new Rect(energyX, energyY, 256, 32), borderImage);
 		}
 	}
 }

@@ -22,10 +22,10 @@ public class TrapTile : Tile {
 	void Awake ()
     {
         
-        particleSystem.Stop();
+        GetComponent<ParticleSystem>().Stop();
         light = transform.GetChild(0).GetComponent<Light>();
 
-        hum = audio;
+        hum = GetComponent<AudioSource>();
         hum.mute = true;
         zap = transform.GetChild(0).GetComponent<AudioSource>();
 
@@ -55,7 +55,7 @@ public class TrapTile : Tile {
             if (hum.mute)
             {
                 hum.mute = false;
-                particleSystem.Play();
+                GetComponent<ParticleSystem>().Play();
                 GetComponent<SpriteRenderer>().sprite = on;
                 light.enabled = true;
             }
@@ -65,7 +65,7 @@ public class TrapTile : Tile {
             if (!hum.mute)
             {
                 hum.mute = true;
-                particleSystem.Stop();
+                GetComponent<ParticleSystem>().Stop();
                 GetComponent<SpriteRenderer>().sprite = off;
                 light.enabled = false;
             }
@@ -106,7 +106,7 @@ public class TrapTile : Tile {
             {
                 if (Random.value <= 0.1f)
                 {
-                    other.rigidbody2D.AddForce((new Vector2(other.transform.position.x - transform.position.x, other.transform.position.y - transform.position.y)).normalized * shockForce);
+                    other.GetComponent<Rigidbody2D>().AddForce((new Vector2(other.transform.position.x - transform.position.x, other.transform.position.y - transform.position.y)).normalized * shockForce);
                     isShocking = true;
                     shockTarget = other;
                     ShowBolt();
