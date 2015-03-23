@@ -11,6 +11,7 @@ public class RoomLight : Tile {
 	public float DimIntensity;
 	public float BrightIntensity;
 	public float fadeRate;
+	private AudioSource alarmSound;
 
 	void Awake () {
 		rLight = transform.GetComponent<Light>();
@@ -20,6 +21,7 @@ public class RoomLight : Tile {
 		alarmLight = transform.GetChild (0).GetComponent<Light> ();
 		alarmLight.intensity = 0.0f;
 		rLight.enabled = false;
+		alarmSound = GetComponent<AudioSource>();
 	}
 
 	public void UpdatePointLightIntensity(LightingType state){
@@ -34,10 +36,14 @@ public class RoomLight : Tile {
 
 	 void Update(){
 		if (isAlarmActive) {
+			alarmSound.Play();
 			alarmLight.intensity = 5.0f;
 			alarmLight.transform.Rotate (300 * Time.deltaTime, 300 * Time.deltaTime, 300 * Time.deltaTime, Space.Self);
+
 		} else {
 			alarmLight.intensity = 0.0f;
+			alarmSound.Pause();
+
 		}
 
 		switch (state) {
