@@ -4,7 +4,8 @@ using System.Collections;
 public class CameraController : MonoBehaviour {
     GameObject playerCharacter;
     public float trackSpeed;
-    public float yOffset;
+    public float defaultYOffset;
+    public float lookDownYOffset;
     public float tiltScale;
     public float xyTiltRatio;
 	public bool CanMute;
@@ -18,7 +19,7 @@ public class CameraController : MonoBehaviour {
 	private AudioSource backgroundSound;
 	private AudioSource endLevelSound;
 	private AudioSource gameOverSound;
-
+    private float yOffset;
 
 	//private AudioSource alarmSound;
 	// Use this for initialization
@@ -84,6 +85,14 @@ public class CameraController : MonoBehaviour {
 			endLevelSound.mute = true;
 			gameOverSound.mute = true;
 		}
+
+        if (Input.GetAxis("Vertical") < 0)
+            yOffset = Mathf.Lerp(yOffset, lookDownYOffset, Time.deltaTime * 4.0f);
+        else
+            yOffset = Mathf.Lerp(yOffset, defaultYOffset, Time.deltaTime * 6.0f);
+
+
+
 	}
 
 	void OnGUI(){
