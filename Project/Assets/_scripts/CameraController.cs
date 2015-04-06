@@ -86,7 +86,7 @@ public class CameraController : MonoBehaviour {
 			gameOverSound.mute = true;
 		}
 
-        if (Input.GetAxis("Vertical") < 0)
+        if (Input.GetAxis("Vertical") < -0.5)
             yOffset = Mathf.Lerp(yOffset, lookDownYOffset, Time.deltaTime * 4.0f);
         else
             yOffset = Mathf.Lerp(yOffset, defaultYOffset, Time.deltaTime * 6.0f);
