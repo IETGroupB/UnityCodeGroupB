@@ -7,7 +7,7 @@ public class RoomBackgrounds : MonoBehaviour {
     void Awake()
     {
         backs = new GameObject[] {
-            Resources.Load<GameObject>("RoomBacks/wallPrefab"),
+            //Resources.Load<GameObject>("RoomBacks/wallPrefab"),
 			Resources.Load<GameObject>("RoomBacks/windowPrefab"),
 			Resources.Load<GameObject>("RoomBacks/windowPrefab_1"),
 			Resources.Load<GameObject>("RoomBacks/windowPrefab_2")
@@ -19,3 +19,4 @@ public class RoomBackgrounds : MonoBehaviour {
         return backs[(int) Mathf.Floor(Random.value * backs.Length)];
     }
 }
+//
