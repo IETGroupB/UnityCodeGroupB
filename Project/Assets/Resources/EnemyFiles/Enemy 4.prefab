@@ -318,7 +318,7 @@ MonoBehaviour:
   objSwitch: {fileID: 0}
   target: {fileID: 0}
   targetScript: {fileID: 0}
-  LightOn: {r: .683823526, g: .0100562377, b: .0100562377, a: 1}
+  LightOn: {r: 1, g: 1, b: 1, a: 1}
   LightCharge: {r: .397058845, g: .77545619, b: 1, a: 1}
   LightOff: {r: .118728384, g: .121002853, b: .448529422, a: .509803951}
   switchOn: 0
@@ -395,7 +395,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 0cc4e48c54a67904fba2bb2fcc2a1579, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
