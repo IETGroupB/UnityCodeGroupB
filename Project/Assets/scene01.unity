@@ -1525,9 +1525,9 @@ MonoBehaviour:
   energy: 0
   energyDrainRate: 3
   textFadeRate: .479999989
-  fgImage: {fileID: 2800000, guid: cf3d262b62027a342973184c4406b4bc, type: 3}
-  bgImage: {fileID: 2800000, guid: 6d79db2d22fc9764696e80dfe206f271, type: 3}
-  borderImage: {fileID: 2800000, guid: db58cff7027b5aa4a8d7d78123366b7e, type: 3}
+  fgImage: {fileID: 2800000, guid: 7f1ebcd03fcd3964aa68e0129d4c3245, type: 3}
+  bgImage: {fileID: 2800000, guid: ed64fcae8c8558340a45e64bfd7d2768, type: 3}
+  borderImage: {fileID: 2800000, guid: 72c5cc1871fa62c4cb756ae3930a2dd3, type: 3}
   energyX: 0
   energyY: 0
   ambientDark: {r: .0783319473, g: .0692041591, b: .147058845, a: 0}
