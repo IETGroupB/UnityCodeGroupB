@@ -107,6 +107,13 @@ public class LevelGenerator : MonoBehaviour
         var case14 = Resources.Load<Material>("Tiles/SolidMaterials/case14");
         var case30 = Resources.Load<Material>("Tiles/SolidMaterials/case30");
 
+        var case0Tex = Resources.Load<Sprite>("Tiles/SolidMaterials/newall/14");
+        var case2Tex = Resources.Load<Sprite>("Tiles/SolidMaterials/new2/2");
+        var case6Tex = Resources.Load<Sprite>("Tiles/SolidMaterials/new6/6");
+        var case10Tex = Resources.Load<Sprite>("Tiles/SolidMaterials/new10/10");
+        var case14Tex = Resources.Load<Sprite>("Tiles/SolidMaterials/new14/14");
+        var case30Tex = Resources.Load<Sprite>("Tiles/SolidMaterials/none");
+
         // fill in tile 
         for (var h = 0; h < roomGridSize.y; h++)
         {
@@ -218,76 +225,92 @@ public class LevelGenerator : MonoBehaviour
                             case 0: // all sides lit
                                 // **UNIQUE**
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().material = case0;
+                                roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().sprite = case0Tex;
                                 break;
                             case 2: // rtb
                                 // **UNIQUE**
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().material = case2;
+                                roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().sprite = case2Tex;
                                 break;
                             case 4: // ltb
                                 // case 2 rotated 180 degrees
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().material = case2;
+                                roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().sprite = case2Tex;
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].transform.Rotate(new Vector3(0.0f, 0.0f, 180.0f));
                                 break;
                             case 6: // tb 
                                 // **UNIQUE**
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().material = case6;
+                                roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().sprite = case6Tex;
                                 break;
                             case 8: // lrb
                                 // case 2 rotated 90 degrees
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().material = case2;
+                                roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().sprite = case2Tex;
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].transform.Rotate(new Vector3(0.0f, 0.0f, 270.0f));
                                 break;
                             case 10: // rb
                                 // **UNIQUE**
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().material = case10;
+                                roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().sprite = case10Tex;
                                 break;
                             case 12: // lb
                                 // case 10 rotated 270 degrees
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().material = case10;
+                                roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().sprite = case10Tex;
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].transform.Rotate(new Vector3(0.0f, 0.0f, 270.0f));
                                 break;
                             case 14: // b
                                 // **UNIQUE**
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().material = case14;
+                                roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().sprite = case14Tex;
                                 break;
                             case 16: // lrt
                                 // case 2 rotated 270 degrees
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().material = case2;
+                                roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().sprite = case2Tex;
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].transform.Rotate(new Vector3(0.0f, 0.0f, 90.0f));
                                 break;
                             case 18: // rt
                                 // case 10 rotated 90 degrees
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().material = case10;
+                                roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().sprite = case10Tex;
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].transform.Rotate(new Vector3(0.0f, 0.0f, 90.0f));
                                 break;
                             case 20: // lt
                                 // case 10 rotated 180 degrees
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().material = case10;
+                                roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().sprite = case10Tex;
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].transform.Rotate(new Vector3(0.0f, 0.0f, 180.0f));
                                 break;
                             case 22: // t
                                 // case 14 rotated 180 degrees
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().material = case14;
+                                roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().sprite = case14Tex;
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].transform.Rotate(new Vector3(0.0f, 0.0f, 180.0f));
                                 break;
                             case 24: // lr
                                 // case 6 rotated 90 degrees
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().material = case6;
+                                roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().sprite = case6Tex;
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].transform.Rotate(new Vector3(0.0f, 0.0f, 90.0f));
                                 break;
                             case 26:// r
                                 // case 14 rotated 90 degrees
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().material = case14;
+                                roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().sprite = case14Tex;
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].transform.Rotate(new Vector3(0.0f, 0.0f, 90.0f));
                                 break;
                             case 28: // l
                                 // case 14 rotated 270 degrees
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().material = case14;
+                                roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().sprite = case14Tex;
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].transform.Rotate(new Vector3(0.0f, 0.0f, 270.0f));
                                 break;
                             case 30: // none
                                 // **UNIQUE** 
                                 roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().material = case30;
+                                roomGrid.GetRoom(w, h).solidTiles[x, y].GetComponent<SpriteRenderer>().sprite = case30Tex;
                                 break;
 
                         }
