@@ -38,7 +38,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
-  - {fileID: 2100000, guid: f11b20c54c225244db9c61d4737cd3b8, type: 2}
+  - {fileID: 2100000, guid: 436392efc9e5b684e87e1b92762ad382, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -52,7 +52,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 93fcdf567f7e85648be48e63b53f82aa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e01d1c274941ff54ea5452bf47f2d9ba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
