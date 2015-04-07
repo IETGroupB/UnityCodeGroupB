@@ -461,7 +461,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_Sprite: {fileID: 21300000, guid: 53f944809f360da46aa3c08419a792a6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: df1939f5bae23b245affccd7a5d53ad3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -785,7 +785,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_Sprite: {fileID: 21300000, guid: c96a5b577c443e94ab1c6f21657c5ff5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 83cee2ecc4767c343bc23254a5ca4394, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1534,7 +1534,7 @@ MonoBehaviour:
   ambientDim: {r: .128937483, g: .122621119, b: .20588237, a: 0}
   ambientBright: {r: .22794117, g: .232657209, b: .25, a: 0}
   ColourFadeRate: .660000026
-  maxSpeed: 10
+  maxSpeed: 6.96000004
   jumpForce: 700
   alive: 1
   Fire2Down: 0
