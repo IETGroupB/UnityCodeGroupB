@@ -279,8 +279,8 @@ Light:
   serializedVersion: 6
   m_Type: 2
   m_Color: {r: .455449849, g: .547160268, b: .764705896, a: 1}
-  m_Intensity: 3.29999995
-  m_Range: 1.95000005
+  m_Intensity: 2.23000002
+  m_Range: 2.0999999
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -1459,7 +1459,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 101
-  m_Sprite: {fileID: 21300000, guid: c941b7fef29278143a0bd2324b5aab5a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1ee077c7c58e478479d6ba81bf857b0b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

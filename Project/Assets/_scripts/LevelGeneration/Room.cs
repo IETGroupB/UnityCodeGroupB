@@ -125,7 +125,7 @@ public class Room    {
 
     public void ToggleTraps(bool on)
     {
-        for (int i = 0; i < trapTiles.Length; i++)
+        for (var i = 0; i < trapTiles.Length; i++)
         {
             trapTiles[i].GetComponent<TrapTile>().isActive = on;
         }
@@ -138,8 +138,8 @@ public class Room    {
 	}
 	
 	public void UpdateRoomLight(){
-		Color  c = new Color(Random.Range(0.0f, 1.0f),Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
-		for (int  i = 0; i < lightTiles.Length; i++) 
+		var  c = new Color(Random.Range(0.7f, 1.0f),Random.Range(0.7f, 1.0f), Random.Range(0.7f, 1.0f));
+		for (var i = 0; i < lightTiles.Length; i++) 
 		{
 			lightParams = lightTiles[i].GetComponent<RoomLight>();
 			lightParams.gameObject.GetComponent<RoomLight>().SetRadius(radiusArray[i]);
@@ -147,7 +147,7 @@ public class Room    {
 			lightParams.UpdatePointLightIntensity(lightState);
 		}
 
-        for (int i = 0; i < CeilingLights.Length; i++)
+        for (var i = 0; i < CeilingLights.Length; i++)
         {
             CeilingLights[i].GetComponent<CeilingLight>().UpdateLightIntensity(lightState);
         }

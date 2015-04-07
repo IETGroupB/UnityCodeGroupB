@@ -35,7 +35,7 @@ public class RoomLight : Tile {
 	 void Update(){
 		if (isAlarmActive) {
 			alarmLight.intensity = 5.0f;
-			alarmLight.transform.Rotate (300 * Time.deltaTime, 300 * Time.deltaTime, 300 * Time.deltaTime, Space.Self);
+            transform.Rotate(new Vector3(0.0f, 0.0f, Time.deltaTime * 360));//alarmLight.transform.Rotate (300 * Time.deltaTime, 300 * Time.deltaTime, 300 * Time.deltaTime, Space.Self);
 		} else {
 			alarmLight.intensity = 0.0f;
 		}

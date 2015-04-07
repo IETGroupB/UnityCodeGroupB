@@ -29,8 +29,8 @@ public class TrapTile : Tile {
         hum.mute = true;
         zap = transform.GetChild(0).GetComponent<AudioSource>();
 
-        on = Resources.Load<Sprite>("Tiles/Trap/trap_on");
-        off = Resources.Load<Sprite>("Tiles/Trap/trap_off");
+        on = Resources.Load<Sprite>("Tiles/Trap/new_trap_on");
+        off = Resources.Load<Sprite>("Tiles/Trap/new_trap_off");
 
         GetComponent<SpriteRenderer>().sprite = off;
 
