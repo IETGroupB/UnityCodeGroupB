@@ -138,7 +138,7 @@ public class Room    {
 	}
 	
 	public void UpdateRoomLight(){
-		var  c = new Color(Random.Range(0.7f, 1.0f),Random.Range(0.7f, 1.0f), Random.Range(0.7f, 1.0f));
+		var  c = new Color(Random.Range(0.55f, 1.0f),Random.Range(0.55f, 1.0f), Random.Range(0.55f, 1.0f));
 		for (var i = 0; i < lightTiles.Length; i++) 
 		{
 			lightParams = lightTiles[i].GetComponent<RoomLight>();
