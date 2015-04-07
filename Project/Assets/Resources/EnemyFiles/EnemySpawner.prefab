@@ -39,7 +39,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87ce7887c55772b40bad5d2052e69f57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 118962, guid: 0fb0f7de3cea4564b8e39ca3c81ead62, type: 2}
+  enemy: {fileID: 178828, guid: 263ff9fb723526a44b3c9169f62250e2, type: 2}
   spawnTime: 3
   switchOn: 1
   MaxEnemy: 1
