@@ -255,13 +255,13 @@ public class PlayerController : MonoBehaviour
 	void OnGUI(){
 		if (alive == true && Door.endLevel == false) {
 
-			GUI.BeginGroup (new Rect (energyX, energyY, 256, 32));
-			GUI.Box (new Rect (0, 0, 256, 32), bgImage);
-			GUI.BeginGroup (new Rect (0, 0, (energy / 100) * 256, 32));
-			GUI.Box (new Rect (0, 0, 256, 32), fgImage);
+			GUI.BeginGroup (new Rect (energyX, energyY, 229, 31));
+			GUI.Box (new Rect (0, 0, 229, 31), bgImage);
+			GUI.BeginGroup (new Rect (0, 0, (energy / 100) * 229, 31));
+			GUI.Box (new Rect (0, 0, 229, 31), fgImage);
 			GUI.EndGroup ();
 			GUI.EndGroup ();
-			GUI.DrawTexture(new Rect(energyX, energyY, 256, 32), borderImage);
+			GUI.DrawTexture(new Rect(0, 0, 270, 52), borderImage);
 		}
 	}
 }
