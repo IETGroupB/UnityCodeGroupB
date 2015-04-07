@@ -8,7 +8,7 @@ public class RoomBackgrounds : MonoBehaviour {
     {
         backs = new GameObject[] {
             Resources.Load<GameObject>("RoomBacks/wallPrefab"),
-            Resources.Load<GameObject>("RoomBacks/windowPrefab"),
+           // Resources.Load<GameObject>("RoomBacks/windowPrefab"),
         };
     }
 
