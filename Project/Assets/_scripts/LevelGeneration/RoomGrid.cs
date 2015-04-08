@@ -61,7 +61,7 @@ public class RoomGrid  {
     {
         var tempSolutionPath = new List<Point>();
 
-        var currentLocation = new Point((int)(Random.value * width), 0);
+        var currentLocation = new Point((int)(Random.Range(1,width)), 0);
         var solutionPathComplete = false;
         var travelDirection = TravelDirection.NotDecided;
 
