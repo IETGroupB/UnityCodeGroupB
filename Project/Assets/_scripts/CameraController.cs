@@ -21,7 +21,11 @@ public class CameraController : MonoBehaviour {
 	private AudioSource gameOverSound;
     private float yOffset;
 
-	//private AudioSource alarmSound;
+
+
+	private AudioSource alarmSound;
+    private SwitchSystem alarmRef;
+
 	// Use this for initialization
 	void Awake () {
         playerCharacter = GameObject.Find("Character");
@@ -34,6 +38,10 @@ public class CameraController : MonoBehaviour {
 		gameOverSound = cameraSound [2];
 		CanMute = true; 
 		MuteTexture = sound;
+
+        alarmSound = GameObject.Find("alarm").GetComponent<AudioSource>();
+        alarmRef = GameObject.Find("LevelGeneration").GetComponent<SwitchSystem>();
+        alarmSound.volume = 0.08f;
     }
 	
     public void ResetTilt()
@@ -91,7 +99,10 @@ public class CameraController : MonoBehaviour {
         else
             yOffset = Mathf.Lerp(yOffset, defaultYOffset, Time.deltaTime * 6.0f);
 
-
+        if (alarmRef.alarmActive && !alarmSound.isPlaying)
+            alarmSound.Play();
+        else if(!alarmRef.alarmActive) 
+            alarmSound.Stop();
 
 	}
 
