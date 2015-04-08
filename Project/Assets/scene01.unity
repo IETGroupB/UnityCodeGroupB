@@ -242,6 +242,10 @@ Prefab:
       propertyPath: m_Name
       value: door
       objectReference: {fileID: 0}
+    - target: {fileID: 10817926, guid: 0dc15aa86d0ac6d418bd423e1e9fdae6, type: 2}
+      propertyPath: m_DrawHalo
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0dc15aa86d0ac6d418bd423e1e9fdae6, type: 2}
   m_IsPrefabParent: 0
@@ -1389,7 +1393,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295

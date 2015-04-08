@@ -84,7 +84,7 @@ Light:
   m_Type: 2
   m_Color: {r: .470912606, g: .921439886, b: .985294104, a: 1}
   m_Intensity: 4.76000023
-  m_Range: 1.5
+  m_Range: 1
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -96,7 +96,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 1
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
